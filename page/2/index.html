@@ -23,7 +23,7 @@
     <meta name="description" content="虾米">
 <meta property="og:type" content="website">
 <meta property="og:title" content="逆玺之路">
-<meta property="og:url" content="https://smilesrx.github.io/index.html">
+<meta property="og:url" content="https://smilesrx.github.io/page/2/index.html">
 <meta property="og:site_name" content="逆玺之路">
 <meta property="og:description" content="虾米">
 <meta property="og:locale" content="zh_CN">
@@ -148,213 +148,204 @@
   </nav>
 </div>
 
-  <div class="post-list post"><a class="post-card post article" href="/2021/04/21/01-C++/C++%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD/%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD/"><article class="excerpt md">
+  <div class="post-list post"><a class="post-card post article" href="/2021/04/21/01-C++/C++%E7%B1%BB%E6%A8%A1%E6%9D%BF%E5%B0%81%E8%A3%85%E4%BB%BB%E6%84%8F%E7%B1%BB%E5%9E%8B%E6%95%B0%E7%BB%84/C++%E7%B1%BB%E6%A8%A1%E6%9D%BF%E5%B0%81%E8%A3%85%E4%BB%BB%E6%84%8F%E6%95%B0%E7%BB%84/"><article class="excerpt md">
 
 <h2 class="post-title">
   2021-04-21
 </h2>
 <div class='excerpt'>
   
-    <p>运算符重载运算符重载，就是对已有的运算符重新进行定义，赋予其另一种功能，以适应不同的数据类型。
-它只是另一种函数调用的方式
-在c++中，可以定义一个处理类的新运算符。这种定义很像一个普通的函数定义，只是函数的名字由关键字operator及其紧跟的运算符组成。差别仅此而已。它像任何其他函数一样也是一个函数，当编译器遇到适当的模式时，就会调用这个函数。
-定义重载的运算符就像定义函数，只是该函数的...</p>
+    <p>类模板封装任意类型数组1、任意类型数组类模板12345678910111213141516171819template &lt;class T&gt;class MyArray&#123;public:    MyArray();                        //默认构造    MyArray(int capaticy);            //有参构造    MyAr...</p>
   
 </div>
 <div class='meta cap'>
   <span class='cap' id='post-meta'>
-    发布于&nbsp;<time datetime='2021-04-21T12:23:45.470Z'>2021-04-21</time>
+    发布于&nbsp;<time datetime='2021-04-21T12:23:45.378Z'>2021-04-21</time>
   </span>
   
   
 </div>
-</article></a><a class="post-card post article" href="/2021/04/21/01-C++/C++%E5%8F%8B%E5%85%83/C++%E5%8F%8B%E5%85%83/"><article class="excerpt md">
+</article></a><a class="post-card post article" href="/2021/04/21/01-C++/C++%E9%9D%99%E6%80%81%E6%88%90%E5%91%98/C++%E9%9D%99%E6%80%81%E6%88%90%E5%91%98/"><article class="excerpt md">
 
 <h2 class="post-title">
   2021-04-21
 </h2>
 <div class='excerpt'>
   
-    <p>友元类的主要特点之一是数据隐藏，即类的私有成员无法在类的外部(作用域之外)访问。但是，有时候需要在类的外部访问类的私有成员
-解决方法：使用友元函数
-友元函数：一种特权函数，c++允许这个特权函数访问私有成员
-可以把一个全局函数、某个类中的成员函数、甚至整个类声明为友元
-友元语法
-friend关键字只出现在声明处
-
-其他类、类成员函数、全局函数都可声明为友元
-
-友元函数不是类的成员，不带thi...</p>
+    <p>什么是staticstatic 是 C/C++ 中很常用的修饰符，它被用来控制变量的存储方式和可见性。
+1、引入static我们知道在函数内部定义的变量，当程序执行到它的定义处时，编译器为它在栈上分配空间，函数在栈上分配的空间在此函数执行结束时会释放掉，这样就产生了一个问题: 如果想将函数中此变量的值保存至下一次调用时，如何实现？ 最容易想到的方法是定义为全局的变量，但定义一个全局变量有许多...</p>
   
 </div>
 <div class='meta cap'>
   <span class='cap' id='post-meta'>
-    发布于&nbsp;<time datetime='2021-04-21T12:23:45.464Z'>2021-04-21</time>
+    发布于&nbsp;<time datetime='2021-04-21T12:23:45.372Z'>2021-04-21</time>
   </span>
   
   
 </div>
-</article></a><a class="post-card post article" href="/2021/04/21/01-C++/C++%E5%BC%95%E7%94%A8/C++%E5%BC%95%E7%94%A8/"><article class="excerpt md">
+</article></a><a class="post-card post article" href="/2021/04/21/01-C++/C++%E7%BB%A7%E6%89%BF-%E6%B4%BE%E7%94%9F/%E7%BB%A7%E6%89%BF-%E6%B4%BE%E7%94%9F/"><article class="excerpt md">
 
 <h2 class="post-title">
   2021-04-21
 </h2>
 <div class='excerpt'>
   
-    <p>引用基本用法—给变量取别名
-变量名实际上是一块连续内存单元的别名，是一个标号（门牌号）
-程序中通过变量来申请并命名内存空间
-通过变量的名字也可以使用内存空间
-
-1、引用的基本语法类型名 引用(&amp;)  别名=变量名
-2、引用注意事项
-&amp;在此不是取地址运算，而是起标识作用
-
-必须在申明引用变量时进行初始化
-1int &amp;m;   //报错--必须初始化
-引用初始化后不能修改...</p>
+    <p>为什么要使用继承面向对象程序设计中最重要的一个概念是继承
+继承允许我们依据另一个类来定义一个类，这使得创建和维护一个应用程序变得更容易。这样做，也达到了重用代码功能和提高执行效率的效果。
+当创建一个类时，您不需要重新编写新的数据成员和成员函数，只需指定新建的类继承了一个已有的类的成员即可。这个已有的类称为基类，新建的类称为派生类。
+继承代表了 is a 关系。例如，哺乳动物是动物，狗是哺乳动...</p>
   
 </div>
 <div class='meta cap'>
   <span class='cap' id='post-meta'>
-    发布于&nbsp;<time datetime='2021-04-21T12:23:45.456Z'>2021-04-21</time>
+    发布于&nbsp;<time datetime='2021-04-21T12:23:45.344Z'>2021-04-21</time>
   </span>
   
   
 </div>
-</article></a><a class="post-card post article" href="/2021/04/21/01-C++/C++%E5%BC%82%E5%B8%B8/C++%E5%BC%82%E5%B8%B8/"><article class="excerpt md">
+</article></a><a class="post-card post article" href="/2021/04/21/01-C++/C++%E5%87%BD%E6%95%B0%E6%A8%A1%E6%9D%BF%E5%AE%9E%E7%8E%B0int%E3%80%81char%E7%B1%BB%E5%9E%8B%E6%95%B0%E7%BB%84%E6%8E%92%E5%BA%8F/%E5%87%BD%E6%95%B0%E6%A8%A1%E6%9D%BF%E5%AE%9E%E7%8E%B0int%E3%80%81char%E7%B1%BB%E5%9E%8B%E6%95%B0%E7%BB%84%E6%8E%92%E5%BA%8F/"><article class="excerpt md">
 
 <h2 class="post-title">
   2021-04-21
 </h2>
 <div class='excerpt'>
   
-    <p>C++异常提供异常的基本目的就是为了让一个函数在发现了自己无法处理的错误时抛出（throw）一个异常，然后它的（直接或者间接）调用者能够捕获并处理这个问题。
-异常处理就是处理程序中的错误。所谓错误是指在程序运行的过程中发生的一些异常事件（如：除0溢出，数组下标越界，所要读取的文件不存在,空指针，内存不足等等
-在C语言的世界中，对错误的处理总是围绕着两种方法：一是使用整型的返回值标识错误；二是...</p>
+    <p>函数模板实现int、char类型数组排序12345678910111213141516171819202122232425262728293031323334353637383940414243444546template &lt;class T&gt;void Swap(T &amp;a,T &amp;b)   //交换&#123;	T tmp=a;	a=b;	b=tmp;&#125;te...</p>
   
 </div>
 <div class='meta cap'>
   <span class='cap' id='post-meta'>
-    发布于&nbsp;<time datetime='2021-04-21T12:23:45.439Z'>2021-04-21</time>
+    发布于&nbsp;<time datetime='2021-04-21T12:23:45.336Z'>2021-04-21</time>
   </span>
   
   
 </div>
-</article></a><a class="post-card post article" href="/2021/04/21/01-C++/C++%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99/C++%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99/"><article class="excerpt md">
+</article></a><a class="post-card post article" href="/2021/04/21/01-C++/C++%E5%87%BD%E6%95%B0%E7%9A%84%E9%BB%98%E8%AE%A4%E5%8F%82%E6%95%B0%E5%92%8C%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD/C++%E5%87%BD%E6%95%B0%E7%9A%84%E9%BB%98%E8%AE%A4%E5%8F%82%E6%95%B0%E5%92%8C%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD/"><article class="excerpt md">
 
 <h2 class="post-title">
   2021-04-21
 </h2>
 <div class='excerpt'>
   
-    <p>文件流类和文件流对象输入输出是以系统指定的标准设备（输入设备为键盘，输出设备为显示器）为对象的。在实际应用中，常以磁盘文件作为对象。即从磁盘文件读取数据，将数据输出到磁盘文件。
-和文件有关系的输入输出类主要在fstream.h这个头文件中被定义，在这个头文件中主要被定义了三个类，由这三个类控制对文件的各种输入输出操作，他们分别是ifstream、ofstream、fstream，其中fstr...</p>
+    <p>函数的默认参数c++在声明函数原型的时可为一个或者多个参数指定默认(缺省)的参数值，当函数调用的时候如果没有指定这个值，编译器会自动用默认值代替。
+注意：
+
+函数的默认参数是从左至右的，如果某一位置的参数设置了默认参数，那么该参数之后的参数都必须设置默认参数
+如果函数申明和定义是分开的，那么申明和定义不能同时设置默认参数
+
+1234567891011121314151617181920212...</p>
   
 </div>
 <div class='meta cap'>
   <span class='cap' id='post-meta'>
-    发布于&nbsp;<time datetime='2021-04-21T12:23:45.427Z'>2021-04-21</time>
+    发布于&nbsp;<time datetime='2021-04-21T12:23:45.327Z'>2021-04-21</time>
   </span>
   
   
 </div>
-</article></a><a class="post-card post article" href="/2021/04/21/01-C++/C++%E8%BE%93%E5%85%A5%E5%92%8C%E8%BE%93%E5%87%BA%E6%B5%81/C++%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E6%B5%81/"><article class="excerpt md">
+</article></a><a class="post-card post article" href="/2021/04/21/01-C++/C++%E6%9E%84%E9%80%A0%E5%92%8C%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0/C++%E6%9E%84%E9%80%A0%E5%92%8C%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0/"><article class="excerpt md">
 
 <h2 class="post-title">
   2021-04-21
 </h2>
 <div class='excerpt'>
   
-    <p>C++输入和输出流程序的输入指的是从输入文件将数据传送给程序，程序的输出指的是从程序将数据传送给输出文件。
-C++输入输出包含以下三个方面的内容：
+    <p>构造函数构造函数主要作用在于创建对象时为对象的成员属性赋值，构造函数由编译器自动调用，无须手动调用。
+1、构造函数语法
+构造函数没有返回值，不能用void
 
-对系统指定的标准设备的输入和输出。即从键盘输入数据，输出到显示器屏幕。这种输入输出称为标准的输入输出，简称标准I/O。
-以外存磁盘文件为对象进行输入和输出，即从磁盘文件输入数据，数据输出到磁盘文件。以外存文件为对象的输入输出称为文件的输入输出，...</p>
+构造函数名和类名相同
+
+构造可以有参数
+
+构造可以重载
+
+classname()&#123; &#125;
+1234567891011121314151617181920212223242526272829303132class Per...</p>
   
 </div>
 <div class='meta cap'>
   <span class='cap' id='post-meta'>
-    发布于&nbsp;<time datetime='2021-04-21T12:23:45.415Z'>2021-04-21</time>
+    发布于&nbsp;<time datetime='2021-04-21T12:23:45.318Z'>2021-04-21</time>
   </span>
   
   
 </div>
-</article></a><a class="post-card post article" href="/2021/04/21/01-C++/C++%E5%86%85%E8%81%94%E5%87%BD%E6%95%B0/C++%E5%86%85%E8%81%94%E5%87%BD%E6%95%B0/"><article class="excerpt md">
+</article></a><a class="post-card post article" href="/2021/04/21/01-C++/C++%E5%B0%81%E8%A3%85/C++%E5%B0%81%E8%A3%85/"><article class="excerpt md">
 
 <h2 class="post-title">
   2021-04-21
 </h2>
 <div class='excerpt'>
   
-    <p>内联函数引出宏缺陷在c中我们经常把一些短并且执行频繁的计算写成宏，而不是函数，这样做的理由是为了执行效率，宏可以避免函数调用时入栈、出栈的开销
-1、宏必须要加括号才能保证运算的准确性123456789101112131415161718#define add(x,y) x+y#define add1(x,y) ((x)+(y))int add2(int x,int y)&#123;    r...</p>
+    <p>类的封装如何用程序语言来表示现实事物？现实世界的事物所具有的共性就是每个事物都具有自身的属性，一些自身具有的行为，所以如果我们能把事物的属性和行为表示出来，那么就可以抽象出来这个事物。
+1、C语言封装的缺陷将属性和行为分离（类型检测不强）
+经典例子：人吃狗粮
+1234567891011121314151617181920212223242526272829303132333435363738...</p>
   
 </div>
 <div class='meta cap'>
   <span class='cap' id='post-meta'>
-    发布于&nbsp;<time datetime='2021-04-21T12:23:45.406Z'>2021-04-21</time>
+    发布于&nbsp;<time datetime='2021-04-21T12:23:45.310Z'>2021-04-21</time>
   </span>
   
   
 </div>
-</article></a><a class="post-card post article" href="/2021/04/21/01-C++/C++%E6%A8%A1%E5%9E%8B%E5%88%9D%E6%8E%A2/C++%E6%A8%A1%E5%9E%8B%E5%88%9D%E6%8E%A2/"><article class="excerpt md">
+</article></a><a class="post-card post article" href="/2021/04/21/01-C++/C++%E5%A4%9A%E6%80%81/C++%E5%A4%9A%E6%80%81/"><article class="excerpt md">
 
 <h2 class="post-title">
   2021-04-21
 </h2>
 <div class='excerpt'>
   
-    <p>成员变量和函数的存储在c语言中，“数据”和“处理数据的操作（函数）”是分开来声明的，也就是说，语言本身并没有支持“数据和函数”之间的关联性。
-在c++中，在类中定义数据和函数，来实现数据和函数直接的绑定。
-在C++类中有两种成员数据：static、nonstatic；三种成员函数：static、nonstatic、virtual。
-
-c++中的非静态数据成员直接内含在类对象中，就像c str...</p>
+    <p>多态多态性改善了代码的可读性和组织性，同时也使创建的程序具有可扩展性，项目不仅在最初创建时期可以扩展，而且当项目在需要有新的功能时也能扩展。
+面向对象程序设计一个基本原则:开闭原则(对修改关闭，对扩展开放)
+静态多态、动态多态c++支持编译时多态(静态多态)和运行时多态(动态多态)，运算符重载和函数重载就是编译时多态，派生类和虚函数实现运行时多态。
+静态多态和动态多态的区别就是函数地址是早绑...</p>
   
 </div>
 <div class='meta cap'>
   <span class='cap' id='post-meta'>
-    发布于&nbsp;<time datetime='2021-04-21T12:23:45.400Z'>2021-04-21</time>
+    发布于&nbsp;<time datetime='2021-04-21T12:23:45.300Z'>2021-04-21</time>
   </span>
   
   
 </div>
-</article></a><a class="post-card post article" href="/2021/04/21/01-C++/C++%E6%A8%A1%E6%9D%BF/C++%E6%A8%A1%E6%9D%BF/"><article class="excerpt md">
+</article></a><a class="post-card post article" href="/2021/04/21/01-C++/C++%E5%A4%9A%E4%B8%AA%E5%AF%B9%E8%B1%A1%E6%9E%84%E9%80%A0%E5%92%8C%E6%9E%90%E6%9E%84/%E5%A4%9A%E4%B8%AA%E5%AF%B9%E8%B1%A1%E6%9E%84%E9%80%A0%E5%92%8C%E6%9E%90%E6%9E%84/"><article class="excerpt md">
 
 <h2 class="post-title">
   2021-04-21
 </h2>
 <div class='excerpt'>
   
-    <p>C++模板c++提供了函数模板(function template.)
-所谓函数模板：实际上是建立一个通用函数，其函数类型和形参类型不具体制定，用一个虚拟的类型来代表。这个通用函数就成为函数模板。凡是函数体相同的函数都可以用这个模板代替，不必定义多个函数，只需在模板中定义一次即可。在调用函数时系统会根据实参的类型来取代模板中的虚拟类型，从而实现不同函数的功能。
-
-c++提供两种模板机制：函数...</p>
+    <p>初始化列表构造函数和其他函数不同，除了有名字，参数列表，函数体之外还有初始化列表
+注意：初始化成员列表(参数列表)只能在构造函数使用。
+形式：`Student（string name,int age）：m_Name(name),m_Age(age){ }
+123456789101112131415161718192021class Student&#123;public:    //一般初始...</p>
   
 </div>
 <div class='meta cap'>
   <span class='cap' id='post-meta'>
-    发布于&nbsp;<time datetime='2021-04-21T12:23:45.393Z'>2021-04-21</time>
+    发布于&nbsp;<time datetime='2021-04-21T12:23:45.293Z'>2021-04-21</time>
   </span>
   
   
 </div>
-</article></a><a class="post-card post article" href="/2021/04/21/01-C++/C++%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/C++%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/"><article class="excerpt md">
+</article></a><a class="post-card post article" href="/2021/04/21/01-C++/C++%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/"><article class="excerpt md">
 
 <h2 class="post-title">
   2021-04-21
 </h2>
 <div class='excerpt'>
   
-    <p>C++类型转换类型转换(cast)是将一种数据类型转换成另一种数据类型。例如，如果将一个整型值赋给一个浮点类型的变量，编译器会暗地里将其转换成浮点类型。
-转换是非常有用的，但是它也会带来一些问题，比如在转换指针时，我们很可能将其转换成一个比它更大的类型，但这可能会破坏其他的数据。—–（应该小心类型转换）
-标准c++提供了一个显示的转换的语法，来替代旧的C风格的类型转换。
-使用C风格的强制转换...</p>
+    <p>动态内存分配当我们创建数组的时候，总是需要提前预定数组的长度，然后编译器分配预定长度的数组空间，在使用数组的时，会有这样的问题，数组也许空间太大了，浪费空间，也许空间不足，所以对于数组来讲，如果能根据需要来分配空间大小再好不过。
+为了解决这个普遍的编程问题，在运行中可以创建和销毁对象是最基本的要求。当然c早就提供了动态内存分配,函数malloc和free可以在运行时从堆中分配存储单元。
+1、...</p>
   
 </div>
 <div class='meta cap'>
   <span class='cap' id='post-meta'>
-    发布于&nbsp;<time datetime='2021-04-21T12:23:45.387Z'>2021-04-21</time>
+    发布于&nbsp;<time datetime='2021-04-21T12:23:45.275Z'>2021-04-21</time>
   </span>
   
   
@@ -362,13 +353,13 @@ c++提供两种模板机制：函数...</p>
 </article></a></div>
   
   <div class='paginator-wrap dis-select'>
-    <a class='paginator prev disable' href='/'>
+    <a class='paginator prev' href='/'>
       <img src='https://cdn.jsdelivr.net/gh/cdn-x/placeholder@1.0.1/arrow/f049bbd4e88ec.svg'/>
     </a>
     <div class='paginator current'>
-      1<span class='sep'></span>3
+      2<span class='sep'></span>3
     </div>
-    <a class='paginator next' href='/page/2/'>
+    <a class='paginator next' href='/page/3/'>
       <img src='https://cdn.jsdelivr.net/gh/cdn-x/placeholder@1.0.1/arrow/064b95430caf4.svg'/>
     </a>
   </div>

@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+
+<head>
+  <meta name="generator" content="Hexo 5.4.0">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>post - 逆玺之路</title>
+
+  
+    <meta name="description" content="友元类的主要特点之一是数据隐藏，即类的私有成员无法在类的外部(作用域之外)访问。但是，有时候需要在类的外部访问类的私有成员 解决方法：使用友元函数 友元函数：一种特权函数，c++允许这个特权函数访问私有成员 可以把一个全局函数、某个类中的成员函数、甚至整个类声明为友元 友元语法 friend关键字只出现在声明处  其他类、类成员函数、全局函数都可声明为友元  友元函数不是类的成员，不带this指针">
+<meta property="og:type" content="article">
+<meta property="og:title" content="逆玺之路">
+<meta property="og:url" content="https://smilesrx.github.io/2021/04/21/01-C++/C++%E5%8F%8B%E5%85%83/C++%E5%8F%8B%E5%85%83/index.html">
+<meta property="og:site_name" content="逆玺之路">
+<meta property="og:description" content="友元类的主要特点之一是数据隐藏，即类的私有成员无法在类的外部(作用域之外)访问。但是，有时候需要在类的外部访问类的私有成员 解决方法：使用友元函数 友元函数：一种特权函数，c++允许这个特权函数访问私有成员 可以把一个全局函数、某个类中的成员函数、甚至整个类声明为友元 友元语法 friend关键字只出现在声明处  其他类、类成员函数、全局函数都可声明为友元  友元函数不是类的成员，不带this指针">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-04-21T12:23:45.464Z">
+<meta property="article:modified_time" content="2020-10-18T09:54:39.794Z">
+<meta property="article:author" content="CandyKing">
+<meta name="twitter:card" content="summary">
+  
+  
+
+  <!-- feed -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+</head>
+
+<body>
+  
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left'>
+    
+
+<header class='header'>
+  <div class='logo-wrap'>
+  
+    <a class='avatar' href='/about/'>
+      
+        <img no-lazy class='bg' src='https://cdn.jsdelivr.net/gh/cdn-x/placeholder@1.0.2/avatar/round/rainbow64@3x.webp'/>
+      
+      <img no-lazy class='avatar' src='http://q1.qlogo.cn/g?b=qq&nk=1607952713&s=640'/>
+    </a>
+  
+  
+    <a class='title' href='/'>
+      逆玺之路
+    </a>
+  
+</div>
+
+  <nav class="menu dis-select"><a class="nav-item active" href="/">文章</a><a class="nav-item" href="/wiki/">项目</a><a class="nav-item" href="/notes/">笔记</a><a class="nav-item" href="/more/">更多</a></nav>
+</header>
+
+<div class='widgets'>
+  
+    
+      
+      
+<div class="widget-wrap" id="toc"><div class="widget-header h4 dis-select"><span class="name">本文目录</span></div><div class="widget-body fs14 post"><div class="doc-tree active"></div></div></div>
+
+    
+  
+</div>
+
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+
+  <div class='bread-nav fs12'>
+  
+    
+    <div id='breadcrumb'>
+      <a class='cap breadcrumb' href='/'>主页</a>
+      <span class="sep"></span>
+      <a class='cap breadcrumb' href='/'>文章</a>
+      
+    </div>
+    <div id='post-meta'>
+      发布于&nbsp;<time datetime='2021-04-21T12:23:45.464Z'>2021-04-21</time>
+    </div>
+  
+  </div>
+
+
+<article class='content md post'>
+
+<h1 id="友元"><a href="#友元" class="headerlink" title="友元"></a>友元</h1><p>类的主要特点之一是数据隐藏，即类的私有成员无法在类的外部(作用域之外)访问。但是，有时候需要在类的外部访问类的私有成员</p>
+<p>解决方法：使用友元函数</p>
+<p>友元函数：一种特权函数，c++允许这个特权函数访问私有成员</p>
+<p>可以把一个全局函数、某个类中的成员函数、甚至整个类声明为友元</p>
+<h1 id="友元语法"><a href="#友元语法" class="headerlink" title="友元语法"></a>友元语法</h1><ul>
+<li><p><code>friend</code>关键字只出现在声明处</p>
+</li>
+<li><p>其他类、类成员函数、全局函数都可声明为友元</p>
+</li>
+<li><p>友元函数不是类的成员，不带this指针</p>
+</li>
+<li><p>友元函数可访问对象任意成员属性，包括私有属性</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//房间类 </span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Home</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//人类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">Person</span>(string name):<span class="built_in">m_Name</span>(name)&#123;&#125; </span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">LookAtBedroom</span><span class="params">(Home &amp;home)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">LookAtLivingroom</span><span class="params">(Home &amp;home)</span></span>;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	string m_Name;</span><br><span class="line">&#125;; </span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Home</span>&#123;</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> 0</span></span><br><span class="line"><span class="comment">//类成员函数 做友元 </span></span><br><span class="line"><span class="function"><span class="keyword">friend</span> <span class="keyword">void</span> <span class="title">Person::LookAtLivingroom</span><span class="params">(Home &amp;home)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">friend</span> <span class="keyword">void</span> <span class="title">Person::LookAtBedroom</span><span class="params">(Home &amp;home)</span></span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line"><span class="comment">//类 做友元 </span></span><br><span class="line"><span class="keyword">friend</span> Person;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"><span class="comment">//全局函数 做友元 </span></span><br><span class="line"><span class="function"><span class="keyword">friend</span> <span class="keyword">void</span> <span class="title">CleanBedroom</span><span class="params">(string name)</span></span>; </span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">Home</span>()&#123;</span><br><span class="line">		m_Livingroom=<span class="string">&quot;客厅&quot;</span>;</span><br><span class="line">		m_Bedroom=<span class="string">&quot;卧室&quot;</span>;</span><br><span class="line">	&#125;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	string m_Livingroom;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	string m_Bedroom;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Person::LookAtBedroom</span><span class="params">(Home &amp;home)</span></span>&#123;</span><br><span class="line">	cout&lt;&lt;m_Name&lt;&lt;<span class="string">&quot;正在我的&quot;</span>&lt;&lt;home.m_Bedroom&lt;&lt;endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Person::LookAtLivingroom</span><span class="params">(Home &amp;home)</span></span>&#123;</span><br><span class="line">	cout&lt;&lt;m_Name&lt;&lt;<span class="string">&quot;正在我家&quot;</span>&lt;&lt;home.m_Livingroom&lt;&lt;endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">CleanBedroom</span><span class="params">(string name)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	cout&lt;&lt;name&lt;&lt;<span class="string">&quot;正在打扫我的卧室&quot;</span>&lt;&lt;endl;</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="function">Person <span class="title">myfriend</span><span class="params">(<span class="string">&quot;强子&quot;</span>)</span></span>;</span><br><span class="line">	Home myhome;</span><br><span class="line">	myfriend.<span class="built_in">LookAtLivingroom</span>(myhome);</span><br><span class="line">	myfriend.<span class="built_in">LookAtBedroom</span>(myhome);</span><br><span class="line">	<span class="built_in">CleanBedroom</span>(<span class="string">&quot;李阿姨&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="友元注意事项"><a href="#友元注意事项" class="headerlink" title="友元注意事项"></a>友元注意事项</h1><ul>
+<li>友元关系不能被继承。</li>
+<li>友元关系是单向的，类A是类B的朋友，但类B不一定是类A的朋友。</li>
+<li>友元关系不具有传递性。类B是类A的朋友，类C是类B的朋友，但类C不一定是类A的朋友</li>
+</ul>
+<h1 id="电视机和遥控器的案例"><a href="#电视机和遥控器的案例" class="headerlink" title="电视机和遥控器的案例"></a>电视机和遥控器的案例</h1><p>电视机类，电视机有开机和关机状态，有音量，有频道，提供音量操作的方法，频道操作的方法。由于电视机只能逐一调整频道，不能指定频道，增加遥控类，遥控类除了拥有电视机已有的功能，再增加根据输入调台功能。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Remote</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Television</span>&#123;</span></span><br><span class="line"><span class="keyword">friend</span> Remote;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="class"><span class="keyword">enum</span>&#123;</span> off,on &#125;; <span class="comment">//电视状态</span></span><br><span class="line">	<span class="class"><span class="keyword">enum</span>&#123;</span> minVol,maxVol = <span class="number">100</span> &#125;; <span class="comment">//音量从0到100</span></span><br><span class="line">	<span class="class"><span class="keyword">enum</span>&#123;</span> minChannel = <span class="number">1</span>,maxChannel = <span class="number">255</span> &#125;; <span class="comment">//频道从1到255</span></span><br><span class="line">	</span><br><span class="line">	<span class="built_in">Television</span>()&#123;  <span class="comment">//电视机初始状态 </span></span><br><span class="line">		m_State=off;</span><br><span class="line">		m_Volume=minVol;</span><br><span class="line">		m_Channel=minChannel;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//电视机开机-关机 </span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">OnOrOff</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">this</span>-&gt;m_State=m_State? off:on;</span><br><span class="line">	&#125; </span><br><span class="line">	</span><br><span class="line">	<span class="comment">//调节音量 </span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">VolumeUp</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(!<span class="keyword">this</span>-&gt;m_State||<span class="keyword">this</span>-&gt;m_Volume&gt;maxVol)</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		<span class="keyword">this</span>-&gt;m_Volume+=<span class="number">5</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">VolumeDown</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(!<span class="keyword">this</span>-&gt;m_State||<span class="keyword">this</span>-&gt;m_Volume&lt;minVol)</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		<span class="keyword">this</span>-&gt;m_Volume-=<span class="number">5</span>; </span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//更换电视频道</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">ChannelUp</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(!<span class="keyword">this</span>-&gt;m_State||<span class="keyword">this</span>-&gt;m_Channel&gt;maxChannel)</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		<span class="keyword">this</span>-&gt;m_Channel++;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">ChannelDown</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(!<span class="keyword">this</span>-&gt;m_State||<span class="keyword">this</span>-&gt;m_Channel&lt;minChannel)</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		<span class="keyword">this</span>-&gt;m_Channel--;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//展示当前电视状态信息</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">ShowTeleState</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		cout&lt;&lt;<span class="string">&quot;电视机状态：&quot;</span>&lt;&lt;<span class="keyword">this</span>-&gt;m_State&lt;&lt;endl;</span><br><span class="line">		<span class="keyword">if</span>(<span class="keyword">this</span>-&gt;m_State)</span><br><span class="line">		&#123;</span><br><span class="line">			cout&lt;&lt;<span class="string">&quot;电视机音量：&quot;</span>&lt;&lt;<span class="keyword">this</span>-&gt;m_Volume&lt;&lt;endl;</span><br><span class="line">			cout&lt;&lt;<span class="string">&quot;电视机频道：&quot;</span>&lt;&lt;<span class="keyword">this</span>-&gt;m_Channel&lt;&lt;endl;</span><br><span class="line">		&#125; </span><br><span class="line">	&#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="keyword">int</span> m_State;     <span class="comment">//电视状态，开机，还是关机</span></span><br><span class="line">	<span class="keyword">int</span> m_Volume;    <span class="comment">//电视机音量</span></span><br><span class="line">	<span class="keyword">int</span> m_Channel;   <span class="comment">//电视频道</span></span><br><span class="line">	</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Remote</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">Remote</span>(Television* television)&#123;</span><br><span class="line">		<span class="keyword">this</span>-&gt;pTelevision=television;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//开、关机 </span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">OnOrOff</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">this</span>-&gt;pTelevision-&gt;<span class="built_in">OnOrOff</span>();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//调节音量 </span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">VolumeUp</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">this</span>-&gt;pTelevision-&gt;<span class="built_in">VolumeUp</span>();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">VolumDown</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">this</span>-&gt;pTelevision-&gt;<span class="built_in">VolumeDown</span>();</span><br><span class="line">	&#125; </span><br><span class="line">	<span class="comment">//调节频道</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">ChannelUp</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">this</span>-&gt;pTelevision-&gt;<span class="built_in">ChannelUp</span>();</span><br><span class="line">	&#125; </span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">ChannelDown</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">this</span>-&gt;pTelevision-&gt;<span class="built_in">ChannelDown</span>();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">ShowTeleState</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">this</span>-&gt;pTelevision-&gt;<span class="built_in">ShowTeleState</span>();</span><br><span class="line">	&#125; </span><br><span class="line">	<span class="comment">//按输入调节频道</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">SetChannel</span><span class="params">(<span class="keyword">int</span> channel)</span></span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(channel&lt;<span class="keyword">this</span>-&gt;pTelevision-&gt;minChannel||channel&gt;<span class="keyword">this</span>-&gt;pTelevision-&gt;maxChannel)</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		<span class="keyword">this</span>-&gt;pTelevision-&gt;m_Channel=channel; </span><br><span class="line">	&#125;</span><br><span class="line">	 	</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	Television* pTelevision;</span><br><span class="line">	</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test01</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Television television;</span><br><span class="line">	television.<span class="built_in">ShowTeleState</span>();</span><br><span class="line">	television.<span class="built_in">OnOrOff</span>(); <span class="comment">//开机</span></span><br><span class="line">	television.<span class="built_in">VolumeUp</span>(); <span class="comment">//增加音量+1</span></span><br><span class="line">	television.<span class="built_in">VolumeUp</span>(); <span class="comment">//增加音量+1</span></span><br><span class="line">	television.<span class="built_in">VolumeUp</span>(); <span class="comment">//增加音量+1</span></span><br><span class="line">	television.<span class="built_in">VolumeUp</span>(); <span class="comment">//增加音量+1</span></span><br><span class="line">	television.<span class="built_in">ChannelUp</span>(); <span class="comment">//频道+1</span></span><br><span class="line">	television.<span class="built_in">ChannelUp</span>(); <span class="comment">//频道+1</span></span><br><span class="line">	television.<span class="built_in">ShowTeleState</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test02</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//创建电视</span></span><br><span class="line">	Television television;</span><br><span class="line">	<span class="comment">//创建遥控</span></span><br><span class="line">	<span class="function">Remote <span class="title">remote</span><span class="params">(&amp;television)</span></span>;</span><br><span class="line">	remote.<span class="built_in">OnOrOff</span>();      <span class="comment">//开机 </span></span><br><span class="line">	remote.<span class="built_in">ChannelUp</span>();   <span class="comment">//频道+1</span></span><br><span class="line">	remote.<span class="built_in">ChannelUp</span>();   <span class="comment">//频道+1</span></span><br><span class="line">	remote.<span class="built_in">VolumeUp</span>();    <span class="comment">//音量+1</span></span><br><span class="line">	remote.<span class="built_in">VolumeUp</span>();    <span class="comment">//音量+1</span></span><br><span class="line">	remote.<span class="built_in">VolumeUp</span>();    <span class="comment">//音量+1</span></span><br><span class="line">	remote.<span class="built_in">ShowTeleState</span>();</span><br><span class="line">	<span class="comment">//remote.OnOrOff();     //关机 </span></span><br><span class="line">	remote.<span class="built_in">SetChannel</span>(<span class="number">50</span>);</span><br><span class="line">	remote.<span class="built_in">ShowTeleState</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="数组类封装"><a href="#数组类封装" class="headerlink" title="数组类封装"></a>数组类封装</h1><p><strong>MyArray.h</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> MYARRAY_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MYARRAY_H</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyArray</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="comment">//无参构造函数，用户没有指定容量，则初始化为100</span></span><br><span class="line">	<span class="built_in">MyArray</span>();</span><br><span class="line">	<span class="comment">//有参构造函数，用户指定容量初始化</span></span><br><span class="line">	<span class="built_in">MyArray</span>(<span class="keyword">int</span> capacity); </span><br><span class="line">	<span class="comment">//用户操作接口</span></span><br><span class="line">	<span class="comment">//根据位置添加元素</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">SetData</span><span class="params">(<span class="keyword">int</span> pos, <span class="keyword">int</span> val)</span></span>;</span><br><span class="line">	<span class="comment">//获得指定位置数据</span></span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">GetData</span><span class="params">(<span class="keyword">int</span> pos)</span></span>;</span><br><span class="line">	<span class="comment">//尾插法</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">PushBack</span><span class="params">(<span class="keyword">int</span> val)</span></span>;</span><br><span class="line">	<span class="comment">//获得长度</span></span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">GetLength</span><span class="params">()</span></span>;</span><br><span class="line">	<span class="comment">//打印数组</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">Print</span><span class="params">()</span></span>; </span><br><span class="line">	<span class="comment">//析构函数，释放数组空间</span></span><br><span class="line">	~<span class="built_in">MyArray</span>();</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="keyword">int</span> m_Capacity; <span class="comment">//数组一共可容纳多少个元素</span></span><br><span class="line">	<span class="keyword">int</span> m_Size; <span class="comment">//当前有多少个元素</span></span><br><span class="line">	<span class="keyword">int</span>* pAdress; <span class="comment">//指向存储数据的空间</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+
+<p><strong>MyArray.cpp</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">MyArray::<span class="built_in">MyArray</span>()&#123;</span><br><span class="line">	<span class="keyword">this</span>-&gt;m_Capacity=<span class="number">100</span>;</span><br><span class="line">	<span class="keyword">this</span>-&gt;pAdress=<span class="keyword">new</span> <span class="keyword">int</span>[<span class="keyword">this</span>-&gt;m_Capacity];	</span><br><span class="line">	<span class="keyword">this</span>-&gt;m_Size=<span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">MyArray::<span class="built_in">MyArray</span>(<span class="keyword">int</span> capacity)&#123;</span><br><span class="line">	<span class="keyword">this</span>-&gt;m_Capacity=capacity;</span><br><span class="line">	<span class="keyword">this</span>-&gt;pAdress=<span class="keyword">new</span> <span class="keyword">int</span>[<span class="keyword">this</span>-&gt;m_Capacity];</span><br><span class="line">	<span class="keyword">this</span>-&gt;m_Size=<span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">MyArray::SetData</span><span class="params">(<span class="keyword">int</span> pos,<span class="keyword">int</span> val)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(pos&lt;<span class="number">0</span>||pos&gt;<span class="keyword">this</span>-&gt;m_Capacity<span class="number">-1</span>||<span class="keyword">this</span>-&gt;m_Size&gt;<span class="keyword">this</span>-&gt;m_Capacity)</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="keyword">this</span>-&gt;m_Size<span class="number">-1</span>;i&gt;=pos;i--)</span><br><span class="line">	&#123;</span><br><span class="line">		pAdress[i+<span class="number">1</span>]=pAdress[i];</span><br><span class="line">	&#125;</span><br><span class="line">	pAdress[pos]=val;</span><br><span class="line">	<span class="keyword">this</span>-&gt;m_Size++;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">MyArray::GetData</span><span class="params">(<span class="keyword">int</span> pos)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(pos&lt;<span class="number">0</span>||pos&gt;<span class="keyword">this</span>-&gt;m_Capacity<span class="number">-1</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">return</span> pAdress[pos];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">MyArray::PushBack</span><span class="params">(<span class="keyword">int</span> val)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(<span class="keyword">this</span>-&gt;m_Size&gt;<span class="keyword">this</span>-&gt;m_Capacity)</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	pAdress[<span class="keyword">this</span>-&gt;m_Size]=val;</span><br><span class="line">	<span class="keyword">this</span>-&gt;m_Size++;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">MyArray::GetLength</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">this</span>-&gt;m_Size;</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">MyArray::Print</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="keyword">this</span>-&gt;m_Size;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		cout&lt;&lt;pAdress[i]&lt;&lt;<span class="string">&quot; &quot;</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	cout&lt;&lt;endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">MyArray::~<span class="built_in">MyArray</span>()&#123;</span><br><span class="line">	<span class="keyword">if</span>(<span class="keyword">this</span>-&gt;pAdress)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">delete</span>[] pAdress;</span><br><span class="line">		pAdress=<span class="literal">NULL</span>;</span><br><span class="line">	&#125;	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>TestMyArray.cpp</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="function">MyArray <span class="title">myarray</span><span class="params">(<span class="number">50</span>)</span></span>;</span><br><span class="line">	<span class="comment">//数组中插入元素</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">		<span class="comment">//尾插法</span></span><br><span class="line">		myarray.<span class="built_in">PushBack</span>(i);</span><br><span class="line">		<span class="comment">//myarray.SetData(i, i);</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//打印数组中元素</span></span><br><span class="line">	myarray.<span class="built_in">Print</span>();</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//按位置插入 </span></span><br><span class="line">	myarray.<span class="built_in">SetData</span>(<span class="number">5</span>,<span class="number">40</span>);</span><br><span class="line">	myarray.<span class="built_in">Print</span>();</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//按位置查找</span></span><br><span class="line">	cout&lt;&lt;<span class="string">&quot;第8个元素为：&quot;</span>&lt;&lt;myarray.<span class="built_in">GetData</span>(<span class="number">8</span>)&lt;&lt;endl; </span><br><span class="line">	</span><br><span class="line">	<span class="comment">//获取长度</span></span><br><span class="line">	cout&lt;&lt;<span class="string">&quot;数组长度为：&quot;</span>&lt;&lt;myarray.<span class="built_in">GetLength</span>()&lt;&lt;endl; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<div class="article-footer fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div></section></div>
+
+</article>
+
+<div class="related-wrap" id="read-next"><section class="header cap theme"><span>接下来阅读</span></section><section class="body"><div class="post-title h2"><a href="/2021/04/21/01-C++/C++%E5%BC%95%E7%94%A8/C++%E5%BC%95%E7%94%A8/">undefined</a></div><div class="post-title fs14"><a href="/2021/04/21/01-C++/C++%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD/%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD/">上一篇：undefined</a></div></section></div>
+
+
+
+
+
+
+
+
+      
+<footer class="page-footer fs12"><hr><div><p>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+<p>本站由 <a href="https://smilesrx.github.io/">@CandyKing</a> 创建，使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0">Stellar</a> 作为主题。</p>
+</div></footer>
+
+      <div class='float-panel mobile-only' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" viewBox="0 0 1228 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2849"><path d="M0 0m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2850"></path><path d="M0 389.560798m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2851"></path><path d="M0 779.121596m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.390199l-973.901995 0q-97.390199 0-97.390199-97.390199l0 0q0-97.390199 97.390199-97.390199Z" p-id="2852"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script')
+      script.src = src
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js',
+    sitesjs: '/js/plugins/sites.js',
+    friendsjs: '/js/plugins/friends.js',
+  };
+
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper/swiper-bundle.min.css","js":"https://unpkg.com/swiper/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://cdn.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+
+
+<!-- inject -->
+
+
+  </div>
+</body>
+</html>

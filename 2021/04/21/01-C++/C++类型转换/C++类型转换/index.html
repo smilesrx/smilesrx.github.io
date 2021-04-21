@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+
+<head>
+  <meta name="generator" content="Hexo 5.4.0">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>post - 逆玺之路</title>
+
+  
+    <meta name="description" content="C++类型转换类型转换(cast)是将一种数据类型转换成另一种数据类型。例如，如果将一个整型值赋给一个浮点类型的变量，编译器会暗地里将其转换成浮点类型。 转换是非常有用的，但是它也会带来一些问题，比如在转换指针时，我们很可能将其转换成一个比它更大的类型，但这可能会破坏其他的数据。—–（应该小心类型转换） 标准c++提供了一个显示的转换的语法，来替代旧的C风格的类型转换。 使用C风格的强制转换可以把">
+<meta property="og:type" content="article">
+<meta property="og:title" content="逆玺之路">
+<meta property="og:url" content="https://smilesrx.github.io/2021/04/21/01-C++/C++%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/C++%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/index.html">
+<meta property="og:site_name" content="逆玺之路">
+<meta property="og:description" content="C++类型转换类型转换(cast)是将一种数据类型转换成另一种数据类型。例如，如果将一个整型值赋给一个浮点类型的变量，编译器会暗地里将其转换成浮点类型。 转换是非常有用的，但是它也会带来一些问题，比如在转换指针时，我们很可能将其转换成一个比它更大的类型，但这可能会破坏其他的数据。—–（应该小心类型转换） 标准c++提供了一个显示的转换的语法，来替代旧的C风格的类型转换。 使用C风格的强制转换可以把">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-04-21T12:23:45.387Z">
+<meta property="article:modified_time" content="2020-10-22T14:50:17.932Z">
+<meta property="article:author" content="CandyKing">
+<meta name="twitter:card" content="summary">
+  
+  
+
+  <!-- feed -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+</head>
+
+<body>
+  
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left'>
+    
+
+<header class='header'>
+  <div class='logo-wrap'>
+  
+    <a class='avatar' href='/about/'>
+      
+        <img no-lazy class='bg' src='https://cdn.jsdelivr.net/gh/cdn-x/placeholder@1.0.2/avatar/round/rainbow64@3x.webp'/>
+      
+      <img no-lazy class='avatar' src='http://q1.qlogo.cn/g?b=qq&nk=1607952713&s=640'/>
+    </a>
+  
+  
+    <a class='title' href='/'>
+      逆玺之路
+    </a>
+  
+</div>
+
+  <nav class="menu dis-select"><a class="nav-item active" href="/">文章</a><a class="nav-item" href="/wiki/">项目</a><a class="nav-item" href="/notes/">笔记</a><a class="nav-item" href="/more/">更多</a></nav>
+</header>
+
+<div class='widgets'>
+  
+    
+      
+      
+<div class="widget-wrap" id="toc"><div class="widget-header h4 dis-select"><span class="name">本文目录</span></div><div class="widget-body fs14 post"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%EF%BC%88%E5%86%85%E7%BD%AE%E7%B1%BB%E5%9E%8B%EF%BC%89"><span class="toc-text">1、基本类型转换（内置类型）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E7%BB%A7%E6%89%BF%E5%85%B3%E7%B3%BB%E7%88%B6%E5%AD%90%E6%8C%87%E9%92%88%E7%9B%B8%E4%BA%92%E8%BD%AC%E6%8D%A2"><span class="toc-text">2、继承关系父子指针相互转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81%E7%BB%A7%E6%89%BF%E5%85%B3%E7%B3%BB%E7%88%B6%E5%AD%90%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%BC%95%E7%94%A8%E7%9B%B8%E4%BA%92%E8%BD%AC%E5%8C%96"><span class="toc-text">3、继承关系父子对象的引用相互转化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4%E3%80%81%E6%97%A0%E7%BB%A7%E6%89%BF%E5%85%B3%E7%B3%BB%E7%B1%BB%E6%8C%87%E9%92%88%E5%92%8C%E7%B1%BB%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%BC%95%E7%94%A8%E7%9B%B8%E4%BA%92%E8%BD%AC%E6%8D%A2%E2%80%94%E5%A4%B1%E8%B4%A5"><span class="toc-text">4、无继承关系类指针和类对象的引用相互转换—失败</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E4%B8%8D%E5%85%81%E8%AE%B8%E5%86%85%E7%BD%AE%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="toc-text">1、不允许内置数据类型转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E7%88%B6%E5%AD%90%E5%85%B3%E7%B3%BB%E6%8C%87%E9%92%88%E3%80%81%E5%BC%95%E7%94%A8%EF%BC%88%E4%B8%8B%E8%A1%8C%EF%BC%89%E8%BD%AC%E6%8D%A2%E2%80%94%E4%B8%8D%E5%AE%89%E5%85%A8%EF%BC%88%E5%A4%B1%E8%B4%A5%EF%BC%89"><span class="toc-text">2、父子关系指针、引用（下行）转换—不安全（失败）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81%E7%88%B6%E5%AD%90%E5%85%B3%E7%B3%BB%E6%8C%87%E9%92%88%E3%80%81%E5%BC%95%E7%94%A8%EF%BC%88%E4%B8%8A%E8%A1%8C%EF%BC%89%E8%BD%AC%E6%8D%A2%E2%80%94%E5%AE%89%E5%85%A8%EF%BC%88%E6%88%90%E5%8A%9F%EF%BC%89"><span class="toc-text">3、父子关系指针、引用（上行）转换—安全（成功）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4%E3%80%81%E6%97%A0%E7%BB%A7%E6%89%BF%E5%85%B3%E7%B3%BB%E6%8C%87%E9%92%88%E5%92%8C%E5%BC%95%E7%94%A8%E7%9B%B8%E4%BA%92%E8%BD%AC%E6%8D%A2%E2%80%94%E5%A4%B1%E8%B4%A5"><span class="toc-text">4、无继承关系指针和引用相互转换—失败</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E4%B8%8D%E8%83%BD%E5%AF%B9%E9%9D%9E%E6%8C%87%E9%92%88%E6%88%96%E9%9D%9E%E5%BC%95%E7%94%A8%E8%BF%9B%E8%A1%8C%E8%BD%AC%E6%8D%A2"><span class="toc-text">1、不能对非指针或非引用进行转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E5%B8%B8%E9%87%8F%E6%8C%87%E9%92%88%E5%92%8C%E9%9D%9E%E5%B8%B8%E9%87%8F%E6%8C%87%E9%92%88%E7%9B%B8%E4%BA%92%E8%BD%AC%E6%8D%A2"><span class="toc-text">2、常量指针和非常量指针相互转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81%E5%B8%B8%E9%87%8F%E5%BC%95%E7%94%A8%E5%92%8C%E9%9D%9E%E5%B8%B8%E9%87%8F%E5%BC%95%E7%94%A8%E7%9B%B8%E4%BA%92%E8%BD%AC%E5%8C%96"><span class="toc-text">3、常量引用和非常量引用相互转化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E6%95%B4%E6%95%B0%E5%92%8C%E6%8C%87%E9%92%88%E4%B9%8B%E9%97%B4%E7%9B%B8%E4%BA%92%E8%BD%AC%E5%8C%96%E2%80%94%E6%88%90%E5%8A%9F%EF%BC%88%E5%8D%B1%E9%99%A9%EF%BC%89"><span class="toc-text">1、整数和指针之间相互转化—成功（危险）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E6%97%A0%E7%BB%A7%E6%89%BF%E5%85%B3%E7%B3%BB%E4%B9%8B%E9%97%B4%E6%8C%87%E9%92%88%E3%80%81%E5%BC%95%E7%94%A8%E7%9B%B8%E4%BA%92%E8%BD%AC%E6%8D%A2%E2%80%94%E6%88%90%E5%8A%9F%EF%BC%88%E5%8D%B1%E9%99%A9%EF%BC%89"><span class="toc-text">2、无继承关系之间指针、引用相互转换—成功（危险）</span></a></li></ol></div></div></div>
+
+    
+  
+</div>
+
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+
+  <div class='bread-nav fs12'>
+  
+    
+    <div id='breadcrumb'>
+      <a class='cap breadcrumb' href='/'>主页</a>
+      <span class="sep"></span>
+      <a class='cap breadcrumb' href='/'>文章</a>
+      
+    </div>
+    <div id='post-meta'>
+      发布于&nbsp;<time datetime='2021-04-21T12:23:45.387Z'>2021-04-21</time>
+    </div>
+  
+  </div>
+
+
+<article class='content md post'>
+
+<h1 id="C-类型转换"><a href="#C-类型转换" class="headerlink" title="C++类型转换"></a>C++类型转换</h1><p>类型转换(cast)是将一种数据类型转换成另一种数据类型。例如，如果将一个整型值赋给一个浮点类型的变量，编译器会暗地里将其转换成浮点类型。</p>
+<p>转换是非常有用的，但是它也会带来一些问题，比如在<strong>转换指针时</strong>，我们很可能将其转换成一个比它更大的类型，但这可能会破坏其他的数据。—–（应该小心类型转换）</p>
+<p>标准c++提供了一个显示的转换的语法，来替代旧的C风格的类型转换。</p>
+<p>使用C风格的强制转换可以把想要的任何东西转换成我们需要的类型。</p>
+<p>新类型的强制转换可以提供更好的控制强制转换过程，允许控制各种不同种类的强制转换。C++风格的强制转换其他的好处是，它们能更清晰的表明它们要干什么。程序员只要扫一眼这样的代码，就能立即知道一个强制转换的目的。</p>
+<h1 id="静态类型转换（static-cast）"><a href="#静态类型转换（static-cast）" class="headerlink" title="静态类型转换（static_cast）"></a>静态类型转换（static_cast）</h1><ol>
+<li>用于类层次结构中基类（父类）和 派生类（子类）之间指针或引用的转换。<ul>
+<li>进行上行转换（把派生类的指针或引用转换成基类表示）是安全的；</li>
+<li>进行下行转换（把基类指针或引用转换成派生类表示）时，由于没有动态类型检查，所以是不安全的。</li>
+</ul>
+</li>
+<li>用于基本数据类型之间的转换，如把int转换成char，把char转换成int。这种转换的安全性也要开发人员来保证。</li>
+<li>语法：<code>static_cast&lt;目标类型&gt;(原变量/原对象)</code></li>
+</ol>
+<h2 id="1、基本类型转换（内置类型）"><a href="#1、基本类型转换（内置类型）" class="headerlink" title="1、基本类型转换（内置类型）"></a>1、基本类型转换（内置类型）</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1.基本数据类型转换</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test01</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">double</span> a=<span class="number">15.05</span>d;</span><br><span class="line">	<span class="keyword">int</span> b=<span class="keyword">static_cast</span>&lt;<span class="keyword">int</span>&gt;(a);</span><br><span class="line">	cout&lt;&lt;<span class="string">&quot;a=&quot;</span>&lt;&lt;a&lt;&lt;<span class="string">&quot;  b=&quot;</span>&lt;&lt;b&lt;&lt;endl;        <span class="comment">//a=15.05  b=15 </span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">char</span> c=<span class="string">&#x27;A&#x27;</span>;</span><br><span class="line">	<span class="keyword">int</span> d=<span class="keyword">static_cast</span>&lt;<span class="keyword">int</span>&gt;(c);</span><br><span class="line">	cout&lt;&lt;<span class="string">&quot;c=&quot;</span>&lt;&lt;c&lt;&lt;<span class="string">&quot;  d=&quot;</span>&lt;&lt;d&lt;&lt;endl;       <span class="comment">//c=A  d=65 </span></span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<h2 id="2、继承关系父子指针相互转换"><a href="#2、继承关系父子指针相互转换" class="headerlink" title="2、继承关系父子指针相互转换"></a>2、继承关系父子指针相互转换</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//2.继承关系父子指针相互转换</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Base</span>&#123;</span> &#125;;  <span class="comment">//基类 </span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Son</span>:</span><span class="keyword">public</span> Base&#123; &#125;;  <span class="comment">//派生类 </span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Other</span>&#123;</span> &#125;;  <span class="comment">//其他类 </span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test02</span><span class="params">()</span></span>&#123;</span><br><span class="line">	Base *base=<span class="keyword">new</span> Base;</span><br><span class="line">	Son *son=<span class="keyword">new</span> Son;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//下行（父转子）---不安全 </span></span><br><span class="line">	Son *son1=<span class="keyword">static_cast</span>&lt;Son *&gt;(base);</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//上行（子转父）---安全</span></span><br><span class="line">	Base *base1=<span class="keyword">static_cast</span>&lt;Base *&gt;(son);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3、继承关系父子对象的引用相互转化"><a href="#3、继承关系父子对象的引用相互转化" class="headerlink" title="3、继承关系父子对象的引用相互转化"></a>3、继承关系父子对象的引用相互转化</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//3.继承关系父子对象的引用相互转换</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test03</span><span class="params">()</span></span>&#123;</span><br><span class="line">	Base base;</span><br><span class="line">	Son son;</span><br><span class="line">	Base &amp;base1=base;</span><br><span class="line">	Son &amp;son1=son;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//下行（父转子）---不安全 </span></span><br><span class="line">	Son &amp;son2=<span class="keyword">static_cast</span>&lt;Son &amp;&gt;(base1); </span><br><span class="line">	</span><br><span class="line">	<span class="comment">//上行（子转父）---安全</span></span><br><span class="line">	Base &amp;base2=<span class="keyword">static_cast</span>&lt;Base &amp;&gt;(son1); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="4、无继承关系类指针和类对象的引用相互转换—失败"><a href="#4、无继承关系类指针和类对象的引用相互转换—失败" class="headerlink" title="4、无继承关系类指针和类对象的引用相互转换—失败"></a>4、无继承关系类指针和类对象的引用相互转换—失败</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//4.无继承关系类型转换</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test04</span><span class="params">()</span></span>&#123;</span><br><span class="line">	Son *son=<span class="keyword">new</span> Son;</span><br><span class="line">	<span class="comment">//Other *other=static_cast&lt;Other *&gt;(son);   //失败 </span></span><br><span class="line">	</span><br><span class="line">	Base base;</span><br><span class="line">	Base &amp;base1=base;</span><br><span class="line">	<span class="comment">//Other &amp;other=static_cast&lt;Other &amp;&gt;(base1); //失败 	</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="动态类型转换（dynamic-cast）"><a href="#动态类型转换（dynamic-cast）" class="headerlink" title="动态类型转换（dynamic_cast）"></a>动态类型转换（dynamic_cast）</h1><ol>
+<li>不许内置数据类型转换 </li>
+<li>允许父子之间指针或者引用的转换<ul>
+<li>父转子  不安全的  转换失败</li>
+<li>子转父  安全  转换成功</li>
+<li>如果发生多态，总是安全，可以成功</li>
+</ul>
+</li>
+<li>语法：<code>dynamic_cast&lt;目标类型&gt;(原变量\原对象)</code></li>
+</ol>
+<h2 id="1、不允许内置数据类型转换"><a href="#1、不允许内置数据类型转换" class="headerlink" title="1、不允许内置数据类型转换"></a>1、不允许内置数据类型转换</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1.基本数据类型转换 --- 失败</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test01</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">double</span> a=<span class="number">15.05</span>d;</span><br><span class="line">	<span class="comment">//int b=dynamic_cast&lt;int&gt;(a);</span></span><br><span class="line">	<span class="comment">//cout&lt;&lt;&quot;a=&quot;&lt;&lt;a&lt;&lt;&quot;  b=&quot;&lt;&lt;b&lt;&lt;endl;       </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2、父子关系指针、引用（下行）转换—不安全（失败）"><a href="#2、父子关系指针、引用（下行）转换—不安全（失败）" class="headerlink" title="2、父子关系指针、引用（下行）转换—不安全（失败）"></a>2、父子关系指针、引用（下行）转换—不安全（失败）</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//父转子指针、引用</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Base</span>&#123;</span> &#125;;  <span class="comment">//基类 </span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Son</span>:</span><span class="keyword">public</span> Base&#123; &#125;;  <span class="comment">//派生类 </span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Other</span>&#123;</span> &#125;;  <span class="comment">//其他类 </span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test02</span><span class="params">()</span></span>&#123;</span><br><span class="line">	Base *base=<span class="keyword">new</span> Base;</span><br><span class="line">	<span class="comment">//Son *son=dynamic_cast&lt;Son *&gt;(base);</span></span><br><span class="line">	</span><br><span class="line">	Base base1;</span><br><span class="line">	Base &amp;base2=base1;</span><br><span class="line">	<span class="comment">//Son &amp;son1=dynamic_cast&lt;Son &amp;&gt;(base2);	</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3、父子关系指针、引用（上行）转换—安全（成功）"><a href="#3、父子关系指针、引用（上行）转换—安全（成功）" class="headerlink" title="3、父子关系指针、引用（上行）转换—安全（成功）"></a>3、父子关系指针、引用（上行）转换—安全（成功）</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//子转父指针、引用</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test03</span><span class="params">()</span></span>&#123;</span><br><span class="line">	Son *son=<span class="keyword">new</span> Son;</span><br><span class="line">	Base *base=<span class="keyword">dynamic_cast</span>&lt;Base *&gt;(son);</span><br><span class="line">	</span><br><span class="line">	Son son1;</span><br><span class="line">	Son &amp;son2=son1;</span><br><span class="line">	Base &amp;base1=<span class="keyword">dynamic_cast</span>&lt;Base &amp;&gt;(son2); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="4、无继承关系指针和引用相互转换—失败"><a href="#4、无继承关系指针和引用相互转换—失败" class="headerlink" title="4、无继承关系指针和引用相互转换—失败"></a>4、无继承关系指针和引用相互转换—失败</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//4.无继承关系类型转换</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test04</span><span class="params">()</span></span>&#123;</span><br><span class="line">	Son *son=<span class="keyword">new</span> Son;</span><br><span class="line">	Other *other=<span class="keyword">dynamic_cast</span>&lt;Other *&gt;(son);   <span class="comment">//失败 </span></span><br><span class="line">	</span><br><span class="line">	Base base;</span><br><span class="line">	Base &amp;base1=base;</span><br><span class="line">	Other &amp;other=<span class="keyword">dynamic_cast</span>&lt;Other &amp;&gt;(base1); <span class="comment">//失败 	</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="常量转换（const-cast"><a href="#常量转换（const-cast" class="headerlink" title="常量转换（const_cast)"></a>常量转换（const_cast)</h1><p>该运算符用来修改类型的<code>const</code>属性。</p>
+<ol>
+<li>只允许 指针或者引用 之间转换<ul>
+<li>常量指针和非常量指针相互转换，并且仍然指向原来的对象；</li>
+<li>常量引用和非常量引用相互转换，并且仍然指向原来的对象；</li>
+</ul>
+</li>
+<li>语法：<code>const_cast&lt;目标类型&gt;(原变量\原对象)</code></li>
+</ol>
+<h2 id="1、不能对非指针或非引用进行转换"><a href="#1、不能对非指针或非引用进行转换" class="headerlink" title="1、不能对非指针或非引用进行转换"></a>1、不能对非指针或非引用进行转换</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test01</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> a=<span class="number">10</span>;</span><br><span class="line">	<span class="comment">//double b=const_cast&lt;double&gt;(a);</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2、常量指针和非常量指针相互转换"><a href="#2、常量指针和非常量指针相互转换" class="headerlink" title="2、常量指针和非常量指针相互转换"></a>2、常量指针和非常量指针相互转换</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">const</span> <span class="keyword">int</span> *p=<span class="literal">NULL</span>; <span class="comment">//常量指针</span></span><br><span class="line">	<span class="comment">//int const *p=NULL;  //等价</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">//常量指针转非常量指针 </span></span><br><span class="line">	<span class="keyword">int</span> *pp=<span class="keyword">const_cast</span>&lt;<span class="keyword">int</span> *&gt;(p); </span><br><span class="line">	</span><br><span class="line">	<span class="comment">//非常量指针转常量指针 </span></span><br><span class="line">	<span class="keyword">int</span> <span class="keyword">const</span> *ppp=<span class="keyword">const_cast</span>&lt;<span class="keyword">int</span> <span class="keyword">const</span> *&gt;(pp);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3、常量引用和非常量引用相互转化"><a href="#3、常量引用和非常量引用相互转化" class="headerlink" title="3、常量引用和非常量引用相互转化"></a>3、常量引用和非常量引用相互转化</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> a=<span class="number">10</span>; </span><br><span class="line">	<span class="keyword">int</span> &amp;b=a;   <span class="comment">//非常量引用</span></span><br><span class="line">	 </span><br><span class="line">	<span class="comment">//非常量引用转常量引用 </span></span><br><span class="line">	<span class="keyword">const</span> <span class="keyword">int</span> &amp;c=<span class="keyword">const_cast</span>&lt;<span class="keyword">const</span> <span class="keyword">int</span> &amp;&gt;(b);</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//常量引用转非常量引用</span></span><br><span class="line">	<span class="keyword">int</span> &amp;d=<span class="keyword">const_cast</span>&lt;<span class="keyword">int</span> &amp;&gt;(c);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="重新解释转换（reinterpret-cast）"><a href="#重新解释转换（reinterpret-cast）" class="headerlink" title="重新解释转换（reinterpret_cast）"></a>重新解释转换（reinterpret_cast）</h1><p>这是最不安全的一种转换机制，最有可能出问题。</p>
+<p>主要用于将一种数据类型从一种类型转换为另一种类型。它可以将一个指针转换成一个整数，也可以将一个整数转换成一个指针.</p>
+<h2 id="1、整数和指针之间相互转化—成功（危险）"><a href="#1、整数和指针之间相互转化—成功（危险）" class="headerlink" title="1、整数和指针之间相互转化—成功（危险）"></a>1、整数和指针之间相互转化—成功（危险）</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> a=<span class="number">10</span>;</span><br><span class="line">	<span class="keyword">char</span> *p=<span class="keyword">reinterpret_cast</span>&lt;<span class="keyword">char</span> *&gt;(a);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;%p\n&quot;</span>,a);         <span class="comment">//000000000000000a </span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;%p\n&quot;</span>,p);         <span class="comment">//000000000000000a </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2、无继承关系之间指针、引用相互转换—成功（危险）"><a href="#2、无继承关系之间指针、引用相互转换—成功（危险）" class="headerlink" title="2、无继承关系之间指针、引用相互转换—成功（危险）"></a>2、无继承关系之间指针、引用相互转换—成功（危险）</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ClassA</span>&#123;</span> &#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ClassB</span>&#123;</span> &#125;; </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="comment">//指针相互转换</span></span><br><span class="line">	ClassA *A=<span class="keyword">new</span> ClassA;</span><br><span class="line">	ClassB *B=<span class="keyword">reinterpret_cast</span>&lt;ClassB *&gt;(A); </span><br><span class="line">	</span><br><span class="line">	<span class="comment">//引用转换</span></span><br><span class="line">	ClassA a;</span><br><span class="line">	ClassA &amp;b=a;</span><br><span class="line">	ClassB &amp;c=<span class="keyword">reinterpret_cast</span>&lt;ClassB &amp;&gt;(b); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+<div class="article-footer fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div></section></div>
+
+</article>
+
+<div class="related-wrap" id="read-next"><section class="header cap theme"><span>接下来阅读</span></section><section class="body"><div class="post-title h2"><a href="/2021/04/21/01-C++/C++%E7%B1%BB%E6%A8%A1%E6%9D%BF%E5%B0%81%E8%A3%85%E4%BB%BB%E6%84%8F%E7%B1%BB%E5%9E%8B%E6%95%B0%E7%BB%84/C++%E7%B1%BB%E6%A8%A1%E6%9D%BF%E5%B0%81%E8%A3%85%E4%BB%BB%E6%84%8F%E6%95%B0%E7%BB%84/">undefined</a></div><div class="post-title fs14"><a href="/2021/04/21/01-C++/C++%E6%A8%A1%E6%9D%BF/C++%E6%A8%A1%E6%9D%BF/">上一篇：undefined</a></div></section></div>
+
+
+
+
+
+
+
+
+      
+<footer class="page-footer fs12"><hr><div><p>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+<p>本站由 <a href="https://smilesrx.github.io/">@CandyKing</a> 创建，使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0">Stellar</a> 作为主题。</p>
+</div></footer>
+
+      <div class='float-panel mobile-only' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" viewBox="0 0 1228 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2849"><path d="M0 0m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2850"></path><path d="M0 389.560798m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2851"></path><path d="M0 779.121596m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.390199l-973.901995 0q-97.390199 0-97.390199-97.390199l0 0q0-97.390199 97.390199-97.390199Z" p-id="2852"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script')
+      script.src = src
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js',
+    sitesjs: '/js/plugins/sites.js',
+    friendsjs: '/js/plugins/friends.js',
+  };
+
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper/swiper-bundle.min.css","js":"https://unpkg.com/swiper/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://cdn.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+
+
+<!-- inject -->
+
+
+  </div>
+</body>
+</html>
