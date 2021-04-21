@@ -1,26 +1,26 @@
 <!DOCTYPE html>
-<html lang='zh-CN'>
-
+<html lang="zh-CN">
 <head>
-  <meta name="generator" content="Hexo 5.4.0">
-  <meta charset="utf-8">
-  
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-  <meta http-equiv='x-dns-prefetch-control' content='on' />
-  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
-  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="/css/main.css">
 
-  <meta name="renderer" content="webkit">
-  <meta name="force-rendering" content="webkit">
-  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
-  <meta name="HandheldFriendly" content="True" >
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <title>post - 逆玺之路</title>
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-  
-    <meta name="description" content="list容器基本概念链表是一种物理存储单元上非连续、非顺序的存储结构，数据元素的逻辑顺序是通过链表中的指针链接次序实现的。链表由一系列结点（链表中每一个元素称为结点）组成，结点可以在运行时动态生成。每个结点包括两个部分：一个是存储数据元素的数据域，另一个是存储下一个结点地址的指针域。 相较于vector的连续线性空间，list就显得负责许多，它的好处是每次插入或者删除一个元素，就是配置或者释放一个">
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"smilesrx.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="list容器基本概念链表是一种物理存储单元上非连续、非顺序的存储结构，数据元素的逻辑顺序是通过链表中的指针链接次序实现的。链表由一系列结点（链表中每一个元素称为结点）组成，结点可以在运行时动态生成。每个结点包括两个部分：一个是存储数据元素的数据域，另一个是存储下一个结点地址的指针域。 相较于vector的连续线性空间，list就显得负责许多，它的好处是每次插入或者删除一个元素，就是配置或者释放一个">
 <meta property="og:type" content="article">
 <meta property="og:title" content="逆玺之路">
 <meta property="og:url" content="https://smilesrx.github.io/2020/10/26/STL/list%E5%AE%B9%E5%99%A8/list%E5%AE%B9%E5%99%A8/index.html">
@@ -33,91 +33,174 @@
 <meta property="article:author" content="CandyKing">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://smilesrx.github.io/list容器.png">
-  
+
+<link rel="canonical" href="https://smilesrx.github.io/2020/10/26/STL/list%E5%AE%B9%E5%99%A8/list%E5%AE%B9%E5%99%A8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title> | 逆玺之路</title>
   
 
-  <!-- feed -->
-  
 
-  
-    
-<link rel="stylesheet" href="/css/main.css">
 
-  
 
-  
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
 </head>
 
-<body>
-  
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
 
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
 
-  <div class='l_body' id='start'>
-    <aside class='l_left'>
-    
+  <div class="site-meta">
 
-<header class='header'>
-  <div class='logo-wrap'>
-  
-    <a class='avatar' href='/about/'>
-      
-        <img no-lazy class='bg' src='https://cdn.jsdelivr.net/gh/cdn-x/placeholder@1.0.2/avatar/round/rainbow64@3x.webp'/>
-      
-      <img no-lazy class='avatar' src='http://q1.qlogo.cn/g?b=qq&nk=1607952713&s=640'/>
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">逆玺之路</h1>
+      <span class="logo-line-after"><i></i></span>
     </a>
-  
-  
-    <a class='title' href='/'>
-      逆玺之路
-    </a>
-  
-</div>
+  </div>
 
-  <nav class="menu dis-select"><a class="nav-item active" href="/">文章</a><a class="nav-item" href="/wiki/">项目</a><a class="nav-item" href="/notes/">笔记</a><a class="nav-item" href="/more/">更多</a></nav>
-</header>
-
-<div class='widgets'>
-  
-    
-      
-      
-<div class="widget-wrap" id="toc"><div class="widget-header h4 dis-select"><span class="name">本文目录</span></div><div class="widget-body fs14 post"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81list%E5%AE%B9%E5%99%A8%E4%B8%8D%E4%BB%85%E6%98%AF%E4%B8%80%E4%B8%AA%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8%EF%BC%8C%E8%80%8C%E4%B8%94%E8%BF%98%E6%98%AF%E4%B8%80%E4%B8%AA%E5%BE%AA%E7%8E%AF%E7%9A%84%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8%E3%80%82"><span class="toc-text">1、list容器不仅是一个双向链表，而且还是一个循环的双向链表。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81list%E8%BF%AD%E4%BB%A3%E5%99%A8%E4%B8%8D%E6%94%AF%E6%8C%81%E9%9A%8F%E6%9C%BA%E8%AE%BF%E9%97%AE"><span class="toc-text">2、list迭代器不支持随机访问</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81list%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="toc-text">1、list构造函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81list%E6%95%B0%E6%8D%AE%E5%85%83%E7%B4%A0%E6%8F%92%E5%85%A5%E5%92%8C%E5%88%A0%E9%99%A4%E6%93%8D%E4%BD%9C"><span class="toc-text">2、list数据元素插入和删除操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81list%E5%A4%A7%E5%B0%8F%E6%93%8D%E4%BD%9C"><span class="toc-text">3、list大小操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4%E3%80%81list%E8%B5%8B%E5%80%BC%E6%93%8D%E4%BD%9C"><span class="toc-text">4、list赋值操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5%E3%80%81-list%E6%95%B0%E6%8D%AE%E7%9A%84%E5%AD%98%E5%8F%96"><span class="toc-text">5、 list数据的存取</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6%E3%80%81list%E5%8F%8D%E8%BD%AC%E6%8E%92%E5%BA%8F"><span class="toc-text">6、list反转排序</span></a></li></ol></div></div></div>
-
-    
-  
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
 </div>
 
 
-    </aside>
-    <div class='l_main'>
-      
-
-      
 
 
-  <div class='bread-nav fs12'>
-  
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
     
-    <div id='breadcrumb'>
-      <a class='cap breadcrumb' href='/'>主页</a>
-      <span class="sep"></span>
-      <a class='cap breadcrumb' href='/'>文章</a>
-      
-    </div>
-    <div id='post-meta'>
-      发布于&nbsp;<time datetime='2020-10-25T16:26:39.548Z'>2020-10-26</time>
-    </div>
-  
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
   </div>
 
 
-<article class='content md post'>
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
 
-<h1 id="list容器基本概念"><a href="#list容器基本概念" class="headerlink" title="list容器基本概念"></a>list容器基本概念</h1><p>链表是一种物理存储单元上非连续、非顺序的存储结构，数据元素的逻辑顺序是通过链表中的指针链接次序实现的。链表由一系列结点（链表中每一个元素称为结点）组成，结点可以在运行时动态生成。每个结点包括两个部分：一个是存储数据元素的数据域，另一个是存储下一个结点地址的指针域。</p>
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://smilesrx.github.io/2020/10/26/STL/list%E5%AE%B9%E5%99%A8/list%E5%AE%B9%E5%99%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="CandyKing">
+      <meta itemprop="description" content="虾米">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="逆玺之路">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-10-26 00:26:39" itemprop="dateCreated datePublished" datetime="2020-10-26T00:26:39+08:00">2020-10-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-27 13:47:30" itemprop="dateModified" datetime="2020-10-27T13:47:30+08:00">2020-10-27</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="list容器基本概念"><a href="#list容器基本概念" class="headerlink" title="list容器基本概念"></a>list容器基本概念</h1><p>链表是一种物理存储单元上非连续、非顺序的存储结构，数据元素的逻辑顺序是通过链表中的指针链接次序实现的。链表由一系列结点（链表中每一个元素称为结点）组成，结点可以在运行时动态生成。每个结点包括两个部分：一个是存储数据元素的数据域，另一个是存储下一个结点地址的指针域。</p>
 <p>相较于vector的连续线性空间，list就显得负责许多，它的好处是每次插入或者删除一个元素，就是配置或者释放一个元素的空间。因此，list对于空间的运用有绝对的精准，一点也不浪费。而且，对于任何位置的元素插入或元素的移除，list永远是常数时间。</p>
 <p>List和vector是两个最常被使用的容器。</p>
 <p>List容器是一个双向链表。</p>
-<img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/list容器.png" alt="list容器" style="zoom: 50%;" />
+<img src="/list容器.png" alt="list容器" style="zoom: 50%;" />
 
 <ul>
 <li>n采用动态存储分配，不会造成内存浪费和溢出</li>
@@ -343,174 +426,186 @@
 <h1 id="案例—学生按年龄排序"><a href="#案例—学生按年龄排序" class="headerlink" title="案例—学生按年龄排序"></a>案例—学生按年龄排序</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">Student</span>(string name,<span class="keyword">int</span> age,<span class="keyword">int</span> height)&#123;</span><br><span class="line">		<span class="keyword">this</span>-&gt;m_Name=name;</span><br><span class="line">		<span class="keyword">this</span>-&gt;m_Age=age;</span><br><span class="line">		<span class="keyword">this</span>-&gt;m_Height=height;</span><br><span class="line">	&#125;</span><br><span class="line">	string m_Name;</span><br><span class="line">	<span class="keyword">int</span> m_Age;</span><br><span class="line">	<span class="keyword">int</span> m_Height;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Creat_Student</span>(list&lt;Student&gt; &amp;stu)&#123;</span><br><span class="line">	<span class="function">Student <span class="title">stu1</span><span class="params">(<span class="string">&quot;亚瑟&quot;</span>, <span class="number">40</span> ,  <span class="number">180</span>)</span></span>;</span><br><span class="line">	<span class="function">Student <span class="title">stu2</span><span class="params">(<span class="string">&quot;赵云&quot;</span>, <span class="number">20</span> , <span class="number">160</span>)</span></span>;</span><br><span class="line">	<span class="function">Student <span class="title">stu3</span><span class="params">(<span class="string">&quot;妲己&quot;</span>, <span class="number">30</span> , <span class="number">120</span>)</span></span>;</span><br><span class="line">	<span class="function">Student <span class="title">stu4</span><span class="params">(<span class="string">&quot;韩信&quot;</span>, <span class="number">50</span> , <span class="number">200</span>)</span></span>;</span><br><span class="line">	<span class="function">Student <span class="title">stu5</span><span class="params">(<span class="string">&quot;关羽&quot;</span>, <span class="number">10</span> ,  <span class="number">170</span>)</span></span>;</span><br><span class="line">	<span class="function">Student <span class="title">stu6</span><span class="params">(<span class="string">&quot;刘备&quot;</span>, <span class="number">10</span>  , <span class="number">165</span>)</span></span>;</span><br><span class="line">	<span class="function">Student <span class="title">stu7</span><span class="params">(<span class="string">&quot;张飞&quot;</span>, <span class="number">10</span> , <span class="number">185</span>)</span></span>;</span><br><span class="line">	stu.<span class="built_in">push_back</span>(stu1);</span><br><span class="line">	stu.<span class="built_in">push_back</span>(stu2);</span><br><span class="line">	stu.<span class="built_in">push_back</span>(stu3);</span><br><span class="line">	stu.<span class="built_in">push_back</span>(stu4);</span><br><span class="line">	stu.<span class="built_in">push_back</span>(stu5);</span><br><span class="line">	stu.<span class="built_in">push_back</span>(stu6);</span><br><span class="line">	stu.<span class="built_in">push_back</span>(stu7);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Print</span><span class="params">(list&lt;Student&gt; &amp;stu)</span></span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(list&lt;Student&gt;::iterator it=stu.<span class="built_in">begin</span>();it!=stu.<span class="built_in">end</span>();it++)&#123;</span><br><span class="line">		cout&lt;&lt;<span class="string">&quot;姓名：&quot;</span>&lt;&lt;(*it).m_Name&lt;&lt;<span class="string">&quot; 年龄：&quot;</span>&lt;&lt;(*it).m_Age&lt;&lt;<span class="string">&quot; 身高：&quot;</span>&lt;&lt;(*it).m_Height&lt;&lt;endl;</span><br><span class="line">	&#125;</span><br><span class="line">	cout&lt;&lt;endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//自定义排序规则--（从大到小） </span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">MyCompare</span><span class="params">(Student stu1,Student stu2)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(stu1.m_Age==stu2.m_Age)</span><br><span class="line">		<span class="keyword">return</span> stu1.m_Height&gt;stu2.m_Height;     <span class="comment">//年龄相等的按身高排序 </span></span><br><span class="line">	<span class="keyword">return</span> stu1.m_Age&gt;stu2.m_Age;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">	list&lt;Student&gt; stu;</span><br><span class="line">	<span class="built_in">Creat_Student</span>(stu);</span><br><span class="line">	<span class="built_in">Print</span>(stu);</span><br><span class="line">	</span><br><span class="line">	stu.<span class="built_in">sort</span>(MyCompare);</span><br><span class="line">	<span class="built_in">Print</span>(stu);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
-
-<div class="article-footer fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
-</div></section></div>
-
-</article>
-
-<div class="related-wrap" id="read-next"><section class="header cap theme"><span>接下来阅读</span></section><section class="body"><div class="post-title h2"><a href="/2020/10/26/STL/deque%E5%AE%B9%E5%99%A8/deque%E5%AE%B9%E5%99%A8/">undefined</a></div><div class="post-title fs14"><a href="/2020/10/26/STL/queue%E5%AE%B9%E5%99%A8/queue%E5%AE%B9%E5%99%A8/">上一篇：undefined</a></div></section></div>
-
-
-
-
-
-
-
-
-      
-<footer class="page-footer fs12"><hr><div><p>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
-<p>本站由 <a href="https://smilesrx.github.io/">@CandyKing</a> 创建，使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0">Stellar</a> 作为主题。</p>
-</div></footer>
-
-      <div class='float-panel mobile-only' style='display:none'>
-  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
-    <svg class="icon" viewBox="0 0 1228 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2849"><path d="M0 0m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2850"></path><path d="M0 389.560798m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2851"></path><path d="M0 779.121596m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.390199l-973.901995 0q-97.390199 0-97.390199-97.390199l0 0q0-97.390199 97.390199-97.390199Z" p-id="2852"></path></svg>
-  </button>
-</div>
-
     </div>
-  </div>
-  <div class='scripts'>
-    <script type="text/javascript">
-  stellar = {
-    // 懒加载 css https://github.com/filamentgroup/loadCSS
-    loadCSS: (href, before, media, attributes) => {
-      var doc = window.document;
-      var ss = doc.createElement("link");
-      var ref;
-      if (before) {
-        ref = before;
-      } else {
-        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
-        ref = refs[refs.length - 1];
-      }
-      var sheets = doc.styleSheets;
-      if (attributes) {
-        for (var attributeName in attributes) {
-          if (attributes.hasOwnProperty(attributeName)) {
-            ss.setAttribute(attributeName, attributes[attributeName]);
-          }
-        }
-      }
-      ss.rel = "stylesheet";
-      ss.href = href;
-      ss.media = "only x";
-      function ready(cb) {
-        if (doc.body) {
-          return cb();
-        }
-        setTimeout(function () {
-          ready(cb);
-        });
-      }
-      ready(function () {
-        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
-      });
-      var onloadcssdefined = function (cb) {
-        var resolvedHref = ss.href;
-        var i = sheets.length;
-        while (i--) {
-          if (sheets[i].href === resolvedHref) {
-            return cb();
-          }
-        }
-        setTimeout(function () {
-          onloadcssdefined(cb);
-        });
-      };
-      function loadCB() {
-        if (ss.addEventListener) {
-          ss.removeEventListener("load", loadCB);
-        }
-        ss.media = media || "all";
-      }
-      if (ss.addEventListener) {
-        ss.addEventListener("load", loadCB);
-      }
-      ss.onloadcssdefined = onloadcssdefined;
-      onloadcssdefined(loadCB);
-      return ss;
-    },
 
-    // 从 butterfly 和 volantis 获得灵感
-    loadScript: (src, opt) => new Promise((resolve, reject) => {
-      var script = document.createElement('script')
-      script.src = src
-      if (opt) {
-        for (let key of Object.keys(opt)) {
-          script[key] = opt[key]
-        }
-      } else {
-        // 默认异步，如果需要同步，第二个参数传入 {} 即可
-        script.async = true
-      }
-      script.onerror = reject
-      script.onload = script.onreadystatechange = function() {
-        const loadState = this.readyState
-        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-        script.onload = script.onreadystatechange = null
-        resolve()
-      }
-      document.head.appendChild(script)
-    }),
+    
+    
+    
 
-    // https://github.com/jerryc127/hexo-theme-butterfly
-    jQuery: (fn) => {
-      if (typeof jQuery === 'undefined') {
-        stellar.loadScript(stellar.plugins.jQuery).then(fn)
-      } else {
-        fn()
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/10/26/STL/deque%E5%AE%B9%E5%99%A8/deque%E5%AE%B9%E5%99%A8/" rel="prev" title="">
+      <i class="fa fa-chevron-left"></i> 
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/10/26/STL/queue%E5%AE%B9%E5%99%A8/queue%E5%AE%B9%E5%99%A8/" rel="next" title="">
+       <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
       }
     }
-  };
-  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0';
-  stellar.config = {
-    date_suffix: {
-      just: '刚刚',
-      min: '分钟前',
-      hour: '小时前',
-      day: '天前',
-      month: '个月前',
-    },
-  };
-
-  // required plugins (only load if needs)
-  stellar.plugins = {
-    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js',
-    sitesjs: '/js/plugins/sites.js',
-    friendsjs: '/js/plugins/friends.js',
-  };
-
-  // optional plugins
-  if ('true' == 'true') {
-    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js","transition":"blur"});
-  }
-  if ('true' == 'true') {
-    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper/swiper-bundle.min.css","js":"https://unpkg.com/swiper/swiper-bundle.min.js"});
-  }
-  if ('' == 'true') {
-    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://cdn.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
-  }
-  if ('true' == 'true') {
-    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
   }
 </script>
 
-<!-- required -->
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#list%E5%AE%B9%E5%99%A8%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">list容器基本概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#list%E5%AE%B9%E5%99%A8%E7%9A%84%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="nav-number">2.</span> <span class="nav-text">list容器的迭代器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#list%E5%AE%B9%E5%99%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">3.</span> <span class="nav-text">list容器的数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81list%E5%AE%B9%E5%99%A8%E4%B8%8D%E4%BB%85%E6%98%AF%E4%B8%80%E4%B8%AA%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8%EF%BC%8C%E8%80%8C%E4%B8%94%E8%BF%98%E6%98%AF%E4%B8%80%E4%B8%AA%E5%BE%AA%E7%8E%AF%E7%9A%84%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8%E3%80%82"><span class="nav-number">3.1.</span> <span class="nav-text">1、list容器不仅是一个双向链表，而且还是一个循环的双向链表。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81list%E8%BF%AD%E4%BB%A3%E5%99%A8%E4%B8%8D%E6%94%AF%E6%8C%81%E9%9A%8F%E6%9C%BA%E8%AE%BF%E9%97%AE"><span class="nav-number">3.2.</span> <span class="nav-text">2、list迭代器不支持随机访问</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#list%E5%B8%B8%E7%94%A8API"><span class="nav-number">4.</span> <span class="nav-text">list常用API</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1%E3%80%81list%E5%AE%B9%E5%99%A8%E9%81%8D%E5%8E%86"><span class="nav-number">5.</span> <span class="nav-text">1、list容器遍历</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81list%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="nav-number">5.1.</span> <span class="nav-text">1、list构造函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81list%E6%95%B0%E6%8D%AE%E5%85%83%E7%B4%A0%E6%8F%92%E5%85%A5%E5%92%8C%E5%88%A0%E9%99%A4%E6%93%8D%E4%BD%9C"><span class="nav-number">5.2.</span> <span class="nav-text">2、list数据元素插入和删除操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3%E3%80%81list%E5%A4%A7%E5%B0%8F%E6%93%8D%E4%BD%9C"><span class="nav-number">5.3.</span> <span class="nav-text">3、list大小操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4%E3%80%81list%E8%B5%8B%E5%80%BC%E6%93%8D%E4%BD%9C"><span class="nav-number">5.4.</span> <span class="nav-text">4、list赋值操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5%E3%80%81-list%E6%95%B0%E6%8D%AE%E7%9A%84%E5%AD%98%E5%8F%96"><span class="nav-number">5.5.</span> <span class="nav-text">5、 list数据的存取</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6%E3%80%81list%E5%8F%8D%E8%BD%AC%E6%8E%92%E5%BA%8F"><span class="nav-number">5.6.</span> <span class="nav-text">6、list反转排序</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B%E2%80%94%E5%AD%A6%E7%94%9F%E6%8C%89%E5%B9%B4%E9%BE%84%E6%8E%92%E5%BA%8F"><span class="nav-number">6.</span> <span class="nav-text">案例—学生按年龄排序</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">CandyKing</p>
+  <div class="site-description" itemprop="description">虾米</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">76</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CandyKing</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
 
   
-<script src="/js/main.js" async></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
 
 
 
-<!-- optional -->
+
+  
 
 
 
-<!-- inject -->
 
 
-  </div>
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
 </body>
 </html>

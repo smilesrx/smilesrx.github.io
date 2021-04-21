@@ -1,26 +1,26 @@
 <!DOCTYPE html>
-<html lang='zh-CN'>
-
+<html lang="zh-CN">
 <head>
-  <meta name="generator" content="Hexo 5.4.0">
-  <meta charset="utf-8">
-  
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-  <meta http-equiv='x-dns-prefetch-control' content='on' />
-  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
-  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="/css/main.css">
 
-  <meta name="renderer" content="webkit">
-  <meta name="force-rendering" content="webkit">
-  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
-  <meta name="HandheldFriendly" content="True" >
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <title>post - 逆玺之路</title>
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-  
-    <meta name="description" content="线程1、什么是线程 轻量级的进程，在Linux环境下线程的本质任然是进程 进程：拥有独立的地址空间，拥有PCB，相当于独居 线程：有PCB，但没有独立的地址空间，多个线程共享进程空间，相当于合租    在Linux操作系统下：  线程：最小的执行单位 进程：最小分配资源单位，可看成是只有一个线程的进程。  线程的特点：  线程是轻量级的进程，也有PCB，创建线程使用的是底层函数和进程一样，都是cl">
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"smilesrx.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="线程1、什么是线程 轻量级的进程，在Linux环境下线程的本质任然是进程 进程：拥有独立的地址空间，拥有PCB，相当于独居 线程：有PCB，但没有独立的地址空间，多个线程共享进程空间，相当于合租    在Linux操作系统下：  线程：最小的执行单位 进程：最小分配资源单位，可看成是只有一个线程的进程。  线程的特点：  线程是轻量级的进程，也有PCB，创建线程使用的是底层函数和进程一样，都是cl">
 <meta property="og:type" content="article">
 <meta property="og:title" content="逆玺之路">
 <meta property="og:url" content="https://smilesrx.github.io/2020/12/22/Linux/Linux-%E7%BA%BF%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5/Linux-%E7%BA%BF%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5/index.html">
@@ -41,92 +41,175 @@
 <meta property="article:author" content="CandyKing">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://smilesrx.github.io/线程.png">
-  
+
+<link rel="canonical" href="https://smilesrx.github.io/2020/12/22/Linux/Linux-%E7%BA%BF%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5/Linux-%E7%BA%BF%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title> | 逆玺之路</title>
   
 
-  <!-- feed -->
-  
 
-  
-    
-<link rel="stylesheet" href="/css/main.css">
 
-  
 
-  
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
 </head>
 
-<body>
-  
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
 
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
 
-  <div class='l_body' id='start'>
-    <aside class='l_left'>
-    
+  <div class="site-meta">
 
-<header class='header'>
-  <div class='logo-wrap'>
-  
-    <a class='avatar' href='/about/'>
-      
-        <img no-lazy class='bg' src='https://cdn.jsdelivr.net/gh/cdn-x/placeholder@1.0.2/avatar/round/rainbow64@3x.webp'/>
-      
-      <img no-lazy class='avatar' src='http://q1.qlogo.cn/g?b=qq&nk=1607952713&s=640'/>
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">逆玺之路</h1>
+      <span class="logo-line-after"><i></i></span>
     </a>
-  
-  
-    <a class='title' href='/'>
-      逆玺之路
-    </a>
-  
-</div>
+  </div>
 
-  <nav class="menu dis-select"><a class="nav-item active" href="/">文章</a><a class="nav-item" href="/wiki/">项目</a><a class="nav-item" href="/notes/">笔记</a><a class="nav-item" href="/more/">更多</a></nav>
-</header>
-
-<div class='widgets'>
-  
-    
-      
-      
-<div class="widget-wrap" id="toc"><div class="widget-header h4 dis-select"><span class="name">本文目录</span></div><div class="widget-body fs14 post"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E4%BB%80%E4%B9%88%E6%98%AF%E7%BA%BF%E7%A8%8B"><span class="toc-text">1、什么是线程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E7%BA%BF%E7%A8%8B%E5%85%B1%E4%BA%AB%E8%B5%84%E6%BA%90"><span class="toc-text">2、线程共享资源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81%E7%BA%BF%E7%A8%8B%E9%9D%9E%E5%85%B1%E4%BA%AB%E8%B5%84%E6%BA%90"><span class="toc-text">3、线程非共享资源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4%E3%80%81%E7%BA%BF%E7%A8%8B%E4%BC%98%E3%80%81%E7%BC%BA%E7%82%B9"><span class="toc-text">4、线程优、缺点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5%E3%80%81pthread-create-%E5%87%BD%E6%95%B0"><span class="toc-text">5、pthread_create 函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6%E3%80%81pthread-exit-%E5%87%BD%E6%95%B0"><span class="toc-text">6、pthread_exit 函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7%E3%80%81pthread-join-%E5%87%BD%E6%95%B0"><span class="toc-text">7、pthread_join 函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8%E3%80%81pthread-detach-%E5%87%BD%E6%95%B0"><span class="toc-text">8、pthread_detach 函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9%E3%80%81pthread-cancel-%E5%87%BD%E6%95%B0"><span class="toc-text">9、pthread_cancel 函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10%E3%80%81pthread-equal-%E5%87%BD%E6%95%B0"><span class="toc-text">10、pthread_equal 函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11%E3%80%81%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E7%9A%84%E6%AF%94%E8%BE%83"><span class="toc-text">11、进程和线程的比较</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-text">1、线程同步的概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5%E7%9A%84%E4%BE%8B%E5%AD%90"><span class="toc-text">2、线程同步的例子</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81%E4%BA%92%E6%96%A5%E9%94%81%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0"><span class="toc-text">3、互斥锁相关函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4%E3%80%81%E5%8A%A0%E9%94%81%E5%92%8C%E8%A7%A3%E9%94%81"><span class="toc-text">4、加锁和解锁</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5%E3%80%81%E6%AD%BB%E9%94%81"><span class="toc-text">5、死锁</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6%E3%80%81%E8%AF%BB%E5%86%99%E9%94%81"><span class="toc-text">6、读写锁</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7%E3%80%81%E6%9D%A1%E4%BB%B6%E5%8F%98%E9%87%8F"><span class="toc-text">7、条件变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8%E3%80%81%E4%BF%A1%E5%8F%B7%E9%87%8F"><span class="toc-text">8、信号量</span></a></li></ol></div></div></div>
-
-    
-  
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
 </div>
 
 
-    </aside>
-    <div class='l_main'>
-      
-
-      
 
 
-  <div class='bread-nav fs12'>
-  
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
     
-    <div id='breadcrumb'>
-      <a class='cap breadcrumb' href='/'>主页</a>
-      <span class="sep"></span>
-      <a class='cap breadcrumb' href='/'>文章</a>
-      
-    </div>
-    <div id='post-meta'>
-      发布于&nbsp;<time datetime='2020-12-22T12:46:25.576Z'>2020-12-22</time>
-    </div>
-  
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
   </div>
 
 
-<article class='content md post'>
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
 
-<h1 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h1><h2 id="1、什么是线程"><a href="#1、什么是线程" class="headerlink" title="1、什么是线程"></a>1、什么是线程</h2><ul>
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://smilesrx.github.io/2020/12/22/Linux/Linux-%E7%BA%BF%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5/Linux-%E7%BA%BF%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="CandyKing">
+      <meta itemprop="description" content="虾米">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="逆玺之路">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-12-22 20:46:25" itemprop="dateCreated datePublished" datetime="2020-12-22T20:46:25+08:00">2020-12-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-03-31 10:05:35" itemprop="dateModified" datetime="2021-03-31T10:05:35+08:00">2021-03-31</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h1><h2 id="1、什么是线程"><a href="#1、什么是线程" class="headerlink" title="1、什么是线程"></a>1、什么是线程</h2><ul>
 <li>轻量级的进程，在Linux环境下线程的本质任然是进程</li>
 <li>进程：拥有独立的地址空间，拥有PCB，相当于<strong>独居</strong></li>
 <li>线程：有PCB，但没有独立的地址空间，多个线程共享进程空间，相当于<strong>合租</strong></li>
 </ul>
-<img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/线程.png" alt="线程" style="zoom: 67%;" />
+<img src="/线程.png" alt="线程" style="zoom: 67%;" />
 
 <p>在Linux操作系统下：</p>
 <ul>
@@ -214,12 +297,12 @@
 <p>主线程循环创建5个子线程，并让子线程判断自己是第几个子线程。</p>
 <p>结果：最后每个子线程打印出来的值并不是想象中的值，比如都是5</p>
 <p>原因：在创建子线程的时候使用循环因子作为参数传递给子线程，这样主线程和多个子线程就会共享变量i（变量i在main函数中定义，在整个进程都一直有效）所以在子线程看来变量i是合法的栈内存空间。那么为什么最后每个子线程打印出来的值都是5呢? 是由于主线程可能会在一个cpu时间片内连续创建了5个子线程，此时变量i的值变成了5，当主线程失去cpu的时间片后，子线程得到cpu的时间片，子线程访问的是变量i的内存空间的值，所以打印出来值为5。</p>
-<img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/主线程和子线程共享同一块内存空间.png" alt="主线程和子线程共享同一块内存空间" style="zoom:75%;" />
+<img src="/主线程和子线程共享同一块内存空间.png" alt="主线程和子线程共享同一块内存空间" style="zoom:75%;" />
 
-<img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/主线程和子线程分时使用CPU资源.png" alt="主线程和子线程分时使用CPU资源" style="zoom:75%;" />
+<img src="/主线程和子线程分时使用CPU资源.png" alt="主线程和子线程分时使用CPU资源" style="zoom:75%;" />
 
 <p>解救办法：不能使多个子线程都共享同一块内存空间，应该使每个子线程访问不同的内存空间，可以在主线程定义一个数组：int arr[5];，然后创建线程的时候分别传递不同的数组元素，这样每个子线程访问的就是互不相同的内存空间，这样就可以打印正确的值。</p>
-<img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/多个子线程各自访问不同的内存空间.png" alt="多个子线程各自访问不同的内存空间" style="zoom:75%;" />
+<img src="/多个子线程各自访问不同的内存空间.png" alt="多个子线程各自访问不同的内存空间" style="zoom:75%;" />
 
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//循环创建子线程,并且打印是第几个子线程</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;pthread.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//线程执行函数</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">mythread</span><span class="params">(<span class="keyword">void</span> *arg)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> i = *(<span class="keyword">int</span> *)arg;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;[%d]:child thread, pid==[%d], id==[%ld]\n&quot;</span>, i, getpid(), pthread_self());</span><br><span class="line">	sleep(<span class="number">100</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//int pthread_create(pthread_t *thread, const pthread_attr_t *attr,</span></span><br><span class="line">	<span class="comment">//                      void *(*start_routine) (void *), void *arg);</span></span><br><span class="line">	<span class="comment">//创建子线程</span></span><br><span class="line">	<span class="keyword">int</span> ret;</span><br><span class="line">	<span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> n = <span class="number">5</span>;</span><br><span class="line">	<span class="keyword">int</span> arr[<span class="number">5</span>];</span><br><span class="line">	<span class="keyword">pthread_t</span> thread[<span class="number">5</span>];</span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;n; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		arr[i] = i;</span><br><span class="line">		ret = pthread_create(&amp;thread[i], <span class="literal">NULL</span>, mythread, &amp;arr[i]);</span><br><span class="line">		<span class="keyword">if</span>(ret!=<span class="number">0</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">&quot;pthread_create error, [%s]\n&quot;</span>, strerror(ret));</span><br><span class="line">			<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;main thread, pid==[%d], id==[%ld]\n&quot;</span>, getpid(), pthread_self());</span><br><span class="line"></span><br><span class="line">	<span class="comment">//目的是为了让子线程能够执行起来</span></span><br><span class="line">	sleep(<span class="number">100</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
@@ -394,7 +477,7 @@
 <li><p>测试结果：经过多次测试最后的结果显示，有可能会出现number值少于5000*2=10000的情况。</p>
 </li>
 <li><p>分析原因：假如子线程A执行完了tmp++操作，还没有将tmp的值赋值给number失去了cpu的执行权，子线程B得到了cpu执行权，而子线程B最后执行完了number=tmp，而后失去了cpu的执行权；此时子线程A又重新得到cpu的执行权，并执行number=ptr操作，这样会把线程B刚刚写回number的值被覆盖了，造成number值不符合预期的值。</p>
-<img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/两个线程数数问题分析.png" alt="两个线程数数问题分析" style="zoom: 67%;" /></li>
+<img src="/两个线程数数问题分析.png" alt="两个线程数数问题分析" style="zoom: 67%;" /></li>
 <li><p>数据混乱的原因：</p>
 <ul>
 <li>资源共享（独享资源则不会）— 全局变量</li>
@@ -410,7 +493,7 @@
 </ul>
 </li>
 <li><p>互斥锁：</p>
-<img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/互斥锁.png" alt="互斥锁" style="zoom:75%;" />
+<img src="/互斥锁.png" alt="互斥锁" style="zoom:75%;" />
 
 <ul>
 <li>Linux中提供一把互斥锁mutex（也称之为互斥量）。每个线程在对资源操作前都尝试先加锁，成功加锁才能操作，操作结束解锁。</li>
@@ -519,7 +602,7 @@
 <li><p>第一种：自己锁自己，如下代码段</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">mythread1</span><span class="params">(<span class="keyword">void</span> *args)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//加锁</span></span><br><span class="line">        pthread_mutex_lock(&amp;mutex);</span><br><span class="line">        pthread_mutex_lock(&amp;mutex);</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line">        sleep(rand()%<span class="number">3</span>);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;world\n&quot;</span>);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//解锁</span></span><br><span class="line">        pthread_mutex_unlock(&amp;mutex);</span><br><span class="line">        sleep(rand()%<span class="number">3</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    pthread_exit(<span class="literal">NULL</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 <li><p>第二种：线程A拥有A锁，请求获得B锁；线程B拥有B锁，请求获得A锁，这样造成线程A和线程B都不释放自己的锁，而且还想得到对方的锁，从而产生死锁</p>
-<img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/死锁.png" alt="死锁" style="zoom:75%;" /></li>
+<img src="/死锁.png" alt="死锁" style="zoom:75%;" /></li>
 </ul>
 <p>如何解决死锁：</p>
 <ul>
@@ -641,7 +724,7 @@
 </ul>
 </li>
 <li><p>使用条件变量的代码段</p>
-<img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/使用条件变量实现生产者和消费者.png" alt="使用条件变量实现生产者和消费者" style="zoom:67%;" />
+<img src="/使用条件变量实现生产者和消费者.png" alt="使用条件变量实现生产者和消费者" style="zoom:67%;" />
 
 <p>上述代码中，生产者线程调用<code>pthread_cond_signal</code>函数会使消费者线程在<code>pthread_cond_wait</code>处解除阻塞。</p>
 </li>
@@ -751,179 +834,191 @@
 </ul>
 </li>
 <li><p>信号量代码片段：</p>
-<img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/使用信号量实现生产者和消费者模型.png" alt="使用信号量实现生产者和消费者模型" style="zoom:67%;" /></li>
+<img src="/使用信号量实现生产者和消费者模型.png" alt="使用信号量实现生产者和消费者模型" style="zoom:67%;" /></li>
 <li><p>使用信号量实现生产者和消费者模型</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//使用信号量实现生产者和消费者模型</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;pthread.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;semaphore.h&gt;</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">node</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">int</span> data;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">node</span> *<span class="title">next</span>;</span></span><br><span class="line">&#125;NODE;</span><br><span class="line"></span><br><span class="line">NODE *head = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//定义信号量</span></span><br><span class="line"><span class="keyword">sem_t</span> sem_producer;</span><br><span class="line"><span class="keyword">sem_t</span> sem_consumer;</span><br><span class="line"></span><br><span class="line"><span class="comment">//生产者线程</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">producer</span><span class="params">(<span class="keyword">void</span> *arg)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	NODE *pNode = <span class="literal">NULL</span>;</span><br><span class="line">	<span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">//生产一个节点</span></span><br><span class="line">		pNode = (NODE *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(NODE));</span><br><span class="line">		<span class="keyword">if</span>(pNode==<span class="literal">NULL</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			perror(<span class="string">&quot;malloc error&quot;</span>);</span><br><span class="line">			<span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		pNode-&gt;data = rand()%<span class="number">1000</span>;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;P:[%d]\n&quot;</span>, pNode-&gt;data);</span><br><span class="line"></span><br><span class="line">		<span class="comment">//加锁</span></span><br><span class="line">		sem_wait(&amp;sem_producer); <span class="comment">//--</span></span><br><span class="line"></span><br><span class="line">		pNode-&gt;next = head;</span><br><span class="line">		head = pNode;</span><br><span class="line"></span><br><span class="line">		<span class="comment">//解锁</span></span><br><span class="line">		sem_post(&amp;sem_consumer);  <span class="comment">//相当于++</span></span><br><span class="line"></span><br><span class="line">		sleep(rand()%<span class="number">3</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//消费者线程</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">consumer</span><span class="params">(<span class="keyword">void</span> *arg)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	NODE *pNode = <span class="literal">NULL</span>;</span><br><span class="line">	<span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">//加锁</span></span><br><span class="line">		sem_wait(&amp;sem_consumer); <span class="comment">//相当于--</span></span><br><span class="line">		</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;C:[%d]\n&quot;</span>, head-&gt;data);	</span><br><span class="line">		pNode = head;</span><br><span class="line">		head = head-&gt;next;</span><br><span class="line"></span><br><span class="line">		<span class="comment">//解锁</span></span><br><span class="line">		sem_post(&amp;sem_producer); <span class="comment">//相当于++</span></span><br><span class="line"></span><br><span class="line">		<span class="built_in">free</span>(pNode);</span><br><span class="line">		pNode = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">		sleep(rand()%<span class="number">3</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> ret;</span><br><span class="line">	<span class="keyword">pthread_t</span> thread1;</span><br><span class="line">	<span class="keyword">pthread_t</span> thread2;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//初始化信号量</span></span><br><span class="line">	sem_init(&amp;sem_producer, <span class="number">0</span>, <span class="number">5</span>);</span><br><span class="line">	sem_init(&amp;sem_consumer, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">//创建生产者线程</span></span><br><span class="line">	ret = pthread_create(&amp;thread1, <span class="literal">NULL</span>, producer, <span class="literal">NULL</span>);</span><br><span class="line">	<span class="keyword">if</span>(ret!=<span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;pthread_create error, [%s]\n&quot;</span>, strerror(ret));</span><br><span class="line">		<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//创建消费者线程</span></span><br><span class="line">	ret = pthread_create(&amp;thread2, <span class="literal">NULL</span>, consumer, <span class="literal">NULL</span>);</span><br><span class="line">	<span class="keyword">if</span>(ret!=<span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;pthread_create error, [%s]\n&quot;</span>, strerror(ret));</span><br><span class="line">		<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//等待线程结束</span></span><br><span class="line">	pthread_join(thread1, <span class="literal">NULL</span>);</span><br><span class="line">	pthread_join(thread2, <span class="literal">NULL</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">//释放信号量资源</span></span><br><span class="line">	sem_destroy(&amp;sem_producer);</span><br><span class="line">	sem_destroy(&amp;sem_consumer);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
 
-
-<div class="article-footer fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
-</div></section></div>
-
-</article>
-
-<div class="related-wrap" id="read-next"><section class="header cap theme"><span>接下来阅读</span></section><section class="body"><div class="post-title h2"><a href="/2020/12/19/Linux/Linux-%E4%BF%A1%E5%8F%B7/Linux-%E4%BF%A1%E5%8F%B7/">undefined</a></div><div class="post-title fs14"><a href="/2021/01/05/Linux/Linux-%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/">上一篇：undefined</a></div></section></div>
-
-
-
-
-
-
-
-
-      
-<footer class="page-footer fs12"><hr><div><p>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
-<p>本站由 <a href="https://smilesrx.github.io/">@CandyKing</a> 创建，使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0">Stellar</a> 作为主题。</p>
-</div></footer>
-
-      <div class='float-panel mobile-only' style='display:none'>
-  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
-    <svg class="icon" viewBox="0 0 1228 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2849"><path d="M0 0m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2850"></path><path d="M0 389.560798m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2851"></path><path d="M0 779.121596m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.390199l-973.901995 0q-97.390199 0-97.390199-97.390199l0 0q0-97.390199 97.390199-97.390199Z" p-id="2852"></path></svg>
-  </button>
-</div>
-
     </div>
-  </div>
-  <div class='scripts'>
-    <script type="text/javascript">
-  stellar = {
-    // 懒加载 css https://github.com/filamentgroup/loadCSS
-    loadCSS: (href, before, media, attributes) => {
-      var doc = window.document;
-      var ss = doc.createElement("link");
-      var ref;
-      if (before) {
-        ref = before;
-      } else {
-        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
-        ref = refs[refs.length - 1];
-      }
-      var sheets = doc.styleSheets;
-      if (attributes) {
-        for (var attributeName in attributes) {
-          if (attributes.hasOwnProperty(attributeName)) {
-            ss.setAttribute(attributeName, attributes[attributeName]);
-          }
-        }
-      }
-      ss.rel = "stylesheet";
-      ss.href = href;
-      ss.media = "only x";
-      function ready(cb) {
-        if (doc.body) {
-          return cb();
-        }
-        setTimeout(function () {
-          ready(cb);
-        });
-      }
-      ready(function () {
-        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
-      });
-      var onloadcssdefined = function (cb) {
-        var resolvedHref = ss.href;
-        var i = sheets.length;
-        while (i--) {
-          if (sheets[i].href === resolvedHref) {
-            return cb();
-          }
-        }
-        setTimeout(function () {
-          onloadcssdefined(cb);
-        });
-      };
-      function loadCB() {
-        if (ss.addEventListener) {
-          ss.removeEventListener("load", loadCB);
-        }
-        ss.media = media || "all";
-      }
-      if (ss.addEventListener) {
-        ss.addEventListener("load", loadCB);
-      }
-      ss.onloadcssdefined = onloadcssdefined;
-      onloadcssdefined(loadCB);
-      return ss;
-    },
 
-    // 从 butterfly 和 volantis 获得灵感
-    loadScript: (src, opt) => new Promise((resolve, reject) => {
-      var script = document.createElement('script')
-      script.src = src
-      if (opt) {
-        for (let key of Object.keys(opt)) {
-          script[key] = opt[key]
-        }
-      } else {
-        // 默认异步，如果需要同步，第二个参数传入 {} 即可
-        script.async = true
-      }
-      script.onerror = reject
-      script.onload = script.onreadystatechange = function() {
-        const loadState = this.readyState
-        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-        script.onload = script.onreadystatechange = null
-        resolve()
-      }
-      document.head.appendChild(script)
-    }),
+    
+    
+    
 
-    // https://github.com/jerryc127/hexo-theme-butterfly
-    jQuery: (fn) => {
-      if (typeof jQuery === 'undefined') {
-        stellar.loadScript(stellar.plugins.jQuery).then(fn)
-      } else {
-        fn()
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/12/19/Linux/Linux-%E4%BF%A1%E5%8F%B7/Linux-%E4%BF%A1%E5%8F%B7/" rel="prev" title="">
+      <i class="fa fa-chevron-left"></i> 
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/01/05/Linux/Linux-%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/" rel="next" title="">
+       <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
       }
     }
-  };
-  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0';
-  stellar.config = {
-    date_suffix: {
-      just: '刚刚',
-      min: '分钟前',
-      hour: '小时前',
-      day: '天前',
-      month: '个月前',
-    },
-  };
-
-  // required plugins (only load if needs)
-  stellar.plugins = {
-    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js',
-    sitesjs: '/js/plugins/sites.js',
-    friendsjs: '/js/plugins/friends.js',
-  };
-
-  // optional plugins
-  if ('true' == 'true') {
-    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js","transition":"blur"});
-  }
-  if ('true' == 'true') {
-    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper/swiper-bundle.min.css","js":"https://unpkg.com/swiper/swiper-bundle.min.js"});
-  }
-  if ('' == 'true') {
-    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://cdn.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
-  }
-  if ('true' == 'true') {
-    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
   }
 </script>
 
-<!-- required -->
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">线程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81%E4%BB%80%E4%B9%88%E6%98%AF%E7%BA%BF%E7%A8%8B"><span class="nav-number">1.1.</span> <span class="nav-text">1、什么是线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81%E7%BA%BF%E7%A8%8B%E5%85%B1%E4%BA%AB%E8%B5%84%E6%BA%90"><span class="nav-number">1.2.</span> <span class="nav-text">2、线程共享资源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3%E3%80%81%E7%BA%BF%E7%A8%8B%E9%9D%9E%E5%85%B1%E4%BA%AB%E8%B5%84%E6%BA%90"><span class="nav-number">1.3.</span> <span class="nav-text">3、线程非共享资源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4%E3%80%81%E7%BA%BF%E7%A8%8B%E4%BC%98%E3%80%81%E7%BC%BA%E7%82%B9"><span class="nav-number">1.4.</span> <span class="nav-text">4、线程优、缺点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5%E3%80%81pthread-create-%E5%87%BD%E6%95%B0"><span class="nav-number">1.5.</span> <span class="nav-text">5、pthread_create 函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6%E3%80%81pthread-exit-%E5%87%BD%E6%95%B0"><span class="nav-number">1.6.</span> <span class="nav-text">6、pthread_exit 函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7%E3%80%81pthread-join-%E5%87%BD%E6%95%B0"><span class="nav-number">1.7.</span> <span class="nav-text">7、pthread_join 函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8%E3%80%81pthread-detach-%E5%87%BD%E6%95%B0"><span class="nav-number">1.8.</span> <span class="nav-text">8、pthread_detach 函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9%E3%80%81pthread-cancel-%E5%87%BD%E6%95%B0"><span class="nav-number">1.9.</span> <span class="nav-text">9、pthread_cancel 函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10%E3%80%81pthread-equal-%E5%87%BD%E6%95%B0"><span class="nav-number">1.10.</span> <span class="nav-text">10、pthread_equal 函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11%E3%80%81%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E7%9A%84%E6%AF%94%E8%BE%83"><span class="nav-number">1.11.</span> <span class="nav-text">11、进程和线程的比较</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E5%B1%9E%E6%80%A7"><span class="nav-number">2.</span> <span class="nav-text">线程属性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5"><span class="nav-number">3.</span> <span class="nav-text">线程同步</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="nav-number">3.1.</span> <span class="nav-text">1、线程同步的概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5%E7%9A%84%E4%BE%8B%E5%AD%90"><span class="nav-number">3.2.</span> <span class="nav-text">2、线程同步的例子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3%E3%80%81%E4%BA%92%E6%96%A5%E9%94%81%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0"><span class="nav-number">3.3.</span> <span class="nav-text">3、互斥锁相关函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4%E3%80%81%E5%8A%A0%E9%94%81%E5%92%8C%E8%A7%A3%E9%94%81"><span class="nav-number">3.4.</span> <span class="nav-text">4、加锁和解锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5%E3%80%81%E6%AD%BB%E9%94%81"><span class="nav-number">3.5.</span> <span class="nav-text">5、死锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6%E3%80%81%E8%AF%BB%E5%86%99%E9%94%81"><span class="nav-number">3.6.</span> <span class="nav-text">6、读写锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7%E3%80%81%E6%9D%A1%E4%BB%B6%E5%8F%98%E9%87%8F"><span class="nav-number">3.7.</span> <span class="nav-text">7、条件变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8%E3%80%81%E4%BF%A1%E5%8F%B7%E9%87%8F"><span class="nav-number">3.8.</span> <span class="nav-text">8、信号量</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">CandyKing</p>
+  <div class="site-description" itemprop="description">虾米</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">76</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CandyKing</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
 
   
-<script src="/js/main.js" async></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
 
 
 
-<!-- optional -->
+
+  
 
 
 
-<!-- inject -->
 
 
-  </div>
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
 </body>
 </html>
