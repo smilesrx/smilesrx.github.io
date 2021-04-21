@@ -5,36 +5,36 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
 <meta name="generator" content="Hexo 5.4.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/Hexo/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/Hexo/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/Hexo/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/Hexo/images/logo.svg" color="#222">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-<link rel="stylesheet" href="/Hexo/css/main.css">
+<link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/Hexo/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"candywzt.github.io","root":"/Hexo/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"smilesrx.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta name="description" content="动态内存分配当我们创建数组的时候，总是需要提前预定数组的长度，然后编译器分配预定长度的数组空间，在使用数组的时，会有这样的问题，数组也许空间太大了，浪费空间，也许空间不足，所以对于数组来讲，如果能根据需要来分配空间大小再好不过。 为了解决这个普遍的编程问题，在运行中可以创建和销毁对象是最基本的要求。当然c早就提供了动态内存分配,函数malloc和free可以在运行时从堆中分配存储单元。 1、mal">
 <meta property="og:type" content="article">
 <meta property="og:title" content="动态内存分配">
-<meta property="og:url" content="https://candywzt.github.io/Hexo/2020/10/12/%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/index.html">
+<meta property="og:url" content="https://smilesrx.github.io/2020/10/12/%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/index.html">
 <meta property="og:site_name" content="CandyKing-学习笔记">
 <meta property="og:description" content="动态内存分配当我们创建数组的时候，总是需要提前预定数组的长度，然后编译器分配预定长度的数组空间，在使用数组的时，会有这样的问题，数组也许空间太大了，浪费空间，也许空间不足，所以对于数组来讲，如果能根据需要来分配空间大小再好不过。 为了解决这个普遍的编程问题，在运行中可以创建和销毁对象是最基本的要求。当然c早就提供了动态内存分配,函数malloc和free可以在运行时从堆中分配存储单元。 1、mal">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://candywzt.github.io/%E6%95%B0%E7%BB%84%E5%AF%B9%E8%B1%A1%E3%80%81%E5%8D%95%E4%B8%80%E5%AF%B9%E8%B1%A1%E5%86%85%E5%AD%98%E5%BD%A2%E5%BC%8F.png">
+<meta property="og:image" content="https://smilesrx.github.io/%E6%95%B0%E7%BB%84%E5%AF%B9%E8%B1%A1%E3%80%81%E5%8D%95%E4%B8%80%E5%AF%B9%E8%B1%A1%E5%86%85%E5%AD%98%E5%BD%A2%E5%BC%8F.png">
 <meta property="article:published_time" content="2020-10-12T13:45:49.618Z">
 <meta property="article:modified_time" content="2021-04-20T16:04:06.181Z">
 <meta property="article:author" content="CandyKing">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://candywzt.github.io/%E6%95%B0%E7%BB%84%E5%AF%B9%E8%B1%A1%E3%80%81%E5%8D%95%E4%B8%80%E5%AF%B9%E8%B1%A1%E5%86%85%E5%AD%98%E5%BD%A2%E5%BC%8F.png">
+<meta name="twitter:image" content="https://smilesrx.github.io/%E6%95%B0%E7%BB%84%E5%AF%B9%E8%B1%A1%E3%80%81%E5%8D%95%E4%B8%80%E5%AF%B9%E8%B1%A1%E5%86%85%E5%AD%98%E5%BD%A2%E5%BC%8F.png">
 
-<link rel="canonical" href="https://candywzt.github.io/Hexo/2020/10/12/%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/">
+<link rel="canonical" href="https://smilesrx.github.io/2020/10/12/%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/">
 
 
 <script id="page-configurations">
@@ -96,7 +96,7 @@
 
   <div class="site-meta">
 
-    <a href="/Hexo/" class="brand" rel="start">
+    <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
       <h1 class="site-title">CandyKing-学习笔记</h1>
       <span class="logo-line-after"><i></i></span>
@@ -116,12 +116,12 @@
   <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/Hexo/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/Hexo/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
   </ul>
@@ -152,10 +152,10 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://candywzt.github.io/Hexo/2020/10/12/%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/">
+    <link itemprop="mainEntityOfPage" href="https://smilesrx.github.io/2020/10/12/%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/Hexo/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="CandyKing">
       <meta itemprop="description" content="咸鱼啊">
     </span>
@@ -310,7 +310,7 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/Hexo/2020/10/10/C++%E5%88%9D%E8%AF%86/" rel="prev" title="简单的C++程序">
+    <a href="/2020/10/10/C++%E5%88%9D%E8%AF%86/" rel="prev" title="简单的C++程序">
       <i class="fa fa-chevron-left"></i> 简单的C++程序
     </a></div>
       <div class="post-nav-item"></div>
@@ -384,7 +384,7 @@
 <div class="site-state-wrap motion-element">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
-          <a href="/Hexo/archives/">
+          <a href="/archives/">
         
           <span class="site-state-item-count">2</span>
           <span class="site-state-item-name">日志</span>
@@ -437,19 +437,19 @@
   </div>
 
   
-  <script src="/Hexo/lib/anime.min.js"></script>
-  <script src="/Hexo/lib/velocity/velocity.min.js"></script>
-  <script src="/Hexo/lib/velocity/velocity.ui.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
-<script src="/Hexo/js/utils.js"></script>
+<script src="/js/utils.js"></script>
 
-<script src="/Hexo/js/motion.js"></script>
-
-
-<script src="/Hexo/js/schemes/muse.js"></script>
+<script src="/js/motion.js"></script>
 
 
-<script src="/Hexo/js/next-boot.js"></script>
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
 
 
 
