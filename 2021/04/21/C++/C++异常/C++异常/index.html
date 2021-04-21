@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+
+<head>
+  <meta name="generator" content="Hexo 5.4.0">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>post - 逆玺之路</title>
+
+  
+    <meta name="description" content="C++异常提供异常的基本目的就是为了让一个函数在发现了自己无法处理的错误时抛出（throw）一个异常，然后它的（直接或者间接）调用者能够捕获并处理这个问题。 异常处理就是处理程序中的错误。所谓错误是指在程序运行的过程中发生的一些异常事件（如：除0溢出，数组下标越界，所要读取的文件不存在,空指针，内存不足等等 在C语言的世界中，对错误的处理总是围绕着两种方法：一是使用整型的返回值标识错误；二是使用e">
+<meta property="og:type" content="article">
+<meta property="og:title" content="逆玺之路">
+<meta property="og:url" content="https://smilesrx.github.io/2021/04/21/C++/C++%E5%BC%82%E5%B8%B8/C++%E5%BC%82%E5%B8%B8/index.html">
+<meta property="og:site_name" content="逆玺之路">
+<meta property="og:description" content="C++异常提供异常的基本目的就是为了让一个函数在发现了自己无法处理的错误时抛出（throw）一个异常，然后它的（直接或者间接）调用者能够捕获并处理这个问题。 异常处理就是处理程序中的错误。所谓错误是指在程序运行的过程中发生的一些异常事件（如：除0溢出，数组下标越界，所要读取的文件不存在,空指针，内存不足等等 在C语言的世界中，对错误的处理总是围绕着两种方法：一是使用整型的返回值标识错误；二是使用e">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://smilesrx.github.io/%E6%A0%88%E8%A7%A3%E6%97%8B.png">
+<meta property="og:image" content="https://smilesrx.github.io/%E6%A0%87%E5%87%86%E5%BC%82%E5%B8%B8%E5%BA%93.png">
+<meta property="article:published_time" content="2021-04-21T12:23:45.439Z">
+<meta property="article:modified_time" content="2020-10-23T07:27:57.570Z">
+<meta property="article:author" content="CandyKing">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://smilesrx.github.io/%E6%A0%88%E8%A7%A3%E6%97%8B.png">
+  
+  
+
+  <!-- feed -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+</head>
+
+<body>
+  
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left'>
+    
+
+<header class='header'>
+  <div class='logo-wrap'>
+  
+    <a class='avatar' href='/about/'>
+      
+        <img no-lazy class='bg' src='https://cdn.jsdelivr.net/gh/cdn-x/placeholder@1.0.2/avatar/round/rainbow64@3x.webp'/>
+      
+      <img no-lazy class='avatar' src='http://q1.qlogo.cn/g?b=qq&nk=1607952713&s=640'/>
+    </a>
+  
+  
+    <a class='title' href='/'>
+      逆玺之路
+    </a>
+  
+</div>
+
+  <nav class="menu dis-select"><a class="nav-item active" href="/">文章</a><a class="nav-item" href="/wiki/">项目</a><a class="nav-item" href="/notes/">笔记</a><a class="nav-item" href="/more/">更多</a></nav>
+</header>
+
+<div class='widgets'>
+  
+    
+      
+      
+<div class="widget-wrap" id="toc"><div class="widget-header h4 dis-select"><span class="name">本文目录</span></div><div class="widget-body fs14 post"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E5%85%B3%E9%94%AE%E5%AD%97%EF%BC%9Atry-throw-catch"><span class="toc-text">1、关键字：try throw catch</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E5%BC%82%E5%B8%B8%E4%B8%A5%E6%A0%BC%E7%B1%BB%E5%9E%8B%E5%8C%B9%E9%85%8D"><span class="toc-text">2、异常严格类型匹配</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81%E6%A0%88%E8%A7%A3%E6%97%8B"><span class="toc-text">3、栈解旋</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4%E3%80%81%E5%BC%82%E5%B8%B8%E7%9A%84%E6%8E%A5%E5%8F%A3%E7%94%B3%E6%98%8E"><span class="toc-text">4、异常的接口申明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5%E3%80%81%E5%BC%82%E5%B8%B8%E5%8F%98%E9%87%8F%E7%9A%84%E5%A3%B0%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="toc-text">5、异常变量的声生命周期</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6%E3%80%81%E5%BC%82%E5%B8%B8%E7%9A%84%E5%A4%9A%E6%80%81%E4%BD%BF%E7%94%A8"><span class="toc-text">6、异常的多态使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E6%A0%87%E5%87%86%E5%BA%93"><span class="toc-text">1、标准库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E6%A0%87%E5%87%86%E5%BC%82%E5%B8%B8%E7%B1%BB%E7%9A%84%E6%88%90%E5%91%98"><span class="toc-text">2、标准异常类的成员</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81%E4%B8%BE%E4%BE%8B"><span class="toc-text">3、举例</span></a></li></ol></div></div></div>
+
+    
+  
+</div>
+
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+
+  <div class='bread-nav fs12'>
+  
+    
+    <div id='breadcrumb'>
+      <a class='cap breadcrumb' href='/'>主页</a>
+      <span class="sep"></span>
+      <a class='cap breadcrumb' href='/'>文章</a>
+      
+    </div>
+    <div id='post-meta'>
+      发布于&nbsp;<time datetime='2021-04-21T12:23:45.439Z'>2021-04-21</time>
+    </div>
+  
+  </div>
+
+
+<article class='content md post'>
+
+<h1 id="C-异常"><a href="#C-异常" class="headerlink" title="C++异常"></a>C++异常</h1><p>提供异常的基本目的就是为了让一个函数在发现了自己无法处理的错误时抛出（throw）一个异常，然后它的（直接或者间接）调用者能够捕获并处理这个问题。</p>
+<p>异常处理就是处理程序中的错误。所谓错误是指在程序运行的过程中发生的一些异常事件（如：除0溢出，数组下标越界，所要读取的文件不存在,空指针，内存不足等等</p>
+<p>在C语言的世界中，对错误的处理总是围绕着两种方法：一是使用整型的返回值标识错误；二是使用<code>errno</code>宏（可以简单的理解为一个全局整型变量）去记录错误。当然C++中仍然是可以用这两种方法的。</p>
+<p> 这两种方法最大的缺陷就是会出现不一致问题。例如有些函数返回1表示成功，返回0表示出错；而有些函数返回0表示成功，返回非0表示出错。</p>
+<p> 还有一个缺点就是函数的返回值只有一个，你通过函数的返回值表示错误代码，那么函数就不能返回其他的值。当然，你也可以通过指针或者C++的引用来返回另外的值，但是这样可能会令你的程序略微晦涩难懂。</p>
+<h1 id="c-异常机制相比C语言异常处理的优势"><a href="#c-异常机制相比C语言异常处理的优势" class="headerlink" title="c++异常机制相比C语言异常处理的优势"></a>c++异常机制相比C语言异常处理的优势</h1><ol>
+<li>函数的返回值可以忽略，但异常不可忽略。如果程序出现异常，但是没有被捕获，程序就会终止，这多少会促使程序员开发出来的程序更健壮一点。而如果使用C语言的error宏或者函数返回值，调用者都有可能忘记检查，从而没有对错误进行处理，结果造成程序莫名其面的终止或出现错误的结果。</li>
+<li>整型返回值没有任何语义信息。而异常却包含语义信息，有时你从类名就能够体现出来。</li>
+<li>整型返回值缺乏相关的上下文信息。异常作为一个类，可以拥有自己的成员，这些成员就可以传递足够的信息。</li>
+<li>异常处理可以在调用跳级。这是一个代码编写时的问题：假设在有多个函数的调用栈中出现了某个错误，使用整型返回码要求你在每一级函数中都要进行处理。而使用异常处理的栈展开机制，只需要在一处进行处理就可以了，不需要每级函数都处理。</li>
+</ol>
+<p>C语言异常处理尴尬例子</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Div</span><span class="params">(<span class="keyword">int</span> &amp;a,<span class="keyword">int</span> &amp;b)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(b==<span class="number">0</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">	<span class="keyword">return</span> a/b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;    <span class="comment">//期望：异常</span></span><br><span class="line">	<span class="keyword">int</span> a=<span class="number">10</span>;</span><br><span class="line">	<span class="keyword">int</span> b=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> ret=<span class="built_in">Div</span>(a,b);</span><br><span class="line">	<span class="keyword">if</span>(ret==<span class="number">-1</span>)</span><br><span class="line">		cout&lt;&lt;<span class="string">&quot;异常&quot;</span>&lt;&lt;endl;   <span class="comment">//结果：异常</span></span><br><span class="line">	cout&lt;&lt;<span class="string">&quot;ret=&quot;</span>&lt;&lt;ret; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test01</span><span class="params">()</span></span>&#123;    <span class="comment">//期望：ret=-1</span></span><br><span class="line">	<span class="keyword">int</span> a=<span class="number">10</span>;</span><br><span class="line">	<span class="keyword">int</span> b=<span class="number">-10</span>;</span><br><span class="line">	<span class="keyword">int</span> ret=<span class="built_in">Div</span>(a,b);</span><br><span class="line">	<span class="keyword">if</span>(ret==<span class="number">-1</span>)</span><br><span class="line">		cout&lt;&lt;<span class="string">&quot;异常&quot;</span>&lt;&lt;endl;    <span class="comment">//结果：异常</span></span><br><span class="line">	cout&lt;&lt;<span class="string">&quot;ret=&quot;</span>&lt;&lt;ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>分析：</p>
+<ul>
+<li>如果判断返回值，那么返回值是错误码还是结果？</li>
+<li>如果不判断返回值，那么b==0时候，程序结果已经不正确</li>
+</ul>
+<p>结论：</p>
+<ul>
+<li>异常应该捕获，如果你捕获，可以，那么异常必须继续抛给上层函数,你不处理，不代表你的上层不处理</li>
+<li>异常没有捕获的结果就是运行结果错的一塌糊涂，结果未知，未知的结果程序没有必要执行下去</li>
+</ul>
+<h1 id="异常基本语法"><a href="#异常基本语法" class="headerlink" title="异常基本语法"></a>异常基本语法</h1><h2 id="1、关键字：try-throw-catch"><a href="#1、关键字：try-throw-catch" class="headerlink" title="1、关键字：try throw catch"></a>1、关键字：<code>try throw catch</code></h2><ul>
+<li>可以出现异常的代码 放到 try块</li>
+<li>利用throw抛出异常</li>
+<li>利用catch捕获异常</li>
+</ul>
+<p>采用C++异常处理重写上述C语言异常处理的尴尬例子</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;    <span class="comment">//期望：异常</span></span><br><span class="line">	<span class="keyword">int</span> a=<span class="number">10</span>;</span><br><span class="line">	<span class="keyword">int</span> b=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> ret;</span><br><span class="line">	<span class="keyword">try</span>&#123;</span><br><span class="line">		ret=<span class="built_in">Div</span>(a,b);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in"><span class="keyword">catch</span></span>(<span class="keyword">int</span>)&#123;</span><br><span class="line">		cout&lt;&lt;<span class="string">&quot;异常&quot;</span>&lt;&lt;endl;   <span class="comment">//结果：异常</span></span><br><span class="line">	&#125;</span><br><span class="line">	cout&lt;&lt;<span class="string">&quot;ret=&quot;</span>&lt;&lt;ret; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test01</span><span class="params">()</span></span>&#123;   <span class="comment">//期望：-1</span></span><br><span class="line">	<span class="keyword">int</span> a=<span class="number">10</span>;</span><br><span class="line">	<span class="keyword">int</span> b=<span class="number">-10</span>;</span><br><span class="line">	<span class="keyword">int</span> ret;</span><br><span class="line">	<span class="keyword">try</span>&#123;</span><br><span class="line">		ret=<span class="built_in">Div</span>(a,b);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in"><span class="keyword">catch</span></span>(<span class="keyword">int</span>)&#123;</span><br><span class="line">		cout&lt;&lt;<span class="string">&quot;异常&quot;</span>&lt;&lt;endl;</span><br><span class="line">	&#125;</span><br><span class="line">	cout&lt;&lt;<span class="string">&quot;ret=&quot;</span>&lt;&lt;ret;     <span class="comment">//结果：-1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>总结：</p>
+<ul>
+<li>若有异常则通过throw操作创建一个异常对象并抛出。</li>
+<li>将可能抛出异常的程序段放到try块之中。</li>
+<li>如果在try段执行期间没有引起异常，那么跟在try后面的catch字句就不会执行。</li>
+</ul>
+<h2 id="2、异常严格类型匹配"><a href="#2、异常严格类型匹配" class="headerlink" title="2、异常严格类型匹配"></a>2、异常严格类型匹配</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">myDivision</span><span class="params">(<span class="keyword">int</span> a , <span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> ( b == <span class="number">0</span>)&#123;</span><br><span class="line">		<span class="comment">//throw 1;       //抛出int类型的异常</span></span><br><span class="line">		<span class="comment">//throw &#x27;a&#x27;;     //抛出char类型的异常</span></span><br><span class="line">		<span class="comment">//throw 3.14;    //抛出double类型的异常</span></span><br><span class="line">		<span class="comment">//string str = &quot;abc&quot;;</span></span><br><span class="line">		<span class="comment">//throw str;     //抛出string类型异常</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> a / b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test01</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> a = <span class="number">10</span>;</span><br><span class="line">	<span class="keyword">int</span> b = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">try</span>&#123;<span class="built_in">myDivision</span>(a, b);&#125;</span><br><span class="line">	<span class="built_in"><span class="keyword">catch</span></span> (<span class="keyword">int</span>)&#123;cout &lt;&lt; <span class="string">&quot;int类型异常捕获&quot;</span> &lt;&lt; endl;&#125;</span><br><span class="line">	<span class="built_in"><span class="keyword">catch</span></span> (<span class="keyword">char</span>)&#123;cout &lt;&lt; <span class="string">&quot;char类型异常捕获&quot;</span> &lt;&lt; endl;&#125;</span><br><span class="line">	<span class="built_in"><span class="keyword">catch</span></span> (<span class="keyword">double</span>)&#123;</span><br><span class="line">		<span class="comment">//捕获到了异常，但是不想处理，继续向上抛出这个异常</span></span><br><span class="line">		<span class="comment">//异常必须有函数进行处理，如果没有任何处理，程序自动调用 terminate 函数，让程序中断</span></span><br><span class="line">		<span class="keyword">throw</span>;</span><br><span class="line">		cout &lt;&lt; <span class="string">&quot;double类型异常捕获&quot;</span> &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in"><span class="keyword">catch</span></span> (...)&#123;</span><br><span class="line">		<span class="comment">//throw; </span></span><br><span class="line">		cout &lt;&lt; <span class="string">&quot;其他类型异常捕获&quot;</span> &lt;&lt; endl;</span><br><span class="line">	&#125;	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">try</span>&#123;<span class="built_in">test01</span>();&#125;</span><br><span class="line">	<span class="built_in"><span class="keyword">catch</span></span> (<span class="keyword">double</span>)&#123;cout &lt;&lt; <span class="string">&quot;double函数中 double类型异常捕获&quot;</span> &lt;&lt; endl;&#125;</span><br><span class="line">	<span class="built_in"><span class="keyword">catch</span></span> (...)&#123;cout &lt;&lt; <span class="string">&quot;main函数中 其他类型异常捕获&quot;</span> &lt;&lt; endl;&#125;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">system</span>(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line">	<span class="keyword">return</span> EXIT_SUCCESS;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>总结：</p>
+<ul>
+<li>catch子句会根据出现的先后顺序被检查，匹配的catch语句捕获并处理异常(或继续抛出异常)</li>
+<li>如果匹配的处理未找到，则运行函数terminate将自动被调用，其缺省功能调用abort终止程序。</li>
+<li>处理不了的异常，可以在catch的最后一个分支，使用throw，向上抛。</li>
+<li>catch( 类型) 如果想捕获其他类型 catch(…)</li>
+<li>异常可以是自定义数据类型</li>
+</ul>
+<h2 id="3、栈解旋"><a href="#3、栈解旋" class="headerlink" title="3、栈解旋"></a>3、栈解旋</h2><p>异常被抛出后，从进入try块起，到异常被抛掷前，这期间在栈上构造的所有对象，都会被自动析构。析构的顺序与构造的顺序相反，这一过程称为栈的解旋(unwinding).</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyException</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">MyException</span>()&#123;cout&lt;&lt;<span class="string">&quot;MyException默认构造调用&quot;</span>&lt;&lt;endl;&#125;</span><br><span class="line">	<span class="built_in">MyException</span>(<span class="keyword">const</span> MyException &amp;myexception)&#123;cout&lt;&lt;<span class="string">&quot;MyException的默认拷贝构造调用&quot;</span>&lt;&lt;endl;&#125;</span><br><span class="line">	~<span class="built_in">MyException</span>()&#123;cout&lt;&lt;<span class="string">&quot;MyException的析构调用&quot;</span>&lt;&lt;endl;&#125; </span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">printError</span><span class="params">()</span></span>&#123;cout &lt;&lt; <span class="string">&quot;我自己的异常&quot;</span> &lt;&lt; endl;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">Person</span>()&#123;cout &lt;&lt; <span class="string">&quot;Person的默认构造函数调用&quot;</span> &lt;&lt; endl;&#125;</span><br><span class="line">	~<span class="built_in">Person</span>()&#123;cout &lt;&lt; <span class="string">&quot;Person的析构函数调用&quot;</span> &lt;&lt; endl;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">myDivision</span><span class="params">(<span class="keyword">int</span> a , <span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> ( b == <span class="number">0</span>)&#123;</span><br><span class="line">		<span class="comment">//从try代码块开始，到throw抛出异常之前，所有栈上的数据都会被释放掉，</span></span><br><span class="line">		<span class="comment">//释放的顺序和创建顺序相反的，这个过程我们称为栈解旋</span></span><br><span class="line">		Person p1;</span><br><span class="line">		Person p2;</span><br><span class="line">		<span class="keyword">throw</span> <span class="built_in">MyException</span>();   <span class="comment">//抛出 MyException的匿名对象 --- 自定义类型</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> a / b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test01</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> a = <span class="number">10</span>;</span><br><span class="line">	<span class="keyword">int</span> b = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">try</span>&#123;<span class="built_in">myDivision</span>(a, b);&#125;</span><br><span class="line">	<span class="built_in"><span class="keyword">catch</span></span> (MyException &amp;e)&#123;e.<span class="built_in">printError</span>();&#125;  <span class="comment">//注意此处的值传递（调用构造函数）和传引用（调用拷贝构造函数）的区别 </span></span><br><span class="line">	<span class="built_in"><span class="keyword">catch</span></span> (...)&#123;</span><br><span class="line">        <span class="comment">//throw;   //继续向上抛出</span></span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;其他类型异常捕获&quot;</span> &lt;&lt; endl;</span><br><span class="line">    &#125;	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">try</span>&#123;<span class="built_in">test01</span>();&#125;</span><br><span class="line">	<span class="built_in"><span class="keyword">catch</span></span> (<span class="keyword">double</span>)&#123;cout &lt;&lt; <span class="string">&quot;double函数中 double类型异常捕获&quot;</span> &lt;&lt; endl;&#125;</span><br><span class="line">	<span class="built_in"><span class="keyword">catch</span></span> (...)&#123;cout &lt;&lt; <span class="string">&quot;main函数中 其他类型异常捕获&quot;</span> &lt;&lt; endl;&#125;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">system</span>(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line">	<span class="keyword">return</span> EXIT_SUCCESS;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/%E6%A0%88%E8%A7%A3%E6%97%8B.png" alt="栈解旋"></p>
+<h2 id="4、异常的接口申明"><a href="#4、异常的接口申明" class="headerlink" title="4、异常的接口申明"></a>4、异常的接口申明</h2><ul>
+<li>为了加强程序的可读性，可以在函数声明中列出可能抛出异常的所有类型，例如：<code>void func() throw(A,B,C);</code>这个函数<code>func</code>能够且只能抛出类型A,B,C及其子类型的异常。</li>
+<li>如果在函数声明中没有包含异常接口声明，则此函数可以抛任何类型的异常，例如:<code>void func()</code></li>
+<li>一个不抛任何类型异常的函数可声明为:<code>void func() throw(空)</code></li>
+<li>如果一个函数抛出了它的异常接口声明所不允许抛出的异常,<code>unexcepted</code>函数会被调用，该函数默认行为调用<code>terminate</code>函数中断程序。</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1.可抛出所有类型异常</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">TestFunction01</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">throw</span> <span class="number">10</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//2.只能抛出int char char*类型异常</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">TestFunction02</span><span class="params">()</span> <span class="title">throw</span><span class="params">(<span class="keyword">int</span>,<span class="keyword">char</span>,<span class="keyword">char</span>*)</span></span>&#123;</span><br><span class="line">	string exception = <span class="string">&quot;error!&quot;</span>;   <span class="comment">//string类型 </span></span><br><span class="line">	<span class="keyword">throw</span> exception;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//3.不能抛出任何类型异常</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">TestFunction03</span><span class="params">()</span> <span class="title">throw</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">throw</span> <span class="number">10</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">try</span>&#123;</span><br><span class="line">		<span class="comment">//TestFunction01();           //异常捕获 </span></span><br><span class="line">		<span class="comment">//TestFunction02();           //terminate called after throwing an instance of &#x27;std::string&#x27;</span></span><br><span class="line">		<span class="built_in">TestFunction03</span>();           <span class="comment">//terminate called after throwing an instance of &#x27;int&#x27;</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in"><span class="keyword">catch</span></span> (...)&#123;</span><br><span class="line">		cout &lt;&lt; <span class="string">&quot;捕获异常!&quot;</span> &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="5、异常变量的声生命周期"><a href="#5、异常变量的声生命周期" class="headerlink" title="5、异常变量的声生命周期"></a>5、异常变量的声生命周期</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyException</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">MyException</span>()&#123;cout &lt;&lt; <span class="string">&quot;MyException默认构造函数调用&quot;</span> &lt;&lt; endl;&#125;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">MyException</span>(<span class="keyword">const</span> MyException &amp; e)&#123;cout &lt;&lt; <span class="string">&quot;MyException拷贝构造函数调用&quot;</span> &lt;&lt; endl;&#125;</span><br><span class="line"></span><br><span class="line">	~<span class="built_in">MyException</span>()&#123;cout &lt;&lt; <span class="string">&quot;MyException析构函数调用&quot;</span> &lt;&lt; endl;&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">Print</span><span class="params">()</span></span>&#123;cout &lt;&lt; <span class="string">&quot;自定义异常捕获&quot;</span> &lt;&lt; endl;&#125; </span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">doWork</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">throw</span>  &amp;<span class="built_in">MyException</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">try</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">doWork</span>();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//抛出的是 throw MyException();  catch (MyException e)    调用默认构造函数和默认拷贝构造函数 效率低</span></span><br><span class="line">	<span class="comment">//抛出的是 throw MyException();  catch (MyException &amp;e)   只调用默认构造函数 效率高 推荐</span></span><br><span class="line">	<span class="comment">//抛出的是 throw &amp;MyException(); catch (MyException *e)   对象会提前释放掉，不能在非法操作</span></span><br><span class="line">	<span class="comment">//抛出的是 new MyException();   catch (MyException *e)    只调用默认构造函数 自己要管理释放</span></span><br><span class="line">	<span class="built_in"><span class="keyword">catch</span></span> (MyException *e)</span><br><span class="line">	&#123;</span><br><span class="line">		e-&gt;<span class="built_in">Print</span>();</span><br><span class="line">		<span class="comment">//cout &lt;&lt; &quot;自定义异常捕获&quot; &lt;&lt; endl;</span></span><br><span class="line">		<span class="keyword">delete</span> e;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>总结：</p>
+<ul>
+<li>抛出的是 <code>throw MyException();</code>  <code>catch (MyException e)</code>  调用默认构造函数和默认拷贝构造函数 效率低</li>
+<li>抛出的是 <code>throw MyException(); </code>  <code>catch (MyException &amp;e)</code>  只调用默认构造函数 效率高 推荐</li>
+<li>抛出的是<code>throw new MyException();</code>   <code>catch (MyException *e) </code>  只调用默认构造函数 自己要管理释放</li>
+<li>抛出的是 <code>throw &amp;MyException(); </code>  <code>catch (MyException *e)  </code>对象会提前释放掉，不能在非法操作</li>
+</ul>
+<h2 id="6、异常的多态使用"><a href="#6、异常的多态使用" class="headerlink" title="6、异常的多态使用"></a>6、异常的多态使用</h2><ul>
+<li><p>异常基类</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BaseException</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">//纯虚函数</span></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">PrintError</span><span class="params">()</span></span>=<span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>异常子类1—空指针异常</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NullPointerException</span>:</span><span class="keyword">public</span> BaseException&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">//重写虚函数</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">PrintError</span><span class="params">()</span></span>&#123;</span><br><span class="line">        cout&lt;&lt;<span class="string">&quot;空指针异常捕获&quot;</span>&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>异常子类2—越界异常</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">OutOfRangeException</span> :</span><span class="keyword">public</span> BaseException&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">//重写虚函数</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">PrintError</span><span class="params">()</span></span>&#123;</span><br><span class="line">        cout&lt;&lt;<span class="string">&quot;越界异常捕获&quot;</span>&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>测试：异常抛出、捕获、处理</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Dowork</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">//父类引用指向子类对象构成多态</span></span><br><span class="line">    <span class="keyword">throw</span> <span class="built_in">NullPointerException</span>();   <span class="comment">//抛出空指针异常</span></span><br><span class="line">    <span class="keyword">throw</span> <span class="built_in">OutOfRangeException</span>();    <span class="comment">//抛出越界异常</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">try</span>&#123;<span class="built_in">Dowork</span>();&#125;</span><br><span class="line">    <span class="comment">//捕获异常</span></span><br><span class="line">    <span class="built_in"><span class="keyword">catch</span></span>(BaseException &amp;e)&#123;</span><br><span class="line">        e.<span class="built_in">PrintError</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>好处：抛出任意子类对象的异常都可以用父类的引用来接受</p>
+</li>
+</ul>
+<h1 id="C-标准异常"><a href="#C-标准异常" class="headerlink" title="C++标准异常"></a>C++标准异常</h1><h2 id="1、标准库"><a href="#1、标准库" class="headerlink" title="1、标准库"></a>1、标准库</h2><p>标准库中也提供了很多的异常类，它们是通过类继承组织起来的。异常类继承层级结构图如下：</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/%E6%A0%87%E5%87%86%E5%BC%82%E5%B8%B8%E5%BA%93.png" alt="标准异常库"></p>
+<h2 id="2、标准异常类的成员"><a href="#2、标准异常类的成员" class="headerlink" title="2、标准异常类的成员"></a>2、标准异常类的成员</h2><ul>
+<li>在上述继承体系中，每个类都有提供了构造函数、复制构造函数、和赋值操作符重载。</li>
+<li>logic_error类及其子类、runtime_error类及其子类，它们的构造函数是接受一个string类型的形式参数，用于异常信息的描述</li>
+<li>所有的异常类都有一个what()方法，返回<code>const char*</code> 类型（C风格字符串）的值，描述异常信息。</li>
+</ul>
+<ol>
+<li><p>标准异常类的具体描述：</p>
+<table>
+<thead>
+<tr>
+<th>异常名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>exception</td>
+<td>所有标准异常类的父类</td>
+</tr>
+<tr>
+<td>bad_alloc</td>
+<td>当operator new and operator new[]，请求分配内存失败时</td>
+</tr>
+<tr>
+<td>bad_exception</td>
+<td>这是个特殊的异常，如果函数的异常抛出列表里声明了bad_exception异常，当函数内部抛出了异常抛出列表中没有的异常，这是调用的unexpected函数中若抛出异常，不论什么类型，都会被替换为bad_exception类型</td>
+</tr>
+<tr>
+<td>bad_typeid</td>
+<td>使用typeid操作符，操作一个NULL指针，而该指针是带有虚函数的类，这时抛出bad_typeid异常</td>
+</tr>
+<tr>
+<td>bad_cast</td>
+<td>使用dynamic_cast转换引用失败的时候</td>
+</tr>
+<tr>
+<td>ios_base::failure</td>
+<td>io操作过程出现错误</td>
+</tr>
+<tr>
+<td>logic_error</td>
+<td>逻辑错误，可以在运行前检测的错误</td>
+</tr>
+<tr>
+<td>runtime_error</td>
+<td>运行时错误，仅在运行时才可以检测的错误</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>logic_error的子类：</p>
+<table>
+<thead>
+<tr>
+<th>异常名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>length_error</td>
+<td>试图生成一个超出该类型最大长度的对象时，例如vector的resize操作</td>
+</tr>
+<tr>
+<td>domain_error</td>
+<td>参数的值域错误，主要用在数学函数中。例如使用一个负值调用只能操作非负数的函数</td>
+</tr>
+<tr>
+<td>out_of_range</td>
+<td>超出有效范围</td>
+</tr>
+<tr>
+<td>invalid_argument</td>
+<td>参数不合适。在标准库中，当利用string对象构造bitset时，而string中的字符不是’0’或’1’的时候，抛出该异常</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>runtime_error的子类：</p>
+<table>
+<thead>
+<tr>
+<th>异常名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>range_error</td>
+<td>计算结果超出了有意义的值域范围</td>
+</tr>
+<tr>
+<td>overflow_error</td>
+<td>算术计算上溢</td>
+</tr>
+<tr>
+<td>underflow_error</td>
+<td>算术计算下溢</td>
+</tr>
+<tr>
+<td>invalid_argument</td>
+<td>参数不合适。在标准库中，当利用string对象构造bitset时，而string中的字符不是’0’或’1’的时候，抛出该异常</td>
+</tr>
+</tbody></table>
+</li>
+</ol>
+<h2 id="3、举例"><a href="#3、举例" class="headerlink" title="3、举例"></a>3、举例</h2><ul>
+<li>引入头文件  <code>#include &lt;stdexcept&gt;</code></li>
+<li>抛出越界异常 <code>throw out_of_range(“…”)</code></li>
+<li>获取错误信息  <code>catch( exception &amp; e )   e.what();</code></li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdexcept&gt;</span> <span class="comment">//  std 标准  except 异常</span></span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">Person</span>(<span class="keyword">int</span> age)&#123;</span><br><span class="line">		<span class="keyword">if</span> (age &lt; <span class="number">0</span> || age &gt; <span class="number">150</span>)&#123;</span><br><span class="line">			<span class="keyword">throw</span> <span class="built_in">out_of_range</span>(<span class="string">&quot;年龄必须在 0 ~ 150之间&quot;</span>);</span><br><span class="line">			<span class="comment">//throw length_error(&quot;年龄必须在 0 ~ 150之间&quot;);</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">this</span>-&gt;m_Age = age;</span><br><span class="line">        &#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> m_Age;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">try</span>&#123;</span><br><span class="line">        <span class="function">Person <span class="title">p</span><span class="params">(<span class="number">151</span>)</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="comment">//catch ( out_of_range &amp;e)</span></span><br><span class="line">	<span class="built_in"><span class="keyword">catch</span></span> ( exception &amp;e)&#123;</span><br><span class="line">        cout &lt;&lt; e.<span class="built_in">what</span>() &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="编写自己的异常"><a href="#编写自己的异常" class="headerlink" title="编写自己的异常"></a>编写自己的异常</h1><ul>
+<li>标准库中的异常是有限的；</li>
+<li>在自己的异常类中，可以添加自己的信息。（标准库中的异常类值允许设置一个用来描述异常的字符串）。</li>
+</ul>
+<p>实现方法：</p>
+<ul>
+<li>建议自己的异常类要继承标准异常类。因为C++中可以抛出任何类型的异常，所以我们的异常类可以不继承自标准异常，但是这样可能会导致程序混乱，尤其是当我们多人协同开发时。</li>
+<li>当继承标准异常类时，应该重载父类的what函数和虚析构函数。</li>
+<li>因为栈展开的过程中，要复制异常类型，那么要根据你在类中添加的成员考虑是否提供自己的复制构造函数。</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdexcept&gt;</span> <span class="comment">//  std 标准  except 异常</span></span></span><br><span class="line"><span class="comment">//自定义异常类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyOutOfRange</span>:</span><span class="keyword">public</span> exception&#123;   <span class="comment">//继承标准异常</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">MyOutOfRange</span>(<span class="keyword">const</span> string  errorInfo)&#123;</span><br><span class="line">		<span class="keyword">this</span>-&gt;m_Error = errorInfo;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">MyOutOfRange</span>(<span class="keyword">const</span> <span class="keyword">char</span> * errorInfo)&#123;</span><br><span class="line">		<span class="keyword">this</span>-&gt;m_Error = <span class="built_in">string</span>( errorInfo);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">virtual</span> ~<span class="built_in">exception</span>()&#123; &#125;    <span class="comment">//重写父类的虚析构</span></span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">const</span> <span class="keyword">char</span>* <span class="title">what</span><span class="params">()</span> <span class="keyword">const</span></span>&#123;   <span class="comment">//重写父类的what()方法</span></span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">this</span>-&gt;m_Error.<span class="built_in">c_str</span>() ;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	string m_Error;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">Person</span>(<span class="keyword">int</span> age)&#123;</span><br><span class="line">		<span class="keyword">if</span> (age &lt;= <span class="number">0</span> || age &gt; <span class="number">150</span>)&#123;</span><br><span class="line">			<span class="comment">//抛出异常 越界</span></span><br><span class="line">			<span class="comment">//cout &lt;&lt; &quot;越界&quot; &lt;&lt; endl;</span></span><br><span class="line">			<span class="comment">//throw  out_of_range(&quot;年龄必须在0~150之间&quot;);</span></span><br><span class="line">			<span class="comment">//throw length_error(&quot;长度异常&quot;);</span></span><br><span class="line">			<span class="keyword">throw</span> <span class="built_in">MyOutOfRange</span>((<span class="string">&quot;我的异常 年龄必须在0~150之间&quot;</span>));</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="keyword">this</span>-&gt;m_Age = age;</span><br><span class="line">		&#125;	</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> m_Age;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test01</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">try</span>&#123;</span><br><span class="line">		<span class="function">Person <span class="title">p</span><span class="params">(<span class="number">151</span>)</span></span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in"><span class="keyword">catch</span></span> ( out_of_range &amp; e )&#123;   <span class="comment">//标准异常捕获</span></span><br><span class="line">		cout &lt;&lt; e.<span class="built_in">what</span>() &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in"><span class="keyword">catch</span></span> (length_error &amp; e)&#123;   <span class="comment">//标准异常捕获</span></span><br><span class="line">		cout &lt;&lt; e.<span class="built_in">what</span>() &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in"><span class="keyword">catch</span></span> (MyOutOfRange e)&#123;   <span class="comment">//自定义的异常类捕获异常</span></span><br><span class="line">		cout &lt;&lt; e.<span class="built_in">what</span>() &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<div class="article-footer fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div></section></div>
+
+</article>
+
+<div class="related-wrap" id="read-next"><section class="header cap theme"><span>接下来阅读</span></section><section class="body"><div class="post-title h2"><a href="/2021/04/21/C++/C++%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99/C++%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99/">undefined</a></div><div class="post-title fs14"><a href="/2021/04/21/C++/C++%E5%BC%95%E7%94%A8/C++%E5%BC%95%E7%94%A8/">上一篇：undefined</a></div></section></div>
+
+
+
+
+
+
+
+
+      
+<footer class="page-footer fs12"><hr><div><p>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+<p>本站由 <a href="https://smilesrx.github.io/">@CandyKing</a> 创建，使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0">Stellar</a> 作为主题。</p>
+</div></footer>
+
+      <div class='float-panel mobile-only' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" viewBox="0 0 1228 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2849"><path d="M0 0m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2850"></path><path d="M0 389.560798m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2851"></path><path d="M0 779.121596m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.390199l-973.901995 0q-97.390199 0-97.390199-97.390199l0 0q0-97.390199 97.390199-97.390199Z" p-id="2852"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script')
+      script.src = src
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js',
+    sitesjs: '/js/plugins/sites.js',
+    friendsjs: '/js/plugins/friends.js',
+  };
+
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper/swiper-bundle.min.css","js":"https://unpkg.com/swiper/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://cdn.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+
+
+<!-- inject -->
+
+
+  </div>
+</body>
+</html>

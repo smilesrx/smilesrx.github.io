@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+
+<head>
+  <meta name="generator" content="Hexo 5.4.0">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>post - 逆玺之路</title>
+
+  
+    <meta name="description" content="gdb介绍GDB（GNU Debugger）是GCC的调试工具。其功能强大 GDB主要帮助完成以下四个方面的功能：  启动程序，可以按照自定义的要求随心所欲的运行程序 可以让被调试的程序在所指定的端点处停住。（断点可以是条件表达式） 当程序被停住时，可以检查此时程序中发生的事。 动态的改变程序的执行环境。  生成调试信息一般来说GDB主要调试的是C&#x2F;C++的程序。要调试C&#x2F;C++的程序，首先在编译">
+<meta property="og:type" content="article">
+<meta property="og:title" content="逆玺之路">
+<meta property="og:url" content="https://smilesrx.github.io/2020/11/26/Linux/Linux-gdb%E8%B0%83%E8%AF%95/Linux-gdb%E8%B0%83%E8%AF%95/index.html">
+<meta property="og:site_name" content="逆玺之路">
+<meta property="og:description" content="gdb介绍GDB（GNU Debugger）是GCC的调试工具。其功能强大 GDB主要帮助完成以下四个方面的功能：  启动程序，可以按照自定义的要求随心所欲的运行程序 可以让被调试的程序在所指定的端点处停住。（断点可以是条件表达式） 当程序被停住时，可以检查此时程序中发生的事。 动态的改变程序的执行环境。  生成调试信息一般来说GDB主要调试的是C&#x2F;C++的程序。要调试C&#x2F;C++的程序，首先在编译">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-11-26T09:35:09.442Z">
+<meta property="article:modified_time" content="2020-11-27T09:13:00.129Z">
+<meta property="article:author" content="CandyKing">
+<meta name="twitter:card" content="summary">
+  
+  
+
+  <!-- feed -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+</head>
+
+<body>
+  
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left'>
+    
+
+<header class='header'>
+  <div class='logo-wrap'>
+  
+    <a class='avatar' href='/about/'>
+      
+        <img no-lazy class='bg' src='https://cdn.jsdelivr.net/gh/cdn-x/placeholder@1.0.2/avatar/round/rainbow64@3x.webp'/>
+      
+      <img no-lazy class='avatar' src='http://q1.qlogo.cn/g?b=qq&nk=1607952713&s=640'/>
+    </a>
+  
+  
+    <a class='title' href='/'>
+      逆玺之路
+    </a>
+  
+</div>
+
+  <nav class="menu dis-select"><a class="nav-item active" href="/">文章</a><a class="nav-item" href="/wiki/">项目</a><a class="nav-item" href="/notes/">笔记</a><a class="nav-item" href="/more/">更多</a></nav>
+</header>
+
+<div class='widgets'>
+  
+    
+      
+      
+<div class="widget-wrap" id="toc"><div class="widget-header h4 dis-select"><span class="name">本文目录</span></div><div class="widget-body fs14 post"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E7%AE%80%E5%8D%95%E6%96%AD%E7%82%B9%E2%80%94%E5%BD%93%E6%9C%9F%E6%96%87%E4%BB%B6"><span class="toc-text">1、简单断点—当期文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E5%A4%9A%E6%96%87%E4%BB%B6%E8%AE%BE%E7%BD%AE%E6%96%AD%E7%82%B9%E2%80%94%E5%85%B6%E4%BB%96%E6%96%87%E4%BB%B6"><span class="toc-text">2、多文件设置断点—其他文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81%E6%9F%A5%E8%AF%A2%E6%89%80%E6%9C%89%E6%96%AD%E7%82%B9"><span class="toc-text">3、查询所有断点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4%E3%80%81%E6%9D%A1%E4%BB%B6%E6%96%AD%E7%82%B9"><span class="toc-text">4、条件断点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5%E3%80%81%E7%BB%B4%E6%8A%A4%E6%96%AD%E7%82%B9"><span class="toc-text">5、维护断点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E6%9F%A5%E7%9C%8B%E8%BF%90%E8%A1%8C%E6%97%B6%E5%8F%98%E9%87%8F%E7%9A%84%E5%80%BC"><span class="toc-text">1、查看运行时变量的值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E8%87%AA%E5%8A%A8%E6%98%BE%E7%A4%BA%E5%8F%98%E9%87%8F%E7%9A%84%E5%80%BC"><span class="toc-text">2、自动显示变量的值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81%E6%9F%A5%E7%9C%8B%E4%BF%AE%E6%94%B9%E5%8F%98%E9%87%8F%E7%9A%84%E5%80%BC"><span class="toc-text">3、查看修改变量的值</span></a></li></ol></div></div></div>
+
+    
+  
+</div>
+
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+
+  <div class='bread-nav fs12'>
+  
+    
+    <div id='breadcrumb'>
+      <a class='cap breadcrumb' href='/'>主页</a>
+      <span class="sep"></span>
+      <a class='cap breadcrumb' href='/'>文章</a>
+      
+    </div>
+    <div id='post-meta'>
+      发布于&nbsp;<time datetime='2020-11-26T09:35:09.442Z'>2020-11-26</time>
+    </div>
+  
+  </div>
+
+
+<article class='content md post'>
+
+<h1 id="gdb介绍"><a href="#gdb介绍" class="headerlink" title="gdb介绍"></a>gdb介绍</h1><p>GDB（GNU Debugger）是GCC的调试工具。其功能强大</p>
+<p>GDB主要帮助完成以下四个方面的功能：</p>
+<ul>
+<li>启动程序，可以按照自定义的要求随心所欲的运行程序</li>
+<li>可以让被调试的程序在所指定的端点处停住。（断点可以是条件表达式）</li>
+<li>当程序被停住时，可以检查此时程序中发生的事。</li>
+<li>动态的改变程序的执行环境。</li>
+</ul>
+<h1 id="生成调试信息"><a href="#生成调试信息" class="headerlink" title="生成调试信息"></a>生成调试信息</h1><p>一般来说GDB主要调试的是C/C++的程序。要调试C/C++的程序，首先在编译时，我们必须要把调试信息加到可执行文件中。使用编译器（cc/gcc/g++）的-g参数可以做到这一点。</p>
+<p><code>gcc -g hello.c -o hello</code></p>
+<p>如果没有 -g，将看不见程序的函数名，变量名，所代替的全部是运行时的内存地址。</p>
+<h1 id="启动dgb"><a href="#启动dgb" class="headerlink" title="启动dgb"></a>启动dgb</h1><ul>
+<li><p>启动gdb：<code>gdb program（可执行程序的名字+路径）</code></p>
+<p>program 也就是执行文件，一般在当前目录下</p>
+<p><code>gdb ./main</code></p>
+</li>
+<li><p>设置运行参数</p>
+<p><code>set args</code>可指定运行时的参数。（如：<code>set args 10 20 30 40 50</code>)</p>
+<p><code>show args</code>命令可以查看设置好的运行参数。</p>
+</li>
+<li><p>启动程序</p>
+<p><code>run</code>: 程序开始执行，如果有断点，停在第一处断点</p>
+<p><code>start</code>:程序向下执行一行。（在第一条语句处停止）</p>
+</li>
+</ul>
+<h1 id="显示源代码"><a href="#显示源代码" class="headerlink" title="显示源代码"></a>显示源代码</h1><p>GDB可以打印出所调试程序的源代码，当然，在程序编译时一定要加上 -g 的参数，吧源程序信息编译到可执行的文件中。不然看不到源程序。当程序停下来以后，GDB会报告程序停在了那个文件的第几行上。可以用 <code>list</code> 命令来打印程序的源代码，默认打印10行，list命令的用法如下所示：</p>
+<ul>
+<li><code>list linenum</code>:打印linenum行的上下文内容</li>
+<li><code>list function</code>:显示函数名为function的函数的源程序。</li>
+<li><code>list</code>:显示当前行后面的源程序。</li>
+<li><code>list -</code>:显示当前文件开始处的源程序。</li>
+<li><code>list file:linenum</code>:显示file文件下第几行</li>
+<li><code>list file:function</code>:显示file文件的函数名为function的函数的源程序</li>
+</ul>
+<p>一般是打印当前行的上5行和下5行，如果显示函数是上2行下8行，默认是10行，当然，也可以指定显示的范围，使用下面的命令可以设置一次显示源程序的行数：</p>
+<ul>
+<li><code>set listsize count</code>:设置一次显示源代码的行数。</li>
+<li><code>show listsize</code>:查看当前listzise的设置值。</li>
+</ul>
+<h1 id="设置断点"><a href="#设置断点" class="headerlink" title="设置断点"></a>设置断点</h1><h2 id="1、简单断点—当期文件"><a href="#1、简单断点—当期文件" class="headerlink" title="1、简单断点—当期文件"></a>1、简单断点—当期文件</h2><p>break设置断点，可以简写为b：</p>
+<ul>
+<li><code>b 10</code>设置断点，在源程序第10行</li>
+<li><code>b func</code>设置断点，在func函数入口处</li>
+</ul>
+<h2 id="2、多文件设置断点—其他文件"><a href="#2、多文件设置断点—其他文件" class="headerlink" title="2、多文件设置断点—其他文件"></a>2、多文件设置断点—其他文件</h2><p>在进入指定函数时停住：</p>
+<ul>
+<li><code>b filename:linenum</code>:在源文件filename的linenum行处停住</li>
+<li><code>b filename:function</code>:在源文件filename的function函数的入口处停住</li>
+</ul>
+<h2 id="3、查询所有断点"><a href="#3、查询所有断点" class="headerlink" title="3、查询所有断点"></a>3、查询所有断点</h2><p><code>info b==info break==i break== i b</code></p>
+<h2 id="4、条件断点"><a href="#4、条件断点" class="headerlink" title="4、条件断点"></a>4、条件断点</h2><p>一般来说，为断点设置一个条件，我们使用if关键词，后面跟其断点条件。设置一个条件断点：</p>
+<p><code>b test.c:8 if intValue==5</code></p>
+<h2 id="5、维护断点"><a href="#5、维护断点" class="headerlink" title="5、维护断点"></a>5、维护断点</h2><ul>
+<li><p><code>delete [range...]</code>删除指定的断点，其简写命令为d。</p>
+<p>如果不指定断点号，则表示删除所有的断点。range表示断点号的范围（如：3-7）。</p>
+<ul>
+<li>删除某个断点：<code>delete num</code></li>
+<li>删除多个断点：<code>delete num1 num2 ...</code></li>
+<li>删除 连续的多个断点：<code>delete m-n</code></li>
+<li>删除所有的断点：<code>delete</code></li>
+</ul>
+<p>比删除更好的一种方法是disable停止点（设置无效），disable了的停止点，GDB不会删除，当还需要时，enable（设置有效）即可。</p>
+</li>
+<li><p><code>disable[range..]</code>使指定断点无效，简写命令是dis。</p>
+<p>如果什么都不指定，表示disable所有的停止点。</p>
+<ul>
+<li>使一个断点无效：<code>disable num</code></li>
+<li>使多个断点无效：<code>disable num1 num2 ...</code></li>
+<li>使多个连续的断点无效：<code>disable m-n</code></li>
+<li>是所有的断点无效：<code>disable</code> </li>
+</ul>
+</li>
+<li><p>enable[range…]是无效的断点生效，简写命令是ena。</p>
+<p>如果什么都不指定，表示enable所有的停止点。</p>
+<ul>
+<li>使一个断点有效：<code>enable num</code></li>
+<li>使多个断点/有效：<code>enable num1 num2 ...</code></li>
+<li>使多个连续的断点有效：<code>enable m-n</code></li>
+<li>是所有的断点有效：<code>enable</code></li>
+</ul>
+</li>
+</ul>
+<h1 id="调试代码"><a href="#调试代码" class="headerlink" title="调试代码"></a>调试代码</h1><ul>
+<li><code>run</code> 运行程序，可简写为r</li>
+<li><code>next</code>单步跟踪，函数调用当作一条简单语句执行，可简写为n</li>
+<li><code>step</code>单步跟踪，函数调用进入被调函数体内，可简写为s</li>
+<li><code>finish</code>退出进入的函数，如果出不去，看一下函数体中的循环中是否有断点，如果有则删掉，或者设置无效</li>
+<li><code>until</code>在一个循环体内单步跟踪时，这个命令可以使运行程序直接退出循环体，可简写为u，如果出不去，看一下函数体中的循环体中是否有断点，如果有删掉，或者设置无效</li>
+<li><code>continue</code>继续运行程序，可简写为c（若有断点则跳到下一断点处）</li>
+</ul>
+<h1 id="查看变量的值"><a href="#查看变量的值" class="headerlink" title="查看变量的值"></a>查看变量的值</h1><h2 id="1、查看运行时变量的值"><a href="#1、查看运行时变量的值" class="headerlink" title="1、查看运行时变量的值"></a>1、查看运行时变量的值</h2><p><code>print</code>打印变量、字符串、表达式等的值，可简写为p</p>
+<p><code>p count</code>:打印count的值</p>
+<h2 id="2、自动显示变量的值"><a href="#2、自动显示变量的值" class="headerlink" title="2、自动显示变量的值"></a>2、自动显示变量的值</h2><p>可以设置一些自动显示的变量，当程序停住时，或是在单步跟踪时，这些变量会自动显示</p>
+<ul>
+<li><p><code>dispaly 变量名</code></p>
+</li>
+<li><p><code>info display</code>:查看display设置的自动显示的信息。</p>
+</li>
+<li><p><code>undisplay num(info display时显示的编号)</code></p>
+</li>
+<li><p><code>delete display dnums...</code>:删除自动显示，dnums意为所设置好了的自动显示的编号。如果要同时删除几个，编号可以用空格分隔，如果要删除一个范围内的编号，可以用减号（-）表示（如2-5）</p>
+<p>删除某个自动显示：<code>undisplay num</code>或者<code>delete display num</code></p>
+<p>删除多个：<code>delete display num1 num2...</code></p>
+<p>删除一个范围：<code>delete display m-n</code></p>
+</li>
+<li><p><code>disable display dnums...</code></p>
+<p>使一个自动显示无效：<code>disable display num</code></p>
+<p>使多个自动显示无效：<code>disable display num1 num2...</code></p>
+<p>是使一个范围的自动显示无效：<code>disable display m-n</code></p>
+</li>
+<li><p><code>enable display dnums</code></p>
+<p>使一个自动显示有效：<code>enable display num</code></p>
+<p>使多个自动显示有效：<code>enable display num1 num2...</code></p>
+<p>使一个范围的自动显示有效：<code>enable display m-n</code></p>
+</li>
+</ul>
+<h2 id="3、查看修改变量的值"><a href="#3、查看修改变量的值" class="headerlink" title="3、查看修改变量的值"></a>3、查看修改变量的值</h2><ul>
+<li><p><code>ptype width</code>:查看变量width的类型</p>
+<p>type=double</p>
+</li>
+<li><p><code>p width</code>:打印变量width的值</p>
+<p>$4=13</p>
+</li>
+</ul>
+<p>可以使用<code>set var</code>命令来告诉GDB，width不是GDB的参数，而是程序的变量名，如：</p>
+<p><code>set var width=47</code> :将变量的var值设置为47</p>
+<p>在改变程序变量取值时，最好都使用<code>set var</code>格式的GDB命令。</p>
+<h1 id="退出gdb"><a href="#退出gdb" class="headerlink" title="退出gdb"></a>退出gdb</h1><p><code>quit</code>或者<code>ctrl+d</code></p>
+
+
+<div class="article-footer fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div></section></div>
+
+</article>
+
+<div class="related-wrap" id="read-next"><section class="header cap theme"><span>接下来阅读</span></section><section class="body"><div class="post-title h2"><a href="/2020/11/25/Linux/Linux-makefile/makefile%E6%96%87%E4%BB%B6/">undefined</a></div><div class="post-title fs14"><a href="/2020/11/27/Linux/Linux-%E6%96%87%E4%BB%B6IO/Linux-%E6%96%87%E4%BB%B6IO/">上一篇：undefined</a></div></section></div>
+
+
+
+
+
+
+
+
+      
+<footer class="page-footer fs12"><hr><div><p>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+<p>本站由 <a href="https://smilesrx.github.io/">@CandyKing</a> 创建，使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0">Stellar</a> 作为主题。</p>
+</div></footer>
+
+      <div class='float-panel mobile-only' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" viewBox="0 0 1228 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2849"><path d="M0 0m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2850"></path><path d="M0 389.560798m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2851"></path><path d="M0 779.121596m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.390199l-973.901995 0q-97.390199 0-97.390199-97.390199l0 0q0-97.390199 97.390199-97.390199Z" p-id="2852"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script')
+      script.src = src
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js',
+    sitesjs: '/js/plugins/sites.js',
+    friendsjs: '/js/plugins/friends.js',
+  };
+
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper/swiper-bundle.min.css","js":"https://unpkg.com/swiper/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://cdn.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+
+
+<!-- inject -->
+
+
+  </div>
+</body>
+</html>

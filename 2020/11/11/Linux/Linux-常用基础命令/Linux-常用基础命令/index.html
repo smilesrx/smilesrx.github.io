@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+
+<head>
+  <meta name="generator" content="Hexo 5.4.0">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>post - 逆玺之路</title>
+
+  
+    <meta name="description" content="Shell 相关1、什么是Shellshell就是命令解析器, shell将用户输入的命令解释成内核能够识别的指令; 现在我们使用的操作系统（Windows、Mac OS、Android、iOS等）都是带图形界面的，简单直观，容易上手                                     计算机的早期并没有图形界面，我们只能通过一个一个地命令来控制计算机，这些命令有成百上千之多，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="逆玺之路">
+<meta property="og:url" content="https://smilesrx.github.io/2020/11/11/Linux/Linux-%E5%B8%B8%E7%94%A8%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/Linux-%E5%B8%B8%E7%94%A8%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/index.html">
+<meta property="og:site_name" content="逆玺之路">
+<meta property="og:description" content="Shell 相关1、什么是Shellshell就是命令解析器, shell将用户输入的命令解释成内核能够识别的指令; 现在我们使用的操作系统（Windows、Mac OS、Android、iOS等）都是带图形界面的，简单直观，容易上手                                     计算机的早期并没有图形界面，我们只能通过一个一个地命令来控制计算机，这些命令有成百上千之多，">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://smilesrx.github.io/目录结构.png">
+<meta property="article:published_time" content="2020-11-11T02:50:33.912Z">
+<meta property="article:modified_time" content="2020-11-24T15:02:13.779Z">
+<meta property="article:author" content="CandyKing">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://smilesrx.github.io/目录结构.png">
+  
+  
+
+  <!-- feed -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+</head>
+
+<body>
+  
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left'>
+    
+
+<header class='header'>
+  <div class='logo-wrap'>
+  
+    <a class='avatar' href='/about/'>
+      
+        <img no-lazy class='bg' src='https://cdn.jsdelivr.net/gh/cdn-x/placeholder@1.0.2/avatar/round/rainbow64@3x.webp'/>
+      
+      <img no-lazy class='avatar' src='http://q1.qlogo.cn/g?b=qq&nk=1607952713&s=640'/>
+    </a>
+  
+  
+    <a class='title' href='/'>
+      逆玺之路
+    </a>
+  
+</div>
+
+  <nav class="menu dis-select"><a class="nav-item active" href="/">文章</a><a class="nav-item" href="/wiki/">项目</a><a class="nav-item" href="/notes/">笔记</a><a class="nav-item" href="/more/">更多</a></nav>
+</header>
+
+<div class='widgets'>
+  
+    
+      
+      
+<div class="widget-wrap" id="toc"><div class="widget-header h4 dis-select"><span class="name">本文目录</span></div><div class="widget-body fs14 post"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E4%BB%80%E4%B9%88%E6%98%AFShell"><span class="toc-text">1、什么是Shell</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81Linux%E7%9A%84Shell%E7%A7%8D%E7%B1%BB"><span class="toc-text">2、Linux的Shell种类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E7%B3%BB%E7%BB%9F%E4%BD%BF%E7%94%A8%E7%9A%84Shell"><span class="toc-text">3、查看当前系统使用的Shell</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4%E3%80%81%E5%BD%93%E5%89%8D%E7%B3%BB%E7%BB%9F%E6%94%AF%E6%8C%81%E7%9A%84Shell"><span class="toc-text">4、当前系统支持的Shell</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81Linux%E7%9B%AE%E5%BD%95%E8%AF%A6%E8%A7%A3"><span class="toc-text">1、Linux目录详解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84"><span class="toc-text">1、绝对路径</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E7%9B%B8%E5%AF%B9%E8%B7%AF%E5%BE%84"><span class="toc-text">2、相对路径</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81ls-%E5%88%97%E5%87%BA%E7%9B%AE%E5%BD%95"><span class="toc-text">1、ls (列出目录)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81cd-%E5%88%87%E6%8D%A2%E7%9B%AE%E5%BD%95"><span class="toc-text">2、cd (切换目录)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81pwd%E5%91%BD%E4%BB%A4"><span class="toc-text">3、pwd命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4%E3%80%81which%E5%91%BD%E4%BB%A4"><span class="toc-text">4、which命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5%E3%80%81touch%E5%91%BD%E4%BB%A4"><span class="toc-text">5、touch命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6%E3%80%81mkdir%E5%91%BD%E4%BB%A4"><span class="toc-text">6、mkdir命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7%E3%80%81rmdir%E5%91%BD%E4%BB%A4"><span class="toc-text">7、rmdir命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8%E3%80%81rm%E5%91%BD%E4%BB%A4"><span class="toc-text">8、rm命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9%E3%80%81cp-%E5%91%BD%E4%BB%A4"><span class="toc-text">9、cp 命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10%E3%80%81mv%E5%91%BD%E4%BB%A4"><span class="toc-text">10、mv命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81cat%E5%91%BD%E4%BB%A4"><span class="toc-text">1、cat命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81more%E5%91%BD%E4%BB%A4"><span class="toc-text">2、more命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81less%E5%91%BD%E4%BB%A4"><span class="toc-text">3、less命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4%E3%80%81head%E5%91%BD%E4%BB%A4"><span class="toc-text">4、head命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5%E3%80%81tail%E5%91%BD%E4%BB%A4"><span class="toc-text">5、tail命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6%E3%80%81wc%E5%91%BD%E4%BB%A4"><span class="toc-text">6、wc命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E5%A6%82%E4%BD%95%E5%88%9B%E5%BB%BA%E8%BD%AF%E8%BF%9E%E6%8E%A5"><span class="toc-text">1、如何创建软连接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E5%88%9B%E5%BB%BA%E8%BD%AF%E9%93%BE%E6%8E%A5%E5%BA%94%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-text">2、创建软链接应注意事项</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E5%A6%82%E4%BD%95%E5%88%9B%E5%BB%BA%E7%A1%AC%E9%93%BE%E6%8E%A5"><span class="toc-text">1、如何创建硬链接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E4%BD%BF%E7%94%A8%E7%A1%AC%E9%93%BE%E6%8E%A5%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-text">2、使用硬链接的注意事项</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81%E7%A1%AC%E9%93%BE%E6%8E%A5%E7%9A%84%E6%9C%AC%E8%B4%A8"><span class="toc-text">3、硬链接的本质</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4%E3%80%81%E7%A1%AC%E9%93%BE%E6%8E%A5%E5%BA%94%E7%94%A8%E5%9C%BA%E5%90%88"><span class="toc-text">4、硬链接应用场合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81whoami"><span class="toc-text">1、whoami</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90chmod"><span class="toc-text">2、修改文件权限chmod</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6%E6%89%80%E6%9C%89%E8%80%85%E5%92%8C%E6%89%80%E5%B1%9E%E7%BB%84"><span class="toc-text">3、修改文件所有者和所属组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E6%8C%89%E6%96%87%E4%BB%B6%E5%90%8D%E6%9F%A5%E8%AF%A2"><span class="toc-text">1、按文件名查询</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E6%8C%89%E7%B1%BB%E5%9E%8B%E7%B1%BB%E5%9E%8B%E6%9F%A5%E8%AF%A2"><span class="toc-text">2、按类型类型查询</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81%E6%8C%89%E6%96%87%E4%BB%B6%E5%A4%A7%E5%B0%8F%E6%9F%A5%E8%AF%A2"><span class="toc-text">3、按文件大小查询</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4%E3%80%81%E6%8C%89%E6%96%87%E4%BB%B6%E6%97%A5%E6%9C%9F%E6%9F%A5%E8%AF%A2"><span class="toc-text">4、按文件日期查询</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5%E3%80%81%E6%8C%89%E6%B7%B1%E5%BA%A6"><span class="toc-text">5、按深度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6%E3%80%81%E9%AB%98%E7%BA%A7%E6%9F%A5%E8%AF%A2"><span class="toc-text">6、高级查询</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81gzip-%E5%92%8C-bzip2%E5%B7%A5%E5%85%B7"><span class="toc-text">1、gzip 和 bzip2工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81tar%E5%B7%A5%E5%85%B7"><span class="toc-text">2、tar工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81rar%E5%B7%A5%E5%85%B7"><span class="toc-text">3、rar工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4%E3%80%81zip%E5%B7%A5%E5%85%B7"><span class="toc-text">4、zip工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E5%9C%A8%E7%BA%BF%E5%AE%89%E8%A3%85"><span class="toc-text">1、在线安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E8%BD%AF%E4%BB%B6%E5%8C%85%E5%AE%89%E8%A3%85"><span class="toc-text">2、软件包安装</span></a></li></ol></div></div></div>
+
+    
+  
+</div>
+
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+
+  <div class='bread-nav fs12'>
+  
+    
+    <div id='breadcrumb'>
+      <a class='cap breadcrumb' href='/'>主页</a>
+      <span class="sep"></span>
+      <a class='cap breadcrumb' href='/'>文章</a>
+      
+    </div>
+    <div id='post-meta'>
+      发布于&nbsp;<time datetime='2020-11-11T02:50:33.912Z'>2020-11-11</time>
+    </div>
+  
+  </div>
+
+
+<article class='content md post'>
+
+<h1 id="Shell-相关"><a href="#Shell-相关" class="headerlink" title="Shell 相关"></a>Shell 相关</h1><h2 id="1、什么是Shell"><a href="#1、什么是Shell" class="headerlink" title="1、什么是Shell"></a>1、什么是Shell</h2><p>shell就是命令解析器, shell将用户输入的命令解释成内核能够识别的指令;</p>
+<p>现在我们使用的操作系统（Windows、Mac OS、Android、iOS等）都是带图形界面的，简单直观，容易上手                                    </p>
+<p>计算机的早期并没有图形界面，我们只能通过一个一个地命令来控制计算机，这些命令有成百上千之多，记住这些命令非常困难</p>
+<p>对于图形界面，用户点击某个图标就能启动某个程序；</p>
+<p>对于命令行，用户输入某个程序的名字（可以看做一个命令）就能启动某个程序。</p>
+<p>这两者的基本过程都是类似的，都需要查找程序在硬盘上的安装位置，然后将它们加载到内存运行</p>
+<p><strong>然而，真正能够控制计算机硬件（CPU、内存、显示器等）的只有操作系统内核（Kernel），图形界面和命令行只是架设在用户和内核之间的一座桥梁。</strong></p>
+<p>用户不能直接接触内核，需要另外再开发一个<strong>程序</strong>，让用户直接使用这个程序；该程序的作用就是接收用户的操作（点击图标、输入命令），并进行简单的处理，然后再传递给内核。如此一来，用户和内核之间就多了一层“代理”，这层“代理”既简化了用户的操作，也保护了内核。<br><strong>用户界面</strong>和<strong>命令行</strong>就是这个另外开发的<strong>程序</strong>，就是这层“代理”。在Linux下，这个命令行程序叫做 Shell。</p>
+<p>用户在终端输入命令, 由shell命令解释器对命令进行解析(按照$PATH环境变量搜索命令), 解析成内核能够识别的指令, 然后由内核执行命令, 最后由终端显示命令执行的结果给用户.</p>
+<p><strong>注意</strong>：shell在寻找命令的时候是按照$PATH环境变量去查找的，如果找到了就执行对应的命令，若找不到就报错.</p>
+<p> 执行<code>echo $PATH</code>可以查看PATH环境变量的值.</p>
+<h2 id="2、Linux的Shell种类"><a href="#2、Linux的Shell种类" class="headerlink" title="2、Linux的Shell种类"></a>2、Linux的Shell种类</h2><ul>
+<li>Bourne Shell（/usr/bin/sh或/bin/sh）</li>
+<li>Bourne Again Shell（/bin/bash）</li>
+<li>C Shell（/usr/bin/csh）</li>
+<li>K Shell（/usr/bin/ksh）</li>
+<li>Shell for Root（/sbin/sh）</li>
+</ul>
+<h2 id="3、查看当前系统使用的Shell"><a href="#3、查看当前系统使用的Shell" class="headerlink" title="3、查看当前系统使用的Shell"></a>3、查看当前系统使用的Shell</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo $SHELL</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># /bin/bash</span></span></span><br></pre></td></tr></table></figure>
+
+<h2 id="4、当前系统支持的Shell"><a href="#4、当前系统支持的Shell" class="headerlink" title="4、当前系统支持的Shell"></a>4、当前系统支持的Shell</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/shells</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># /bin/sh</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># /bin/bash</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># /usr/bin/bash</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># /bin/rbash</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># /usr/bin/rbash</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># /bin/dash</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># /usr/bin/dash</span></span></span><br></pre></td></tr></table></figure>
+
+<h1 id="Linux-目录结构"><a href="#Linux-目录结构" class="headerlink" title="Linux 目录结构"></a>Linux 目录结构</h1><p>Linux系统的目录结构是一个倒立的树状结构, 根目录用  /  表示</p>
+<img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/目录结构.png" alt="目录结构" style="zoom:67%;" />
+
+<h2 id="1、Linux目录详解"><a href="#1、Linux目录详解" class="headerlink" title="1、Linux目录详解"></a>1、Linux目录详解</h2><ul>
+<li><p><strong>/bin</strong>：</p>
+<p>bin 是 Binaries (二进制文件) 的缩写, 这个目录存放着最经常使用的命令。如: ls , rm , mv, cp等常用命令</p>
+</li>
+<li><p><strong>/boot：</strong></p>
+<p>这里存放的是启动 Linux 时使用的一些核心文件，包括一些连接文件以及镜像文件。</p>
+</li>
+<li><p><strong>/dev ：</strong></p>
+<p>dev 是 Device(设备) 的缩写, 该目录下存放的是 Linux 的外部设备，在 Linux 中访问设备的方式和访问文件的方式是相同的。</p>
+<p>字符设备文件、块设备文件，在linux下, 一切皆是文件</p>
+</li>
+<li><p><strong>/etc：</strong></p>
+<p>etc 是 Etcetera(等等) 的缩写,这个目录用来存放所有的系统管理所需要的配置文件和子目录。</p>
+</li>
+<li><p><strong>/home</strong>：</p>
+<p>用户的主目录，在 Linux 中，每个用户都有一个自己的目录，一般该目录名是以用户的账号命名的，</p>
+</li>
+<li><p><strong>/lib</strong>：</p>
+<p>lib 是 Library(库) 的缩写这个目录里存放着系统最基本的动态连接共享库，其作用类似于 Windows 里的 DLL 文件。几乎所有的应用程序都需要用到这些共享库。</p>
+</li>
+<li><p><strong>/lost+found</strong>：</p>
+<p>这个目录一般情况下是空的，当系统非法关机后，这里就存放了一些文件。</p>
+</li>
+<li><p><strong>/media</strong></p>
+<p>linux 系统会自动识别一些设备，例如U盘、光驱等等，当识别后，Linux 会把识别的设备挂载到这个目录下。</p>
+</li>
+<li><p><strong>/mnt</strong>：</p>
+<p>系统提供该目录是为了让用户临时挂载别的文件系统的，我们可以将光驱挂载在 /mnt/ 上，然后进入该目录就可以查看光驱里的内容了。</p>
+</li>
+<li><p><strong>/opt</strong>：</p>
+<p>opt 是 optional(可选) 的缩写，这是给主机额外安装软件所摆放的目录。比如你安装一个ORACLE数据库则就可以放到这个目录下。默认是空的。</p>
+</li>
+<li><p><strong>/root</strong>：</p>
+<p>该目录为系统管理员，也称作超级权限者的用户主目录。</p>
+</li>
+<li><p><strong>/sbin</strong>：</p>
+<p>s 就是 Super User 的意思，是 Superuser Binaries (超级用户的二进制文件) 的缩写，这里存放的是系统管理员使用的系统管理程序。</p>
+</li>
+<li><p><strong>/tmp</strong>：</p>
+<p>tmp 是 temporary(临时) 的缩写这个目录是用来存放一些临时文件的。</p>
+</li>
+<li><p><strong>/usr</strong>：</p>
+<p> usr 是 unix shared resources(共享资源) 的缩写，这是一个非常重要的目录，用户的很多应用程序和文件都放在这个目录下，类似于 windows 下的 program files 目录。</p>
+</li>
+</ul>
+<h1 id="Linux下文件路径"><a href="#Linux下文件路径" class="headerlink" title="Linux下文件路径"></a>Linux下文件路径</h1><h2 id="1、绝对路径"><a href="#1、绝对路径" class="headerlink" title="1、绝对路径"></a>1、绝对路径</h2><p>从根目录开始表示的路径，也就是从/开始</p>
+<p>路径的写法，由根目录 <strong>/</strong> 写起，例如：<code> /usr/share/doc</code> </p>
+<h2 id="2、相对路径"><a href="#2、相对路径" class="headerlink" title="2、相对路径"></a>2、相对路径</h2><p>从当前所处的目录开始表示的路径。</p>
+<p>路径的写法，不是由 <strong>/</strong> 写起，例如由<code> /usr/share/doc</code> 要到 <code>/usr/share/man </code>底下时，可以写成：<code> cd ../man</code>这就是相对路径的写法。</p>
+<p> . 表示当前目录</p>
+<p>.. 表示当前目录的上一级目录</p>
+<h1 id="Linux-处理目录的常用命令"><a href="#Linux-处理目录的常用命令" class="headerlink" title="Linux 处理目录的常用命令"></a>Linux 处理目录的常用命令</h1><h2 id="1、ls-列出目录"><a href="#1、ls-列出目录" class="headerlink" title="1、ls (列出目录)"></a>1、ls (列出目录)</h2><p>ls（英文全拼：list files）: 列出目录及文件名</p>
+<ul>
+<li><p>查看指定目录下的文件信息</p>
+</li>
+<li><p>使用方法：</p>
+<ul>
+<li>ls  –显示当前目录下文件信息</li>
+<li>ls 目录或文件名  –显示指定目录下文件信息</li>
+</ul>
+</li>
+<li><p>选项参数：</p>
+<ul>
+<li><p>-a ：全部的文件，连同隐藏文件( 开头为 . 的文件) 一起列出来(常用)</p>
+</li>
+<li><p>-d ：仅列出目录本身，而不是列出目录内的文件数据(常用)</p>
+</li>
+<li><p>-R：递归方式列出所有目录中的内容</p>
+</li>
+<li><p>-l：列出文件的详细信息, 8部分内容</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-rwxr-xr-x 1 root root        4553 12月 13  2019  znew</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><p>文件的类型 -（第1个字符）（共7种）：</p>
+<p>-： 普通文件</p>
+<p>d ： 目录</p>
+<p>l ：  符号链接，相当于windows中的快捷方式</p>
+<p>s ： 套接字</p>
+<p>p ： 管道</p>
+<p>b ： 块设备</p>
+<p>c ： 字符设备</p>
+</li>
+<li><p>用户的操作权限 （2 – 10个字符）</p>
+<p>文件所有者对文件的操作权限 （2,3,4个字符）</p>
+<p>文件所属组用户对文件的操作权限（5,6,7个字符）</p>
+<p>其他人对文件的操作权限（8,9,10个字符）</p>
+</li>
+<li><p>硬链接计数:</p>
+<p>对于目录来说, 链接计数等于该目录下所有的目录总数(含. 和 ..), 但是不包含该目录的子目录下的目录文件数量, 执行ls -la命令可以进行查看.</p>
+<p>对于文件来说, 指的是该文件所有的硬链接文件数量</p>
+</li>
+<li><p>文件所有者：  root</p>
+</li>
+<li><p>文件所属组：  root</p>
+</li>
+<li><p>文件大小：  4553 </p>
+<p>如果是目录: 只表示目录大小, 不包含目录中的内容, 目录大小为4k</p>
+<p>如果是文件：表示文件大小</p>
+</li>
+<li><p>文件的创建日期或最后修改时间：12月 13  2019  </p>
+</li>
+<li><p>文件名：znew</p>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>参数之间可以结合使用：</p>
+<ul>
+<li>ls -la : 列出当前目录下所有文件的相信信息, 包括隐藏文件</li>
+<li>ls -ltr: 列出当前目录下的文件, 按照时间逆向排序</li>
+</ul>
+</li>
+</ul>
+<h2 id="2、cd-切换目录"><a href="#2、cd-切换目录" class="headerlink" title="2、cd (切换目录)"></a>2、cd (切换目录)</h2><p>cd是Change Directory的缩写，这是用来变换工作目录的命令。</p>
+<p>使用方法：</p>
+<p>cd + 路径（路径可以使用相对路径或者绝对路径）</p>
+<ul>
+<li><p>切换到家目录（例如: /home/srx）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">cd</span><br><span class="line"></span><br><span class="line">cd ~</span><br><span class="line"></span><br><span class="line">cd /home/srx/</span><br><span class="line"></span><br><span class="line">cd $HOME</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># srx@srx-virtual-machine:/home$ cd</span></span> </span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># srx@srx-virtual-machine:~$</span></span> </span><br></pre></td></tr></table></figure></li>
+<li><p>临近两个目录直接切换</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cd -</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># srx@srx-virtual-machine:~$ cd -</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># /home</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># srx@srx-virtual-machine:/home$ cd -</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># /home/srx</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># srx@srx-virtual-machine:~$</span></span> </span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="3、pwd命令"><a href="#3、pwd命令" class="headerlink" title="3、pwd命令"></a>3、pwd命令</h2><p>查看用户当前所处的工作目录, printf working directory</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">srx@srx-virtual-machine:~/test$ pwd</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># /home/srx/test</span></span></span><br></pre></td></tr></table></figure>
+
+<h2 id="4、which命令"><a href="#4、which命令" class="headerlink" title="4、which命令"></a>4、which命令</h2><p>显示命令所在的目录, 如which ls  which cp </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">srx@srx-virtual-machine:~/test$ which ls</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># /usr/bin/ls</span></span></span><br><span class="line">srx@srx-virtual-machine:~/test$ which cp</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># /usr/bin/cp</span></span></span><br></pre></td></tr></table></figure>
+
+<h2 id="5、touch命令"><a href="#5、touch命令" class="headerlink" title="5、touch命令"></a>5、touch命令</h2><p>如果文件不存在, 创建新文件, 如果文件存在, 更新文件的最后修改时间。</p>
+<p>命令使用方式：touch 文件名</p>
+<h2 id="6、mkdir命令"><a href="#6、mkdir命令" class="headerlink" title="6、mkdir命令"></a>6、mkdir命令</h2><p>创建新目录, make directory</p>
+<p>创建方式：mkdir目录名</p>
+<p>如果创建多级目录需要添加参数 -p</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">srx@srx-virtual-machine:~/test$ mkdir -p mydir/a/bb/ccc</span><br><span class="line">srx@srx-virtual-machine:~/test$ tree mydir/</span><br><span class="line">mydir/</span><br><span class="line">└── a</span><br><span class="line">    └── bb</span><br><span class="line">        └── ccc</span><br><span class="line"></span><br><span class="line">3 directories, 0 files</span><br></pre></td></tr></table></figure>
+
+<h2 id="7、rmdir命令"><a href="#7、rmdir命令" class="headerlink" title="7、rmdir命令"></a>7、rmdir命令</h2><p>删除空目录，只能删除空目录，使用方式：rmdir 目录名</p>
+<p><strong>-p ：</strong>连同上一级『空的』目录也一起删除</p>
+<h2 id="8、rm命令"><a href="#8、rm命令" class="headerlink" title="8、rm命令"></a>8、rm命令</h2><ul>
+<li><p>删除文件： rm 文件名</p>
+</li>
+<li><p>删除目录： rm  -r 目录名</p>
+</li>
+<li><p>参数：</p>
+<ul>
+<li>-r：递归删除目录，删除目录必须添加此参数</li>
+<li>-i：提示用户是否删除文件或目录</li>
+<li>-f：强制删除</li>
+</ul>
+</li>
+<li><p>注意事项：</p>
+<p>使用rm命令删除的文件或目录不会放入回收站中，数据不易恢复。</p>
+</li>
+</ul>
+<h2 id="9、cp-命令"><a href="#9、cp-命令" class="headerlink" title="9、cp 命令"></a>9、cp 命令</h2><p>命令使用方式：cp 源目录或文件 目标目录或文件</p>
+<p>若有目录的拷贝需要使用-r参数</p>
+<ul>
+<li><p>cp 要拷贝的文件（file1） file（不存在）</p>
+<p>创建file，将file1中的内容拷贝到file</p>
+</li>
+<li><p>cp file1 file（存在）</p>
+<p>file1覆盖file</p>
+</li>
+<li><p>cp file dir（存在）</p>
+<p>拷贝file到dir目录</p>
+</li>
+<li><p>cp -r dir（存在） dir1（存在）</p>
+<p>将dir目录拷贝到dir1目录中</p>
+<p>包括dir目录</p>
+</li>
+<li><p>cp -r dir（存在） dir1（不存在）</p>
+<p>创建dir1</p>
+<p>将dir中的内容拷贝到dir1中, 不包括dir目录</p>
+</li>
+<li><p>cp 拷贝目录也可以用-a参数, 这样可以保留被拷贝的文件的一些属性信息</p>
+</li>
+</ul>
+<h2 id="10、mv命令"><a href="#10、mv命令" class="headerlink" title="10、mv命令"></a>10、mv命令</h2><p>改名或者移动文件 mv file1 file2</p>
+<ul>
+<li><p>改名</p>
+<p>mv file（存在） file1（不存在）</p>
+<p>mv dir（存在） dir1（不存在）</p>
+<p>mv file（存在） file2（存在）</p>
+</li>
+<li><p>移动文件(第二个参数一定是目录文件)</p>
+<ul>
+<li><p>mv file（文件） dir（存在目录）</p>
+<p>将file文件移动到dir中</p>
+</li>
+<li><p>mv dir（目录存在） dir1（目录存在）</p>
+<p>将dir移动到dir1中, dir就会作为dir1的子目录而存在</p>
+</li>
+</ul>
+</li>
+<li><p>参数：</p>
+<ul>
+<li>-f ：force 强制的意思，如果目标文件已经存在，不会询问而直接覆盖；</li>
+<li>-i ：若目标文件 (destination) 已经存在时，就会询问是否覆盖！</li>
+</ul>
+</li>
+</ul>
+<h1 id="Linux文件内容查看命令"><a href="#Linux文件内容查看命令" class="headerlink" title="Linux文件内容查看命令"></a>Linux文件内容查看命令</h1><h2 id="1、cat命令"><a href="#1、cat命令" class="headerlink" title="1、cat命令"></a>1、cat命令</h2><p>将文件内容一次性输出到终端。</p>
+<p>使用方式： cat 文件名</p>
+<p>缺点：终端显示的内容有限，如果文件太长无法全部显示。</p>
+<p>可用于文件重定向: cat file1&gt;file2, 相当于cp file1 file2</p>
+<p>选项与参数：</p>
+<ul>
+<li>-b ：列出行号，仅针对非空白行做行号显示，空白行不标行号！</li>
+<li>-n ：列印出行号，连同空白行也会有行号，与 -b 的选项不同；</li>
+</ul>
+<h2 id="2、more命令"><a href="#2、more命令" class="headerlink" title="2、more命令"></a>2、more命令</h2><p>文件内容分页显示到终端，但是只能一直向下浏览，不能回退。</p>
+<p>使用方式：more + 文件名</p>
+<p>相关操作：</p>
+<ul>
+<li>显示下一行：回车</li>
+<li>显示下一页：空格</li>
+<li>退出：q（ctrl + c）</li>
+</ul>
+<h2 id="3、less命令"><a href="#3、less命令" class="headerlink" title="3、less命令"></a>3、less命令</h2><p>文件内容分页显示到终端，可以自由上下浏览。</p>
+<p>使用方式：less 文件名</p>
+<p>相关操作：</p>
+<ul>
+<li>显示下一行：回车、ctrl + p、键盘向下键</li>
+<li>显示上一行：ctrl + n、键盘向上键</li>
+<li>显示下一页：空格、PageDown</li>
+<li>显示上一页：PageUp</li>
+<li>退出：q（ctrl + c）</li>
+</ul>
+<h2 id="4、head命令"><a href="#4、head命令" class="headerlink" title="4、head命令"></a>4、head命令</h2><p>从文件头部开始查看前n行的内容</p>
+<p>使用方式：head -n[行数] 文件名</p>
+<p>如果没有指定行数，默认显示前10行内容</p>
+<h2 id="5、tail命令"><a href="#5、tail命令" class="headerlink" title="5、tail命令"></a>5、tail命令</h2><p>从文件尾部向上查看最后n行的内容</p>
+<p>使用方式：tail -n[行数] 文件名</p>
+<p>如果没有指定行数，默认显示最后10行内容</p>
+<p>一个比较重要的应用：显示日志 : tail -f test.log</p>
+<p>一个终端tail -f test.log , 另一个终端: echo “hello world” &gt;&gt;test.log</p>
+<h2 id="6、wc命令"><a href="#6、wc命令" class="headerlink" title="6、wc命令"></a>6、wc命令</h2><p>显示文件行数, 字节数, 单词数</p>
+<ul>
+<li><p>wc -l file显示文件的总行数</p>
+</li>
+<li><p>wc -c file显示文件的总字节数</p>
+</li>
+<li><p>wc -w file显示文件的总单词数</p>
+</li>
+<li><p>wc file 显示文件的总行数, 单词数和总字节数</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">srx@srx-virtual-machine:~/test$ wc test.log</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 5 10 60 test.log</span></span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="软链接"><a href="#软链接" class="headerlink" title="软链接"></a>软链接</h1><p>软连接类似于windows下的快捷方式</p>
+<h2 id="1、如何创建软连接"><a href="#1、如何创建软连接" class="headerlink" title="1、如何创建软连接"></a>1、如何创建软连接</h2><ul>
+<li>ln -s 文件名 快捷方式的名字</li>
+<li>目录也可以创建软连接</li>
+</ul>
+<h2 id="2、创建软链接应注意事项"><a href="#2、创建软链接应注意事项" class="headerlink" title="2、创建软链接应注意事项"></a>2、创建软链接应注意事项</h2><ul>
+<li>ln创建软连接要用绝对路径，因为如果不使用绝对路径，一旦这个连接文件发生位置变动，就不能找到那个文件了。</li>
+<li>软连接文件的大小是: 路径+文件名的总字节数</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ln -s /home/srx/test/aaa.txt aaa.txt.link</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 395906 -rw-rw-r-- 1 srx srx    0 11月 11 20:09 aaa.txt</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 395907 lrwxrwxrwx 1 srx srx   22 11月 11 20:11 aaa.txt.link -&gt; /home/srx/test/aaa.txt</span></span></span><br></pre></td></tr></table></figure>
+
+<h1 id="硬链接"><a href="#硬链接" class="headerlink" title="硬链接"></a>硬链接</h1><h2 id="1、如何创建硬链接"><a href="#1、如何创建硬链接" class="headerlink" title="1、如何创建硬链接"></a>1、如何创建硬链接</h2><p>ln 文件名 硬链接的名字</p>
+<p>ln test.log test.log.hard</p>
+<h2 id="2、使用硬链接的注意事项"><a href="#2、使用硬链接的注意事项" class="headerlink" title="2、使用硬链接的注意事项"></a>2、使用硬链接的注意事项</h2><ul>
+<li><p>硬链接不能建在目录上</p>
+</li>
+<li><p>硬连接对绝对路径没有要求</p>
+</li>
+<li><p>硬连接不能跨文件系统</p>
+<p><strong>硬链接文件和源文件的inode是相同的</strong>，文件系统的inode要求唯一，跨文件系统可能会使inode不同, 所以硬链接不能跨文件系统</p>
+</li>
+<li><p>创建一个硬链接文件, 硬链接计数+1, 删除一个则-1;</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ln /home/srx/test.log test.log.a</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 395891 -rw-rw-r-- 2 srx srx   60 11月 11 19:47 test.log         inode相同</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 395891 -rw-rw-r-- 2 srx srx   60 11月 11 19:47 test.log.a</span></span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="3、硬链接的本质"><a href="#3、硬链接的本质" class="headerlink" title="3、硬链接的本质"></a>3、硬链接的本质</h2><ul>
+<li>硬连接的本质是不同的文件名所在的inode节点是相同的，相同的inode节点指向了相同的数据块，所以他们的文件内容是一样的，<strong>文件内容会同步</strong>。</li>
+<li>ls -i 文件名———– 可以查看文件的inode</li>
+<li>stat 文件名 ——– 可以查看文件的inode</li>
+</ul>
+<h2 id="4、硬链接应用场合"><a href="#4、硬链接应用场合" class="headerlink" title="4、硬链接应用场合"></a>4、硬链接应用场合</h2><ul>
+<li><p>可以起到同步文件的作用</p>
+<p>修改file的内容, 会在其余三个硬链接文件上同步.</p>
+</li>
+<li><p>可以起到保护文件的作用</p>
+<p>删除文件的时候, 只要硬链接计数不为0, 不会真正删除, 起到保护文件的作用.</p>
+</li>
+</ul>
+<h1 id="用户权限、用户、用户组"><a href="#用户权限、用户、用户组" class="headerlink" title="用户权限、用户、用户组"></a>用户权限、用户、用户组</h1><h2 id="1、whoami"><a href="#1、whoami" class="headerlink" title="1、whoami"></a>1、whoami</h2><p>显示当前登陆的用户名</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">srx@srx-virtual-machine:~/test$ whoami</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># srx</span></span></span><br></pre></td></tr></table></figure>
+
+<h2 id="2、修改文件权限chmod"><a href="#2、修改文件权限chmod" class="headerlink" title="2、修改文件权限chmod"></a>2、修改文件权限chmod</h2><p>linux是通过权限对文件进行控制的, 通过使用chmod命令可以修改文件相关的权限.</p>
+<ol>
+<li><p>文字设定法</p>
+<ul>
+<li><p>命令：chmod [who] [+|-|=] [mode] 文件名</p>
+</li>
+<li><p>操作对象： [who]</p>
+<p>u—-用户（usr）</p>
+<p>g—-同组用户（group）</p>
+<p>o—-其他用户（other）</p>
+<p>a—-所有用户（all）默认</p>
+</li>
+<li><p>操作符: [+|-|=]</p>
+<p>+：添加权限</p>
+<p>-：取消权限</p>
+<p>=：赋予指定权限，并取消其他权限</p>
+</li>
+<li><p>权限：[mode] </p>
+<p>r：只读权限</p>
+<p>w：只写权限</p>
+<p>x：可执行权限</p>
+</li>
+<li><p>例：<code>chmod ug+wx file.log</code></p>
+</li>
+</ul>
+</li>
+<li><p>数字设定法</p>
+<ul>
+<li><p>命令：chmod [+|-|=][mode] 文件名</p>
+</li>
+<li><p>操作符 : [+-=]</p>
+<p>+：添加权限</p>
+<p>-：取消权限</p>
+<p>=：赋予指定权限，并取消其他权限</p>
+</li>
+<li><p>数字含义：</p>
+<p>4：可读权限（r）</p>
+<p>2：可写权限（w）</p>
+<p>1：可执行权限（x）</p>
+<p>0：无权限</p>
+</li>
+<li><p>例：<code>chmod 777  file.log</code></p>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="3、修改文件所有者和所属组"><a href="#3、修改文件所有者和所属组" class="headerlink" title="3、修改文件所有者和所属组"></a>3、修改文件所有者和所属组</h2><ol>
+<li><p>修改文件所有者（和所属组）chown</p>
+<ul>
+<li><p>用法：chown 文件所有者 文件名</p>
+<p><code>sudo chown mytest file.txt</code></p>
+</li>
+<li><p>用法：chown 文件所有者:文件所属组 文件名</p>
+<p><code>sudo chown mytest:mytest file.txt</code></p>
+<p><code>sudo chown mytest.mytest file.txt</code></p>
+<p><code>sudo chown :mytest file.txt</code></p>
+<p><code>sudo chown .mytest file.txt</code></p>
+</li>
+<li><p>注意：</p>
+<p>普通用户需要使用管理员用户权限执行该命令</p>
+<p>若系统没有其他用户, 可以使用<code>sudo adduser 用户名 </code>创建一个新用户.</p>
+</li>
+</ul>
+</li>
+<li><p>修改文件所属组chgrp</p>
+<ul>
+<li><p>使用方法：chgrp 用户组 文件或目录名</p>
+<p><code>sudo chgrp mytest file.txt</code></p>
+</li>
+<li><p>普通用户需要使用管理员权限执行该命令</p>
+</li>
+</ul>
+</li>
+</ol>
+<h1 id="find-命令"><a href="#find-命令" class="headerlink" title="find 命令"></a>find 命令</h1><h2 id="1、按文件名查询"><a href="#1、按文件名查询" class="headerlink" title="1、按文件名查询"></a>1、按文件名查询</h2><p>使用参数 -name</p>
+<ul>
+<li>命令：find  路径  -name  “文件名”</li>
+<li>示例：<code>find /home -name &quot;*.c&quot;</code></li>
+</ul>
+<h2 id="2、按类型类型查询"><a href="#2、按类型类型查询" class="headerlink" title="2、按类型类型查询"></a>2、按类型类型查询</h2><p>使用参数 -type</p>
+<ul>
+<li><p>命令：find 路径 -type 类型</p>
+<p>type（d：目录、f：普通文件、l：链接文件、s；套接字文件、p：管道文件、b：块设备文件、c：字符设备文件）</p>
+</li>
+<li><p>示例：<code>srx@srx-virtual-machine:~/test$ find -type f</code>  查找当前目录下的普通文件</p>
+</li>
+</ul>
+<h2 id="3、按文件大小查询"><a href="#3、按文件大小查询" class="headerlink" title="3、按文件大小查询"></a>3、按文件大小查询</h2><p>使用参数 -size</p>
+<ul>
+<li><p>命令：find  路径  -size  范围</p>
+</li>
+<li><p>范围：</p>
+<p>大于：+ 表示—- +100k</p>
+<p>小于：-  表示—- -100k</p>
+<p>等于：无需添加符号— 100k</p>
+<p>区间：-size +100k -size -500k</p>
+</li>
+<li><p>大小：</p>
+<p>M：必须大写</p>
+<p>k：必须小写</p>
+<p>c：表示字节数</p>
+</li>
+<li><p>示例：家目录下大于50k, 小于100k的文件:  <code>find ~/ -size +50k -size -100k</code></p>
+</li>
+</ul>
+<h2 id="4、按文件日期查询"><a href="#4、按文件日期查询" class="headerlink" title="4、按文件日期查询"></a>4、按文件日期查询</h2><ul>
+<li><p>创建日期：-ctime -n/+ n</p>
+<p> -n: n天以内</p>
+<p>+n: n天以外</p>
+</li>
+<li><p>修改日期：-mtime -n/+n</p>
+</li>
+<li><p>访问日期：-atime -n/+n</p>
+</li>
+</ul>
+<h2 id="5、按深度"><a href="#5、按深度" class="headerlink" title="5、按深度"></a>5、按深度</h2><ul>
+<li><p>-maxdepth n(层数）</p>
+<p>递归搜索目录, 搜索的层数不超过n层</p>
+</li>
+<li><p>-mindepth n(层数)</p>
+<p>递归搜索目录,搜索的层数不能小于n层</p>
+</li>
+</ul>
+<h2 id="6、高级查询"><a href="#6、高级查询" class="headerlink" title="6、高级查询"></a>6、高级查询</h2><ul>
+<li><p>查找指定目录下所有目录，并列出目录中文件详细信息</p>
+<ul>
+<li><p><code>find ./ -type d -exec shell命令 &#123;&#125; \;</code></p>
+<p><code> find ./ -type d -exec ls -l &#123;&#125; \;</code></p>
+</li>
+<li><p><code>find ./ -type d -ok shell命令 &#123;&#125; \;</code></p>
+<p><code>find ./ -type d -ok ls -l &#123;&#125; \;</code></p>
+<p>注意: {}中间不能有空格</p>
+<p>ok比较安全, 特别是在执行rm删除文件的时候.</p>
+</li>
+<li><p><code>find ./ -type d | xargs shell命令</code></p>
+<p><code>find ./ -type d | xargs ls -l</code></p>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="grep-命令"><a href="#grep-命令" class="headerlink" title="grep 命令"></a>grep 命令</h1><ul>
+<li><p>grep -r（有目录） “查找的内容” 搜索的路径</p>
+<ul>
+<li>-r 参数, 若是目录, 则可以递归搜索</li>
+<li>-n 参数可以显示该查找内容所在的行号</li>
+<li>-i 参数可以忽略大小写进行查找</li>
+<li>-v 参数不显示含有某字符串</li>
+</ul>
+</li>
+<li><p>搜索当前目录下包含hello world字符串的文件</p>
+<ul>
+<li>grep -r -n “hello world” ./   ——显示行号</li>
+<li>grep -r -i -n “HELLO world” ./  ——-忽略大小写查找</li>
+</ul>
+</li>
+<li><p>find 和 grep命令配合使用</p>
+<p>先使用find命令查找文件, 然后使用grep命令查找哪些文件包含某个字符串</p>
+<p><code>find . -name &quot;*.log&quot; | xargs grep -n &quot;hello&quot; ./</code></p>
+</li>
+</ul>
+<h1 id="Linux中常用的压缩工具"><a href="#Linux中常用的压缩工具" class="headerlink" title="Linux中常用的压缩工具"></a>Linux中常用的压缩工具</h1><h2 id="1、gzip-和-bzip2工具"><a href="#1、gzip-和-bzip2工具" class="headerlink" title="1、gzip 和 bzip2工具"></a>1、gzip 和 bzip2工具</h2><p>不能压缩目录，只能一个一个文件进行压缩，压缩之后会使原文件消失</p>
+<ul>
+<li>gzip *   压缩当前目录下所有的文件, 但是目录不能压缩</li>
+<li>gunzip *  解压当前目录下所有的.gz文件</li>
+<li>bzip2 *  压缩当前目录下所有的文件, 但是目录不能压缩</li>
+<li>bunzip2 * 解压当前目录下所有的. bz2文件</li>
+</ul>
+<h2 id="2、tar工具"><a href="#2、tar工具" class="headerlink" title="2、tar工具"></a>2、tar工具</h2><ul>
+<li><p>相关参数说明：</p>
+<ul>
+<li>z：用gzip来压缩/解压缩文件</li>
+<li>j：用bzip2来压缩/解压缩文件</li>
+<li>c：create, 创建新的压缩文件, 与x互斥使用</li>
+<li>x：从压缩文件中释放文件, 与c互斥使用</li>
+<li>v：详细报告tar处理的文件信息</li>
+<li>f：指定压缩文件的名字</li>
+<li>t:  查看压缩包中有哪些文件</li>
+</ul>
+</li>
+<li><p>压缩：</p>
+<ul>
+<li><p>tar cvf 压缩包名字.tar 原材料[要打包压缩的文件或目录]</p>
+</li>
+<li><p>tar zcvf 压缩包名字.tar.gz 原材料[要打包压缩的文件或目录]</p>
+</li>
+<li><p>tar jcvf 压缩包名字.tar.bz2 原材料[要打包压缩的文件或目录]</p>
+</li>
+</ul>
+</li>
+<li><p>解压缩：</p>
+<ul>
+<li><p>tar  xvf  已有的压缩包（test.tar.gz）</p>
+</li>
+<li><p>tar  zxvf  已有的压缩包（test.tar.gz）</p>
+</li>
+<li><p>tar  jxvf  已有的压缩包（test.tar.bz2）</p>
+</li>
+<li><p>解压到指定目录：添加参数 -C（大写）</p>
+<p><code>tar zxvf test.tar.gz -C 解压目录</code></p>
+</li>
+</ul>
+</li>
+<li><p>查看压缩包里有哪些文件</p>
+<p><code>tar -tvf test.tar</code></p>
+</li>
+</ul>
+<h2 id="3、rar工具"><a href="#3、rar工具" class="headerlink" title="3、rar工具"></a>3、rar工具</h2><ul>
+<li><p>使用前需要安装 rar 工具</p>
+<p><code>sudo apt-get install rar</code></p>
+</li>
+<li><p>压缩：</p>
+<p>命令：rar a -r 要压缩的文件（含文件或者目录）</p>
+<p><code>rar a -r my aa bb dir</code>   将aa bb dir 压缩袋my.rar</p>
+<p>打包生成的新文件无需指定后缀</p>
+</li>
+<li><p>解压缩：</p>
+<p>命令：rar x xxx.rar 解压目录（必须存在）</p>
+<p><code>rar a -r my.rar</code>   将my.rar 解压到当前目录下</p>
+<p><code>rar a -r my.rar mydir</code>  将my.rar解压到mydir目录下</p>
+</li>
+</ul>
+<h2 id="4、zip工具"><a href="#4、zip工具" class="headerlink" title="4、zip工具"></a>4、zip工具</h2><ul>
+<li><p>压缩：zip -r 压缩包名 要压缩的文件（含文件或目录）</p>
+<p><code>zip -r xxx file dir</code>   将文件file和目录dir压缩到xxx.zip文件中</p>
+<p>无需指定压缩包后缀名</p>
+</li>
+<li><p>解压缩：unzip 压缩包名</p>
+<p>解压缩到指定目录：添加参数 -d</p>
+<p><code>unzip xxx.zip -d /home/srx/test</code></p>
+<p>注意：解压目录若不存在则会创建</p>
+</li>
+</ul>
+<h1 id="Linux软件安装和卸载"><a href="#Linux软件安装和卸载" class="headerlink" title="Linux软件安装和卸载"></a>Linux软件安装和卸载</h1><h2 id="1、在线安装"><a href="#1、在线安装" class="headerlink" title="1、在线安装"></a>1、在线安装</h2><ul>
+<li><p>软件安装</p>
+<p><code>sudo apt-get install 软件名</code></p>
+</li>
+<li><p>软卸载</p>
+<p><code>sudo apt-get remove 软件名</code></p>
+</li>
+<li><p>更新软件列表</p>
+<p>`sudo apt-get updatae</p>
+</li>
+<li><p>清理安装包</p>
+<p><code>sudo apt-get clean</code></p>
+</li>
+</ul>
+<h2 id="2、软件包安装"><a href="#2、软件包安装" class="headerlink" title="2、软件包安装"></a>2、软件包安装</h2><p>在Ubuntu系统下必须有deb格式的安装包</p>
+<ul>
+<li><p>软件安装</p>
+<p><code>sudo dpkg -i xxx.deb</code></p>
+</li>
+<li><p>软件卸载</p>
+<p><code>sudo dpkg -r 软件名</code></p>
+</li>
+</ul>
+
+
+<div class="article-footer fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div></section></div>
+
+</article>
+
+<div class="related-wrap" id="read-next"><section class="header cap theme"><span>接下来阅读</span></section><section class="body"><div class="post-title h2"><a href="/2020/10/27/STL/%E8%B0%93%E8%AF%8D/%E8%B0%93%E8%AF%8D/">undefined</a></div><div class="post-title fs14"><a href="/2020/11/16/Linux/Linux-Vim/Linux-Vim/">上一篇：undefined</a></div></section></div>
+
+
+
+
+
+
+
+
+      
+<footer class="page-footer fs12"><hr><div><p>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+<p>本站由 <a href="https://smilesrx.github.io/">@CandyKing</a> 创建，使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0">Stellar</a> 作为主题。</p>
+</div></footer>
+
+      <div class='float-panel mobile-only' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" viewBox="0 0 1228 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2849"><path d="M0 0m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2850"></path><path d="M0 389.560798m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2851"></path><path d="M0 779.121596m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.390199l-973.901995 0q-97.390199 0-97.390199-97.390199l0 0q0-97.390199 97.390199-97.390199Z" p-id="2852"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script')
+      script.src = src
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js',
+    sitesjs: '/js/plugins/sites.js',
+    friendsjs: '/js/plugins/friends.js',
+  };
+
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper/swiper-bundle.min.css","js":"https://unpkg.com/swiper/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://cdn.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+
+
+<!-- inject -->
+
+
+  </div>
+</body>
+</html>

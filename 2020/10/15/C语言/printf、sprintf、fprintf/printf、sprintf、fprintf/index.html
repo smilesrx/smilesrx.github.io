@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+
+<head>
+  <meta name="generator" content="Hexo 5.4.0">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>post - 逆玺之路</title>
+
+  
+    <meta name="description" content="printf（）1、函数原型（变参函数）int printf(const char *format, ...);发送格式化输出到标准输出 stdout。 2、参数 format – 这是字符串，包含了要被写入到标准输出 stdout 的文本。它可以包含嵌入的 format 标签，format 标签可被随后的附加参数中指定的值替换，并按需求进行格式化。 format 标签属性是 (flags)(wi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="逆玺之路">
+<meta property="og:url" content="https://smilesrx.github.io/2020/10/15/C%E8%AF%AD%E8%A8%80/printf%E3%80%81sprintf%E3%80%81fprintf/printf%E3%80%81sprintf%E3%80%81fprintf/index.html">
+<meta property="og:site_name" content="逆玺之路">
+<meta property="og:description" content="printf（）1、函数原型（变参函数）int printf(const char *format, ...);发送格式化输出到标准输出 stdout。 2、参数 format – 这是字符串，包含了要被写入到标准输出 stdout 的文本。它可以包含嵌入的 format 标签，format 标签可被随后的附加参数中指定的值替换，并按需求进行格式化。 format 标签属性是 (flags)(wi">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-10-15T05:25:19.654Z">
+<meta property="article:modified_time" content="2020-10-15T06:08:20.837Z">
+<meta property="article:author" content="CandyKing">
+<meta name="twitter:card" content="summary">
+  
+  
+
+  <!-- feed -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+</head>
+
+<body>
+  
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left'>
+    
+
+<header class='header'>
+  <div class='logo-wrap'>
+  
+    <a class='avatar' href='/about/'>
+      
+        <img no-lazy class='bg' src='https://cdn.jsdelivr.net/gh/cdn-x/placeholder@1.0.2/avatar/round/rainbow64@3x.webp'/>
+      
+      <img no-lazy class='avatar' src='http://q1.qlogo.cn/g?b=qq&nk=1607952713&s=640'/>
+    </a>
+  
+  
+    <a class='title' href='/'>
+      逆玺之路
+    </a>
+  
+</div>
+
+  <nav class="menu dis-select"><a class="nav-item active" href="/">文章</a><a class="nav-item" href="/wiki/">项目</a><a class="nav-item" href="/notes/">笔记</a><a class="nav-item" href="/more/">更多</a></nav>
+</header>
+
+<div class='widgets'>
+  
+    
+      
+      
+<div class="widget-wrap" id="toc"><div class="widget-header h4 dis-select"><span class="name">本文目录</span></div><div class="widget-body fs14 post"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E5%87%BD%E6%95%B0%E5%8E%9F%E5%9E%8B%EF%BC%88%E5%8F%98%E5%8F%82%E5%87%BD%E6%95%B0%EF%BC%89"><span class="toc-text">1、函数原型（变参函数）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E5%8F%82%E6%95%B0"><span class="toc-text">2、参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81%E8%B0%83%E7%94%A8%E6%A0%BC%E5%BC%8F"><span class="toc-text">3、调用格式</span></a></li></ol></div></div></div>
+
+    
+  
+</div>
+
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+
+  <div class='bread-nav fs12'>
+  
+    
+    <div id='breadcrumb'>
+      <a class='cap breadcrumb' href='/'>主页</a>
+      <span class="sep"></span>
+      <a class='cap breadcrumb' href='/'>文章</a>
+      
+    </div>
+    <div id='post-meta'>
+      发布于&nbsp;<time datetime='2020-10-15T05:25:19.654Z'>2020-10-15</time>
+    </div>
+  
+  </div>
+
+
+<article class='content md post'>
+
+<h1 id="printf（）"><a href="#printf（）" class="headerlink" title="printf（）"></a>printf（）</h1><h2 id="1、函数原型（变参函数）"><a href="#1、函数原型（变参函数）" class="headerlink" title="1、函数原型（变参函数）"></a>1、函数原型（变参函数）</h2><p><code>int printf(const char *format, ...);</code>发送格式化输出到标准输出 stdout。</p>
+<h2 id="2、参数"><a href="#2、参数" class="headerlink" title="2、参数"></a>2、参数</h2><ul>
+<li><p><strong>format</strong> – 这是字符串，包含了要被写入到标准输出 stdout 的文本。它可以包含嵌入的 format 标签，format 标签可被随后的附加参数中指定的值替换，并按需求进行格式化。</p>
+<p>format 标签属性是 <strong>(flags)(width)(.precision)(length)specifier</strong>，具体讲解如下：</p>
+<table>
+<thead>
+<tr>
+<th align="left">格式字符</th>
+<th align="left">意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">d</td>
+<td align="left">以十进制形式输出带符号整数(正数不输出符号)</td>
+</tr>
+<tr>
+<td align="left">o</td>
+<td align="left">以八进制形式输出无符号整数(不输出前缀0)</td>
+</tr>
+<tr>
+<td align="left">x,X</td>
+<td align="left">以十六进制形式输出无符号整数(不输出前缀Ox)</td>
+</tr>
+<tr>
+<td align="left">u</td>
+<td align="left">以十进制形式输出无符号整数</td>
+</tr>
+<tr>
+<td align="left">f</td>
+<td align="left">以小数形式输出单、双精度实数</td>
+</tr>
+<tr>
+<td align="left">e,E</td>
+<td align="left">以指数形式输出单、双精度实数</td>
+</tr>
+<tr>
+<td align="left">g,G</td>
+<td align="left">以%f或%e中较短的输出宽度输出单、双精度实数</td>
+</tr>
+<tr>
+<td align="left">c</td>
+<td align="left">输出单个字符</td>
+</tr>
+<tr>
+<td align="left">s</td>
+<td align="left">输出字符串</td>
+</tr>
+<tr>
+<td align="left">p</td>
+<td align="left">输出指针地址</td>
+</tr>
+<tr>
+<td align="left">lu</td>
+<td align="left">32位无符号整数</td>
+</tr>
+<tr>
+<td align="left">llu</td>
+<td align="left">64位无符号整数</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th align="left"><strong>flags（标识）</strong></th>
+<th><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">-</td>
+<td>在给定的字段宽度内左对齐，默认是右对齐（参见 width 子说明符）。</td>
+</tr>
+<tr>
+<td align="left">+</td>
+<td>强制在结果之前显示加号或减号（+ 或 -），即正数前面会显示 + 号。默认情况下，只有负数前面会显示一个 - 号。</td>
+</tr>
+<tr>
+<td align="left">空格</td>
+<td>如果没有写入任何符号，则在该值前面插入一个空格。</td>
+</tr>
+<tr>
+<td align="left">#</td>
+<td>与 o、x 或 X 说明符一起使用时，非零值前面会分别显示 0、0x 或 0X。                                                             与 e、E 和 f 一起使用时，会强制输出包含一个小数点，即使后边没有数字时也会显示小数点。默认情况下，如果后边没有数字时候，不会显示显示小数点。                                                                                                       与 g 或 G 一起使用时，结果与使用 e 或 E 时相同，但是尾部的零不会被移除。</td>
+</tr>
+<tr>
+<td align="left">0</td>
+<td>在指定填充 padding 的数字左边放置零（0），而不是空格（参见 width 子说明符）。</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th align="left">width宽度</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">(number)</td>
+<td align="left">要输出的字符的最小数目。如果输出的值短于该数，结果会用空格填充。如果输出的值长于该数，结果不会被截断。</td>
+</tr>
+<tr>
+<td align="left">*</td>
+<td align="left">宽度在 format 字符串中未指定，但是会作为附加整数值参数放置于要被格式化的参数之前。</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h2 id="3、调用格式"><a href="#3、调用格式" class="headerlink" title="3、调用格式"></a>3、调用格式</h2><p><code>printf(&quot;&lt;格式化字符串&gt;&quot;, &lt;参量表&gt;);</code></p>
+
+
+<div class="article-footer fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div></section></div>
+
+</article>
+
+<div class="related-wrap" id="read-next"><section class="header cap theme"><span>接下来阅读</span></section><section class="body"><div class="post-title h2"><a href="/2020/10/15/C%E8%AF%AD%E8%A8%80%E7%BB%86%E8%8A%82/C%E8%AF%AD%E8%A8%80%E7%BB%86%E8%8A%82/">undefined</a></div><div class="post-title fs14"><a href="/2020/10/24/STL/STL-%E5%9F%BA%E7%A1%80/STL-%E5%9F%BA%E7%A1%80/">上一篇：undefined</a></div></section></div>
+
+
+
+
+
+
+
+
+      
+<footer class="page-footer fs12"><hr><div><p>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+<p>本站由 <a href="https://smilesrx.github.io/">@CandyKing</a> 创建，使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0">Stellar</a> 作为主题。</p>
+</div></footer>
+
+      <div class='float-panel mobile-only' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" viewBox="0 0 1228 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2849"><path d="M0 0m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2850"></path><path d="M0 389.560798m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2851"></path><path d="M0 779.121596m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.390199l-973.901995 0q-97.390199 0-97.390199-97.390199l0 0q0-97.390199 97.390199-97.390199Z" p-id="2852"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script')
+      script.src = src
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js',
+    sitesjs: '/js/plugins/sites.js',
+    friendsjs: '/js/plugins/friends.js',
+  };
+
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper/swiper-bundle.min.css","js":"https://unpkg.com/swiper/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://cdn.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+
+
+<!-- inject -->
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+
+<head>
+  <meta name="generator" content="Hexo 5.4.0">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>post - 逆玺之路</title>
+
+  
+    <meta name="description" content="多态多态性改善了代码的可读性和组织性，同时也使创建的程序具有可扩展性，项目不仅在最初创建时期可以扩展，而且当项目在需要有新的功能时也能扩展。 面向对象程序设计一个基本原则:开闭原则(对修改关闭，对扩展开放) 静态多态、动态多态c++支持编译时多态(静态多态)和运行时多态(动态多态)，运算符重载和函数重载就是编译时多态，派生类和虚函数实现运行时多态。 静态多态和动态多态的区别就是函数地址是早绑定(静">
+<meta property="og:type" content="article">
+<meta property="og:title" content="逆玺之路">
+<meta property="og:url" content="https://smilesrx.github.io/2021/04/21/C++/C++%E5%A4%9A%E6%80%81/C++%E5%A4%9A%E6%80%81/index.html">
+<meta property="og:site_name" content="逆玺之路">
+<meta property="og:description" content="多态多态性改善了代码的可读性和组织性，同时也使创建的程序具有可扩展性，项目不仅在最初创建时期可以扩展，而且当项目在需要有新的功能时也能扩展。 面向对象程序设计一个基本原则:开闭原则(对修改关闭，对扩展开放) 静态多态、动态多态c++支持编译时多态(静态多态)和运行时多态(动态多态)，运算符重载和函数重载就是编译时多态，派生类和虚函数实现运行时多态。 静态多态和动态多态的区别就是函数地址是早绑定(静">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-04-21T12:23:45.300Z">
+<meta property="article:modified_time" content="2020-10-21T15:36:23.003Z">
+<meta property="article:author" content="CandyKing">
+<meta name="twitter:card" content="summary">
+  
+  
+
+  <!-- feed -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+</head>
+
+<body>
+  
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left'>
+    
+
+<header class='header'>
+  <div class='logo-wrap'>
+  
+    <a class='avatar' href='/about/'>
+      
+        <img no-lazy class='bg' src='https://cdn.jsdelivr.net/gh/cdn-x/placeholder@1.0.2/avatar/round/rainbow64@3x.webp'/>
+      
+      <img no-lazy class='avatar' src='http://q1.qlogo.cn/g?b=qq&nk=1607952713&s=640'/>
+    </a>
+  
+  
+    <a class='title' href='/'>
+      逆玺之路
+    </a>
+  
+</div>
+
+  <nav class="menu dis-select"><a class="nav-item active" href="/">文章</a><a class="nav-item" href="/wiki/">项目</a><a class="nav-item" href="/notes/">笔记</a><a class="nav-item" href="/more/">更多</a></nav>
+</header>
+
+<div class='widgets'>
+  
+    
+      
+      
+<div class="widget-wrap" id="toc"><div class="widget-header h4 dis-select"><span class="name">本文目录</span></div><div class="widget-body fs14 post"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E8%99%9A%E6%9E%90%E6%9E%84"><span class="toc-text">1、虚析构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E7%BA%AF%E8%99%9A%E6%9E%90%E6%9E%84"><span class="toc-text">2、纯虚析构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E9%87%8D%E8%BD%BD"><span class="toc-text">1、重载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E9%87%8D%E5%AE%9A%E4%B9%89%EF%BC%88%E9%9A%90%E8%97%8F%EF%BC%89"><span class="toc-text">2、重定义（隐藏）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81%E9%87%8D%E5%86%99%EF%BC%88%E8%A6%86%E7%9B%96%EF%BC%89%E2%80%94-%E5%A4%9A%E6%80%81"><span class="toc-text">3、重写（覆盖）—  多态</span></a></li></ol></div></div></div>
+
+    
+  
+</div>
+
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+
+  <div class='bread-nav fs12'>
+  
+    
+    <div id='breadcrumb'>
+      <a class='cap breadcrumb' href='/'>主页</a>
+      <span class="sep"></span>
+      <a class='cap breadcrumb' href='/'>文章</a>
+      
+    </div>
+    <div id='post-meta'>
+      发布于&nbsp;<time datetime='2021-04-21T12:23:45.300Z'>2021-04-21</time>
+    </div>
+  
+  </div>
+
+
+<article class='content md post'>
+
+<h1 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h1><p>多态性改善了代码的可读性和组织性，同时也使创建的程序具有可扩展性，项目不仅在最初创建时期可以扩展，而且当项目在需要有新的功能时也能扩展。</p>
+<p>面向对象程序设计一个基本原则:开闭原则(对修改关闭，对扩展开放)</p>
+<h1 id="静态多态、动态多态"><a href="#静态多态、动态多态" class="headerlink" title="静态多态、动态多态"></a>静态多态、动态多态</h1><p>c++支持编译时多态(静态多态)和运行时多态(动态多态)，运算符重载和函数重载就是编译时多态，派生类和虚函数实现运行时多态。</p>
+<p><strong>静态多态和动态多态的区别就是函数地址是早绑定(静态联编)还是晚绑定(动态联编)：</strong></p>
+<ul>
+<li>如果函数的调用，在编译阶段就可以确定函数的调用地址，并产生代码，就是静态多态(编译时多态)，就是说地址是早绑定的</li>
+<li>如果函数的调用地址不能在编译期间确定，而需要在运行时才能决定，这这就属于晚绑定(动态多态,运行时多态)。</li>
+</ul>
+<p><strong>动态多态产生的条件：</strong></p>
+<ul>
+<li>先有继承关系</li>
+<li>父类中有虚函数（函数名前加关键字virtual），子类重写父类中的虚函数</li>
+<li>父类的指针或引用  指向子类的对象</li>
+</ul>
+<h1 id="多态原理"><a href="#多态原理" class="headerlink" title="多态原理"></a>多态原理</h1><p>C++动态多态性是通过虚函数来实现的，虚函数允许子类（派生类）重新定义父类（基类）成员函数，而子类（派生类）重新定义父类（基类）虚函数的做法称为覆盖(override)，或者称为重写。</p>
+<p>对于特定的函数进行动态绑定，c++要求在基类中声明这个函数的时候使用virtual关键字,动态绑定也就对virtual函数起作用.</p>
+<ul>
+<li>为创建一个需要动态绑定的虚成员函数，可以简单在这个函数声明前面加上virtual关键字，定义时候不需要.</li>
+<li>如果一个函数在基类中被声明为virtual，那么在所有派生类中它都是virtual的.</li>
+<li>在派生类中virtual函数的重定义称为重写(override).</li>
+<li>Virtual关键字只能修饰成员函数.</li>
+<li>构造函数不能为虚函数.</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="comment">//虚函数</span></span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">speak</span><span class="params">()</span></span>&#123;cout &lt;&lt; <span class="string">&quot;动物在说话&quot;</span> &lt;&lt; endl;&#125;</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">eat</span><span class="params">(<span class="keyword">int</span> a )</span></span>&#123;cout &lt;&lt; <span class="string">&quot;动物在吃饭&quot;</span> &lt;&lt; endl;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cat</span> :</span><span class="keyword">public</span> Animal&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">speak</span><span class="params">()</span></span>&#123;cout &lt;&lt; <span class="string">&quot;小猫在说话&quot;</span> &lt;&lt; endl;&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">eat</span><span class="params">(<span class="keyword">int</span> a)</span></span>&#123;cout &lt;&lt; <span class="string">&quot;小猫在吃饭&quot;</span> &lt;&lt; endl;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Dog</span> :</span><span class="keyword">public</span> Animal&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">speak</span><span class="params">()</span></span>&#123;cout &lt;&lt; <span class="string">&quot;小狗在说话&quot;</span> &lt;&lt; endl;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DoSpeak</span><span class="params">(Animal &amp;animal)</span></span>&#123;</span><br><span class="line">	animal.<span class="built_in">speak</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">	Cat cat;</span><br><span class="line">	<span class="built_in">DoSpeak</span>(cat);</span><br><span class="line">	</span><br><span class="line">	Dog dog;</span><br><span class="line">	<span class="built_in">DoSpeak</span>(dog);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test01</span><span class="params">()</span></span>&#123;</span><br><span class="line">	Animal *animal=<span class="keyword">new</span> Cat;</span><br><span class="line">	<span class="comment">//调用猫说话</span></span><br><span class="line">	animal-&gt;<span class="built_in">speak</span>();</span><br><span class="line">	<span class="comment">// *(int *)animal 解引用到虚函数表中</span></span><br><span class="line">	<span class="comment">// *(int *)*(int *)animal 解引用到函数speak地址</span></span><br><span class="line">	((<span class="built_in"><span class="keyword">void</span></span>(*)()) (*(<span class="keyword">int</span> *)*(<span class="keyword">int</span> *)animal)) ();</span><br><span class="line"></span><br><span class="line">	<span class="comment">//C/C++默认调用惯例  __cdecl</span></span><br><span class="line">	<span class="comment">//用下列调用时候 真实调用惯例  是 __stdcall</span></span><br><span class="line">	<span class="comment">//调用猫吃饭</span></span><br><span class="line">	<span class="function"><span class="keyword">typedef</span> <span class="title">void</span><span class="params">( __stdcall *FUNPOINT)</span><span class="params">(<span class="keyword">int</span>)</span></span>;</span><br><span class="line">	(<span class="built_in">FUNPOINT</span> (*((<span class="keyword">int</span>*)*(<span class="keyword">int</span>*)animal)))(<span class="number">10</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>当父类写了虚函数后，类内部结构发生改变，多了一个<code>vfptr</code>—虚函数表指针</p>
+</li>
+<li><p>虚函数表内部记录着 虚函数的入口地址</p>
+</li>
+<li><p>当父类指针或引用指向子类对象，发生多态，调用是时候从虚函数中找函数入口地址</p>
+</li>
+<li><p>虚函数 关键字  virtual</p>
+</li>
+<li><p>纯虚函数 <code>virtual  int  func( )=0;</code></p>
+<pre><code>如果一个类中包含了纯虚函数，那么这个类就无法实例化对象了,这个类通常我们称为 抽象类
+抽象类的子类 必须要重写 父类中的纯虚函数，否则也属于抽象类
+</code></pre>
+</li>
+<li><p>利用指针的偏移调用 函数</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">((<span class="built_in"><span class="keyword">void</span></span>(*)()) (*(<span class="keyword">int</span> *)*(<span class="keyword">int</span> *)animal)) ();</span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">void</span><span class="params">( __stdcall *FUNPOINT)</span><span class="params">(<span class="keyword">int</span>)</span></span>;</span><br><span class="line">(<span class="built_in">FUNPOINT</span> (*((<span class="keyword">int</span>*)*(<span class="keyword">int</span>*)animal)))(<span class="number">10</span>);</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="多态案例—计算器实现"><a href="#多态案例—计算器实现" class="headerlink" title="多态案例—计算器实现"></a>多态案例—计算器实现</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AbstractCalculator</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="comment">//纯虚函数</span></span><br><span class="line">	<span class="comment">//如果一个类中包含了纯虚函数，那么这个类就无法实例化对象了,这个类通常我们称为 抽象类</span></span><br><span class="line">	<span class="comment">//抽象类的子类 必须要重写 父类中的纯虚函数，否则也属于抽象类</span></span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">int</span> <span class="title">getResult</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> m_A;</span><br><span class="line">	<span class="keyword">int</span> m_B;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//加法计算器</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AddCalculator</span> :</span><span class="keyword">public</span> AbstractCalculator&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">int</span> <span class="title">getResult</span><span class="params">()</span></span>&#123;<span class="keyword">return</span> m_A + m_B;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//减法计算器</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SubCalculator</span> :</span><span class="keyword">public</span> AbstractCalculator&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">int</span> <span class="title">getResult</span><span class="params">()</span></span>&#123;<span class="keyword">return</span> m_A - m_B;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//乘法计算器</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MulCalculator</span> :</span><span class="keyword">public</span> AbstractCalculator&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">int</span> <span class="title">getResult</span><span class="params">()</span></span>&#123;<span class="keyword">return</span> m_A * m_B;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test01</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	AbstractCalculator * calculator = <span class="keyword">new</span> AddCalculator;</span><br><span class="line">	calculator-&gt;m_A = <span class="number">100</span>;</span><br><span class="line">	calculator-&gt;m_B = <span class="number">200</span>;</span><br><span class="line">	cout &lt;&lt; calculator-&gt;<span class="built_in">getResult</span>() &lt;&lt; endl;</span><br><span class="line">	<span class="keyword">delete</span> calculator;</span><br><span class="line">    </span><br><span class="line">	calculator = <span class="keyword">new</span> SubCalculator;</span><br><span class="line">	calculator-&gt;m_A = <span class="number">100</span>;</span><br><span class="line">	calculator-&gt;m_B = <span class="number">200</span>;</span><br><span class="line">	cout &lt;&lt; calculator-&gt;<span class="built_in">getResult</span>() &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">delete</span> calculator;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="纯虚函数函数和抽象类"><a href="#纯虚函数函数和抽象类" class="headerlink" title="纯虚函数函数和抽象类"></a>纯虚函数函数和抽象类</h1><p>语法：<code>virtual int func() = 0;</code></p>
+<p>如果一个类中包含了纯虚函数，那么这个类就无法实例化对象了,这个类通常我们称为 抽象类</p>
+<p>抽象类的子类 必须要重写 父类中的纯虚函数，否则也属于抽象类</p>
+<h1 id="虚析构和纯虚析构"><a href="#虚析构和纯虚析构" class="headerlink" title="虚析构和纯虚析构"></a>虚析构和纯虚析构</h1><h2 id="1、虚析构"><a href="#1、虚析构" class="headerlink" title="1、虚析构"></a>1、虚析构</h2><p>作用：虚析构函数是为了解决基类的指针指向派生类对象，并用基类的指针删除派生类对象。</p>
+<p>语法：<code>virtual ~Person()&#123; &#125;</code></p>
+<p>如果子类中有指向堆区的属性，那么要利用虚析构技术 在delete的时候 调用子类的析构函数</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">Animal</span>()&#123;cout &lt;&lt; <span class="string">&quot;Animal的构造函数调用&quot;</span> &lt;&lt; endl;&#125;</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">speak</span><span class="params">()</span></span>&#123;cout &lt;&lt; <span class="string">&quot;动物在说话&quot;</span> &lt;&lt; endl;&#125;</span><br><span class="line">	<span class="comment">//如果子类中有指向堆区的属性，那么要利用虚析构技术 在delete的时候 调用子类的析构函数</span></span><br><span class="line">	<span class="keyword">virtual</span> ~<span class="built_in">Animal</span>()&#123;cout &lt;&lt; <span class="string">&quot;Animal的析构函数调用&quot;</span> &lt;&lt; endl;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cat</span> :</span><span class="keyword">public</span> Animal&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">Cat</span>(<span class="keyword">char</span> * name)&#123;</span><br><span class="line">		cout &lt;&lt; <span class="string">&quot;Cat的构造函数调用&quot;</span> &lt;&lt; endl;</span><br><span class="line">		<span class="keyword">this</span>-&gt;m_Name = <span class="keyword">new</span> <span class="keyword">char</span>[<span class="built_in">strlen</span>(name) + <span class="number">1</span>];</span><br><span class="line">		<span class="built_in">strcpy</span>(<span class="keyword">this</span>-&gt;m_Name, name);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">speak</span><span class="params">()</span></span>&#123;cout &lt;&lt; <span class="keyword">this</span>-&gt;m_Name &lt;&lt;<span class="string">&quot; 小猫在说话&quot;</span> &lt;&lt; endl;&#125;</span><br><span class="line"></span><br><span class="line">	~<span class="built_in">Cat</span>()&#123;</span><br><span class="line">		<span class="keyword">if</span> (<span class="keyword">this</span>-&gt;m_Name)&#123;</span><br><span class="line">			cout &lt;&lt; <span class="string">&quot;Cat的析构函数调用&quot;</span> &lt;&lt; endl;</span><br><span class="line">			<span class="keyword">delete</span>[] <span class="keyword">this</span>-&gt;m_Name;</span><br><span class="line">			<span class="keyword">this</span>-&gt;m_Name = <span class="literal">NULL</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">char</span> * m_Name;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test01</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Animal * animal = <span class="keyword">new</span> <span class="built_in">Cat</span>(<span class="string">&quot;Tom&quot;</span>);   <span class="comment">//先：Animal构造    后：Cat构造 </span></span><br><span class="line">	animal-&gt;<span class="built_in">speak</span>();  <span class="comment">//小猫在说话</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">delete</span> animal;    <span class="comment">//先：Cat析构   后：Animal析构</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2、纯虚析构"><a href="#2、纯虚析构" class="headerlink" title="2、纯虚析构"></a>2、纯虚析构</h2><p>纯虚析构函数在c++中是合法的，但是在使用的时候有一个额外的限制：必须为纯虚析构函数提供一个函数体。</p>
+<p>作用：纯虚析构函数和非纯析构函数之间唯一的不同之处在于纯虚析构函数使得基类是抽象类，不能创建基类的对象。</p>
+<p>语法：<code>virtual ~Animal() = 0;</code>    <code>Animal::~Animal()&#123; .. &#125;</code></p>
+<p>注意：</p>
+<ul>
+<li>纯虚析构 需要有声明 也需要有实现</li>
+<li>如果一个类中 有了 纯虚析构函数，那么这个类也属于抽象类，无法实例化对象了</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">Animal</span>()&#123;cout &lt;&lt; <span class="string">&quot;Animal的构造函数调用&quot;</span> &lt;&lt; endl;&#125;</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">speak</span><span class="params">()</span></span>&#123;cout &lt;&lt; <span class="string">&quot;动物在说话&quot;</span> &lt;&lt; endl;&#125;</span><br><span class="line">	<span class="comment">//如果子类中有指向堆区的属性，那么要利用虚析构技术 在delete的时候 调用子类的析构函数</span></span><br><span class="line">	<span class="comment">//纯虚析构 需要有声明 也需要有实现</span></span><br><span class="line">	<span class="comment">//如果一个类中 有了 纯虚析构函数，那么这个类也属于抽象类，无法实例化对象了</span></span><br><span class="line">	<span class="keyword">virtual</span> ~<span class="built_in">Animal</span>() = <span class="number">0</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Animal::~<span class="built_in">Animal</span>()&#123;cout &lt;&lt; <span class="string">&quot;Animal的纯虚析构函数调用&quot;</span> &lt;&lt; endl;&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cat</span> :</span><span class="keyword">public</span> Animal&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">Cat</span>(<span class="keyword">char</span> * name)&#123;</span><br><span class="line">		cout &lt;&lt; <span class="string">&quot;Cat的构造函数调用&quot;</span> &lt;&lt; endl;</span><br><span class="line">		<span class="keyword">this</span>-&gt;m_Name = <span class="keyword">new</span> <span class="keyword">char</span>[<span class="built_in">strlen</span>(name) + <span class="number">1</span>];</span><br><span class="line">		<span class="built_in">strcpy</span>(<span class="keyword">this</span>-&gt;m_Name, name);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">speak</span><span class="params">()</span></span>&#123;cout &lt;&lt; <span class="keyword">this</span>-&gt;m_Name &lt;&lt;<span class="string">&quot; 小猫在说话&quot;</span> &lt;&lt; endl;&#125;</span><br><span class="line"></span><br><span class="line">	~<span class="built_in">Cat</span>()&#123;</span><br><span class="line">		<span class="keyword">if</span> (<span class="keyword">this</span>-&gt;m_Name)&#123;</span><br><span class="line">			cout &lt;&lt; <span class="string">&quot;Cat的析构函数调用&quot;</span> &lt;&lt; endl;</span><br><span class="line">			<span class="keyword">delete</span>[] <span class="keyword">this</span>-&gt;m_Name;</span><br><span class="line">			<span class="keyword">this</span>-&gt;m_Name = <span class="literal">NULL</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">char</span> * m_Name;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test01</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//Animal animal;   //纯虚析构使Animal为抽象类无法实例化对象</span></span><br><span class="line">	Animal * animal = <span class="keyword">new</span> <span class="built_in">Cat</span>(<span class="string">&quot;Tom&quot;</span>);</span><br><span class="line">	animal-&gt;<span class="built_in">speak</span>();</span><br><span class="line"></span><br><span class="line">	<span class="keyword">delete</span> animal;   <span class="comment">//调用子类的析构函数</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="向上、向下类型转换"><a href="#向上、向下类型转换" class="headerlink" title="向上、向下类型转换"></a>向上、向下类型转换</h1><ul>
+<li>父转子  向下类型转换  不安全</li>
+<li>子转父  向上类型转换  安全</li>
+<li>如果发生多态，那么转换永远都是安全的</li>
+</ul>
+<h1 id="重载-重定义-重写"><a href="#重载-重定义-重写" class="headerlink" title="重载- 重定义-重写"></a>重载- 重定义-重写</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="comment">//同一作用域下，func1函数重载</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">func1</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">func1</span><span class="params">(<span class="keyword">int</span> a)</span></span>&#123;&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">func1</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">func2</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">func3</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> :</span> <span class="keyword">public</span> A&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="comment">//重定义基类的func2,隐藏了基类的func2方法</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">func2</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">	<span class="comment">//重写基类的func3函数，也可以覆盖基类func3</span></span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">func3</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="1、重载"><a href="#1、重载" class="headerlink" title="1、重载"></a>1、重载</h2><ul>
+<li>同一个作用域</li>
+<li>函数名相同</li>
+<li>参数表不同（参数类型、个数、顺序）</li>
+<li>加<code>const</code>和不加<code>const</code>的引用</li>
+<li>返回值不做重载的条件</li>
+</ul>
+<h2 id="2、重定义（隐藏）"><a href="#2、重定义（隐藏）" class="headerlink" title="2、重定义（隐藏）"></a>2、重定义（隐藏）</h2><ul>
+<li>有继承</li>
+<li>子类（派生类）重新定义父类（基类）的同名成员（非virtual函数）</li>
+</ul>
+<h2 id="3、重写（覆盖）—-多态"><a href="#3、重写（覆盖）—-多态" class="headerlink" title="3、重写（覆盖）—  多态"></a>3、重写（覆盖）—  多态</h2><ul>
+<li> 有继承</li>
+<li>子类（派生类）重写父类（基类）的virtual函数</li>
+<li>函数返回值，函数名字，函数参数，必须和基类中的虚函数一致</li>
+</ul>
+
+
+<div class="article-footer fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div></section></div>
+
+</article>
+
+<div class="related-wrap" id="read-next"><section class="header cap theme"><span>接下来阅读</span></section><section class="body"><div class="post-title h2"><a href="/2021/04/21/C++/C++%E5%A4%9A%E4%B8%AA%E5%AF%B9%E8%B1%A1%E6%9E%84%E9%80%A0%E5%92%8C%E6%9E%90%E6%9E%84/%E5%A4%9A%E4%B8%AA%E5%AF%B9%E8%B1%A1%E6%9E%84%E9%80%A0%E5%92%8C%E6%9E%90%E6%9E%84/">undefined</a></div><div class="post-title fs14"><a href="/2021/04/21/C++/C++%E5%B0%81%E8%A3%85/C++%E5%B0%81%E8%A3%85/">上一篇：undefined</a></div></section></div>
+
+
+
+
+
+
+
+
+      
+<footer class="page-footer fs12"><hr><div><p>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+<p>本站由 <a href="https://smilesrx.github.io/">@CandyKing</a> 创建，使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0">Stellar</a> 作为主题。</p>
+</div></footer>
+
+      <div class='float-panel mobile-only' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" viewBox="0 0 1228 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2849"><path d="M0 0m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2850"></path><path d="M0 389.560798m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2851"></path><path d="M0 779.121596m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.390199l-973.901995 0q-97.390199 0-97.390199-97.390199l0 0q0-97.390199 97.390199-97.390199Z" p-id="2852"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script')
+      script.src = src
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js',
+    sitesjs: '/js/plugins/sites.js',
+    friendsjs: '/js/plugins/friends.js',
+  };
+
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper/swiper-bundle.min.css","js":"https://unpkg.com/swiper/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://cdn.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+
+
+<!-- inject -->
+
+
+  </div>
+</body>
+</html>

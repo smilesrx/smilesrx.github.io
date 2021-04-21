@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+
+<head>
+  <meta name="generator" content="Hexo 5.4.0">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>post - 逆玺之路</title>
+
+  
+    <meta name="description" content="makefile文件makefile文件中定义了一系列的规则来指定, 哪些文件需要先编译, 哪些文件需要后编译, 哪些文件需要重新编译, 甚至于进行更复杂的功能操作, 因为makefile就像一个Shell脚本一样, 其中也可以执行操作系统的命令. makefile带来的好处就是——“自动化编译”, 一旦写好, 只需要一个make命令, 整个工程完全自动编译, 极大的提高了软件开发的效率. mak">
+<meta property="og:type" content="article">
+<meta property="og:title" content="逆玺之路">
+<meta property="og:url" content="https://smilesrx.github.io/2020/11/25/Linux/Linux-makefile/makefile%E6%96%87%E4%BB%B6/index.html">
+<meta property="og:site_name" content="逆玺之路">
+<meta property="og:description" content="makefile文件makefile文件中定义了一系列的规则来指定, 哪些文件需要先编译, 哪些文件需要后编译, 哪些文件需要重新编译, 甚至于进行更复杂的功能操作, 因为makefile就像一个Shell脚本一样, 其中也可以执行操作系统的命令. makefile带来的好处就是——“自动化编译”, 一旦写好, 只需要一个make命令, 整个工程完全自动编译, 极大的提高了软件开发的效率. mak">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://smilesrx.github.io/依赖文件不存在.png">
+<meta property="og:image" content="https://smilesrx.github.io/依赖文件都存在.png">
+<meta property="article:published_time" content="2020-11-25T05:10:10.121Z">
+<meta property="article:modified_time" content="2020-11-26T09:33:56.742Z">
+<meta property="article:author" content="CandyKing">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://smilesrx.github.io/依赖文件不存在.png">
+  
+  
+
+  <!-- feed -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+</head>
+
+<body>
+  
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left'>
+    
+
+<header class='header'>
+  <div class='logo-wrap'>
+  
+    <a class='avatar' href='/about/'>
+      
+        <img no-lazy class='bg' src='https://cdn.jsdelivr.net/gh/cdn-x/placeholder@1.0.2/avatar/round/rainbow64@3x.webp'/>
+      
+      <img no-lazy class='avatar' src='http://q1.qlogo.cn/g?b=qq&nk=1607952713&s=640'/>
+    </a>
+  
+  
+    <a class='title' href='/'>
+      逆玺之路
+    </a>
+  
+</div>
+
+  <nav class="menu dis-select"><a class="nav-item active" href="/">文章</a><a class="nav-item" href="/wiki/">项目</a><a class="nav-item" href="/notes/">笔记</a><a class="nav-item" href="/more/">更多</a></nav>
+</header>
+
+<div class='widgets'>
+  
+    
+      
+      
+<div class="widget-wrap" id="toc"><div class="widget-header h4 dis-select"><span class="name">本文目录</span></div><div class="widget-body fs14 post"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E8%A7%84%E5%88%99%E5%A6%82%E4%B8%8B%EF%BC%9A"><span class="toc-text">1、规则如下：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81makefile%E5%9F%BA%E6%9C%AC%E8%A7%84%E5%88%99%E4%B8%89%E8%A6%81%E7%B4%A0%EF%BC%9A"><span class="toc-text">2、makefile基本规则三要素：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="toc-text">1、基本原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E6%80%BB%E7%BB%93"><span class="toc-text">2、总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E6%99%AE%E9%80%9A%E5%8F%98%E9%87%8F"><span class="toc-text">1、普通变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E8%87%AA%E5%B8%A6%E5%8F%98%E9%87%8F"><span class="toc-text">2、自带变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81%E8%87%AA%E5%8A%A8%E5%8F%98%E9%87%8F"><span class="toc-text">3、自动变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81wildcard-%E6%9F%A5%E6%89%BE%E6%8C%87%E5%AE%9A%E7%9B%AE%E5%BD%95%E4%B8%8B%E7%9A%84%E6%8C%87%E5%AE%9A%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%96%87%E4%BB%B6"><span class="toc-text">1、wildcard-查找指定目录下的指定类型的文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81patsubst%E2%80%93%E5%8C%B9%E9%85%8D%E6%9B%BF%E6%8D%A2"><span class="toc-text">2、patsubst–匹配替换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81makefile%E7%89%88%E6%9C%AC%E4%B8%80"><span class="toc-text">1、makefile版本一</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81makefile%E7%89%88%E6%9C%AC%E4%BA%8C"><span class="toc-text">2、makefile版本二</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81makefile%E7%89%88%E6%9C%AC%E4%B8%89"><span class="toc-text">3、makefile版本三</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4%E3%80%81makefile%E7%89%88%E6%9C%AC%E5%9B%9B"><span class="toc-text">4、makefile版本四</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5%E3%80%81makefile%E7%89%88%E6%9C%AC%E4%BA%94"><span class="toc-text">5、makefile版本五</span></a></li></ol></div></div></div>
+
+    
+  
+</div>
+
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+
+  <div class='bread-nav fs12'>
+  
+    
+    <div id='breadcrumb'>
+      <a class='cap breadcrumb' href='/'>主页</a>
+      <span class="sep"></span>
+      <a class='cap breadcrumb' href='/'>文章</a>
+      
+    </div>
+    <div id='post-meta'>
+      发布于&nbsp;<time datetime='2020-11-25T05:10:10.121Z'>2020-11-25</time>
+    </div>
+  
+  </div>
+
+
+<article class='content md post'>
+
+<h1 id="makefile文件"><a href="#makefile文件" class="headerlink" title="makefile文件"></a>makefile文件</h1><p>makefile文件中定义了一系列的规则来指定, 哪些文件需要先编译, 哪些文件需要后编译, 哪些文件需要重新编译, 甚至于进行更复杂的功能操作, 因为makefile就像一个Shell脚本一样, 其中也可以执行操作系统的命令. makefile带来的好处就是——“自动化编译”, 一旦写好, 只需要一个make命令, 整个工程完全自动编译, 极大的提高了软件开发的效率.</p>
+<p>make是一个命令工具, 是一个解释makefile中指令的命令工具, 一般来说, 大多数的IDE都有这个命令, 比如：Visual C++的nmake, Linux下GNU的make. 可见, makefile都成为了一种在工程方面的编译方法.</p>
+<p>makefile文件中会使用gcc编译器对源代码进行编译, 最终生成可执行文件或者是库文件.</p>
+<p>makefile文件的命名：makefile或者Makefile</p>
+<h1 id="makefile的基本规则"><a href="#makefile的基本规则" class="headerlink" title="makefile的基本规则"></a>makefile的基本规则</h1><h2 id="1、规则如下："><a href="#1、规则如下：" class="headerlink" title="1、规则如下："></a>1、规则如下：</h2><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">目标：依赖</span><br><span class="line">（tab）命令</span><br></pre></td></tr></table></figure>
+
+<h2 id="2、makefile基本规则三要素："><a href="#2、makefile基本规则三要素：" class="headerlink" title="2、makefile基本规则三要素："></a>2、makefile基本规则三要素：</h2><ul>
+<li>目标：要生成的目标文件</li>
+<li>依赖：目标文件由哪些文件生成</li>
+<li>命令：通过执行该命令由依赖生成目标</li>
+</ul>
+<h1 id="makefile工作原理"><a href="#makefile工作原理" class="headerlink" title="makefile工作原理"></a>makefile工作原理</h1><h2 id="1、基本原理"><a href="#1、基本原理" class="headerlink" title="1、基本原理"></a>1、基本原理</h2><p>若想生成目标，检查规则中的所有依赖文件是否存在：</p>
+<ul>
+<li><p>如果所有的依赖文件不存在，则向下搜索规则，看是否有生成该依赖的规则：</p>
+<p>如果有规则用来生成该依赖文件，则执行规则中的命令生成依赖文件；</p>
+<p>如果没有规则用来生成该依赖文件，则报错。</p>
+<img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/依赖文件不存在.png" alt="依赖文件不存在" style="zoom:67%;" /></li>
+<li><p>如果所有的依赖都存在，检查规则中的目标是否需要更新，必须先检查它的所有依赖，依赖中任何一个被更新，则目标必须更新（检查的规则是哪个时间大哪个最新）</p>
+<p>若目标的时间 &gt; 依赖的时间，不更新</p>
+<p>若目标的时间 &lt; 依赖的时间，则更新</p>
+<img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/依赖文件都存在.png" alt="依赖文件都存在" style="zoom:67%;" /></li>
+</ul>
+<h2 id="2、总结"><a href="#2、总结" class="headerlink" title="2、总结"></a>2、总结</h2><ul>
+<li>分析各个目标和依赖之间的关系</li>
+<li>根据依赖关系自底向上指向命令</li>
+<li>根据依赖文件的时间和目标文件的时间确定是否需要更新</li>
+<li>如果目标不依赖任何文件，则执行对应的命令，以示更新（如：伪目标）</li>
+</ul>
+<h1 id="makefile中的变量"><a href="#makefile中的变量" class="headerlink" title="makefile中的变量"></a>makefile中的变量</h1><p>在makefile中使用变量有点类似于C语言中宏定义，使用该变量相当于内容替换，使用变量可以使makefile文件易于维护，修改起来变得简单。</p>
+<p>makefile中有三中变量：</p>
+<ul>
+<li>普通变量</li>
+<li>自带变量</li>
+<li>自动变量</li>
+</ul>
+<h2 id="1、普通变量"><a href="#1、普通变量" class="headerlink" title="1、普通变量"></a>1、普通变量</h2><ul>
+<li><p>变量定义直接用 =</p>
+</li>
+<li><p>使用变量值用 $(变量名)</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">foo=abc      //定义变量并赋值</span><br><span class="line">bar=<span class="variable">$(foo)</span>   //使用变量，%=$(变量名)</span><br></pre></td></tr></table></figure>
+
+<p>定义了两个变量：foo、bar，其中bar的值是foo变量的值的引用。</p>
+</li>
+</ul>
+<h2 id="2、自带变量"><a href="#2、自带变量" class="headerlink" title="2、自带变量"></a>2、自带变量</h2><p>除了使用用户自定义的变量，makefile中也提供了一些变量（变量名大写）供用户直接使用，我们可以直接对其进行赋值：</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">CC=gcc <span class="comment">#arm-linux-gcc</span></span><br><span class="line"><span class="section">CPPFLAGS:C预处理的选项 -I</span></span><br><span class="line"><span class="section">CFLAGS:C编译器的选项 -Wall -g -c</span></span><br><span class="line"><span class="section">LDFLAGS:链接器选项 -L -l</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="3、自动变量"><a href="#3、自动变量" class="headerlink" title="3、自动变量"></a>3、自动变量</h2><ul>
+<li>$@:表示规则中的目标</li>
+<li>$&lt;:表示规则中的第一个条件</li>
+<li>$^:表示规则中的所有条件，组成一个列表，以空格隔开，如果这个列表中有重复的项则消除重复项。</li>
+<li><strong>特别注意：</strong>自动变量只能在规则的命令中使用</li>
+</ul>
+<h1 id="makefile的模式规则"><a href="#makefile的模式规则" class="headerlink" title="makefile的模式规则"></a>makefile的模式规则</h1><p>至少在规则的目标定义中要包含’%’, ‘%’表示一个或多个, 在依赖条件中同样可以使用’%’, 依赖条件中的’%’的取值取决于其目标:</p>
+<p>比如: <code>main.o:main.c fun1.o: fun1.c fun2.o:fun2.c</code>, 说的简单点就是: xxx.o:xxx.c</p>
+<h1 id="makefile中的函数"><a href="#makefile中的函数" class="headerlink" title="makefile中的函数"></a>makefile中的函数</h1><h2 id="1、wildcard-查找指定目录下的指定类型的文件"><a href="#1、wildcard-查找指定目录下的指定类型的文件" class="headerlink" title="1、wildcard-查找指定目录下的指定类型的文件"></a>1、wildcard-查找指定目录下的指定类型的文件</h2><p><code>src=$(wildcard *.c)</code> //找到当前目录下所有后缀为.c的文件,赋值给src</p>
+<p>等价于：<code>src=main.c fun1.c fun2.c sum.c</code></p>
+<h2 id="2、patsubst–匹配替换"><a href="#2、patsubst–匹配替换" class="headerlink" title="2、patsubst–匹配替换"></a>2、patsubst–匹配替换</h2><p><code>obj=$(patsubst %.c,%.o, $(src))</code> //把src变量里所有后缀为.c的文件替换成.o</p>
+<p>等价于：<code>obj=mian.o fun1.o fun2.o sum.o</code></p>
+<p><strong>注意：在makefile中所有的函数都有返回值</strong></p>
+<h1 id="makefile的清理操作"><a href="#makefile的清理操作" class="headerlink" title="makefile的清理操作"></a>makefile的清理操作</h1><p>用途：清除编译生成的中间 .o文件和最终的目标文件</p>
+<p>make clean 如果当前目录下有同名clean文件，则不执行clean对于的命令，解决方案：</p>
+<p>伪目标什么：<code>.PHONY:clean</code></p>
+<p>申明目标为伪目标之后，makefile将不会检查该目标是否存在或者该目标是否需要更新</p>
+<p>clean命令中的特殊符号：</p>
+<ul>
+<li><p>“ - ” 此条命令出错，make也会继续执行后续的命令。如：`rm -main.o``</p>
+<p><code>rm -f</code> 强制执行，比如若要删除的文件不存在使用-f不会报错</p>
+</li>
+<li><p>“ @ ”不显示命令的本身，只显示结果。如：<code>@echo clean done</code></p>
+</li>
+</ul>
+<p>make 默认执行第一个出现的目标，可通过make dest指定要执行的目标</p>
+<p>make -f ：-f执行一个makefile文件名称，使用make执行指定的makefile:<code>make -f mainmak</code></p>
+<h1 id="makefile-文件的版本优化"><a href="#makefile-文件的版本优化" class="headerlink" title="makefile 文件的版本优化"></a>makefile 文件的版本优化</h1><h2 id="1、makefile版本一"><a href="#1、makefile版本一" class="headerlink" title="1、makefile版本一"></a>1、makefile版本一</h2><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">main:mian.c fun1.c fun2.c sum.c</span></span><br><span class="line">	gcc main.c fun1.c fun2.c sum.c -o main -I./</span><br></pre></td></tr></table></figure>
+
+<p>缺点：效率低，修改一个文件，所有的文件会全部重新编译。</p>
+<h2 id="2、makefile版本二"><a href="#2、makefile版本二" class="headerlink" title="2、makefile版本二"></a>2、makefile版本二</h2><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">main:main.o fun1.o fun2.o sum.o</span></span><br><span class="line">	gcc mian.o fun1.o fun2.o fun2.o sum.o -o main</span><br><span class="line"><span class="section">main.o:main.c</span></span><br><span class="line">	gcc -c main.c -o main.o</span><br><span class="line"><span class="section">fun1.o:fun1.c</span></span><br><span class="line">	gcc -c fun1.c -o fun1.o</span><br><span class="line"><span class="section">fun2.o:fun2.c</span></span><br><span class="line">	gcc -c fun2.c -o fun2.o</span><br><span class="line"><span class="section">sum.o:sum.c</span></span><br><span class="line">	gcc -c sum.c -o sum.o</span><br></pre></td></tr></table></figure>
+
+<p>缺点：冗余，若 .c 文件数量很多，编写起来比较麻烦</p>
+<h2 id="3、makefile版本三"><a href="#3、makefile版本三" class="headerlink" title="3、makefile版本三"></a>3、makefile版本三</h2><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">target=mian</span><br><span class="line">object=mian.o fun1.o fun2.o sum.o      <span class="comment">## 普通变量</span></span><br><span class="line">CC=gcc     <span class="comment">##自带变量</span></span><br><span class="line">CPPFLAGS=-I./</span><br><span class="line"></span><br><span class="line"><span class="variable">$(target)</span>:<span class="variable">$(object)</span></span><br><span class="line">	<span class="variable">$(CC)</span> <span class="variable">$^</span> -o <span class="variable">$@</span></span><br><span class="line"><span class="section">%.o:%.c</span></span><br><span class="line">	<span class="variable">$(CC)</span> -c <span class="variable">$&lt;</span> -o <span class="variable">$@</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="4、makefile版本四"><a href="#4、makefile版本四" class="headerlink" title="4、makefile版本四"></a>4、makefile版本四</h2><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">src=<span class="variable">$(<span class="built_in">wildcard</span> ./*.c)</span></span><br><span class="line">object=<span class="variable">$(<span class="built_in">patsubst</span> %.c,%.o,<span class="variable">$(src)</span>)</span></span><br><span class="line">target=mian</span><br><span class="line">CC=gcc</span><br><span class="line">CPPFLAGS=-I./</span><br><span class="line"></span><br><span class="line"><span class="variable">$(target)</span>:<span class="variable">$(object)</span></span><br><span class="line">	<span class="variable">$(CC)</span> <span class="variable">$^</span> -o <span class="variable">$@</span></span><br><span class="line"><span class="section">%.o:%.c</span></span><br><span class="line">	<span class="variable">$(CC)</span> -c <span class="variable">$&lt;</span> -o <span class="variable">$@</span></span><br></pre></td></tr></table></figure>
+
+<p>缺点：每次重新编译都需要手工清理中间的 .o 文件和最终的目标文件</p>
+<h2 id="5、makefile版本五"><a href="#5、makefile版本五" class="headerlink" title="5、makefile版本五"></a>5、makefile版本五</h2><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">src=<span class="variable">$(<span class="built_in">wildcard</span> ./*.c)</span></span><br><span class="line">object=<span class="variable">$(<span class="built_in">patsubst</span> %.c,%.o,<span class="variable">$(src)</span>)</span></span><br><span class="line">target=main</span><br><span class="line">CC=gcc</span><br><span class="line">CPPFLAGS=-I./</span><br><span class="line"></span><br><span class="line"><span class="variable">$(target)</span>:<span class="variable">$(object)</span></span><br><span class="line">	<span class="variable">$(CC)</span> <span class="variable">$^</span> -o <span class="variable">$@</span></span><br><span class="line"><span class="section">%.o:%.c</span></span><br><span class="line">	<span class="variable">$(CC)</span> -c <span class="variable">$&lt;</span> -o <span class="variable">$@</span> </span><br><span class="line"><span class="meta"><span class="meta-keyword">.PHONY</span>:clean</span></span><br><span class="line"><span class="section">clean:</span></span><br><span class="line">	rm -f <span class="variable">$(target)</span> <span class="variable">$(object)</span></span><br></pre></td></tr></table></figure>
+
+<p>在makefile的第五个版本中综合使用了变量、函数、模式规则和清理命令，是一个比较完整的版本</p>
+
+
+<div class="article-footer fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div></section></div>
+
+</article>
+
+<div class="related-wrap" id="read-next"><section class="header cap theme"><span>接下来阅读</span></section><section class="body"><div class="post-title h2"><a href="/2020/11/16/Linux/Linux-%E5%BA%93%E7%9A%84%E5%88%B6%E4%BD%9C%E5%92%8C%E4%BD%BF%E7%94%A8/linux-%E5%BA%93%E7%9A%84%E5%88%B6%E4%BD%9C%E5%92%8C%E4%BD%BF%E7%94%A8/">undefined</a></div><div class="post-title fs14"><a href="/2020/11/26/Linux/Linux-gdb%E8%B0%83%E8%AF%95/Linux-gdb%E8%B0%83%E8%AF%95/">上一篇：undefined</a></div></section></div>
+
+
+
+
+
+
+
+
+      
+<footer class="page-footer fs12"><hr><div><p>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+<p>本站由 <a href="https://smilesrx.github.io/">@CandyKing</a> 创建，使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0">Stellar</a> 作为主题。</p>
+</div></footer>
+
+      <div class='float-panel mobile-only' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" viewBox="0 0 1228 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2849"><path d="M0 0m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2850"></path><path d="M0 389.560798m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2851"></path><path d="M0 779.121596m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.390199l-973.901995 0q-97.390199 0-97.390199-97.390199l0 0q0-97.390199 97.390199-97.390199Z" p-id="2852"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script')
+      script.src = src
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js',
+    sitesjs: '/js/plugins/sites.js',
+    friendsjs: '/js/plugins/friends.js',
+  };
+
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper/swiper-bundle.min.css","js":"https://unpkg.com/swiper/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://cdn.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+
+
+<!-- inject -->
+
+
+  </div>
+</body>
+</html>

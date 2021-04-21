@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+
+<head>
+  <meta name="generator" content="Hexo 5.4.0">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>post - 逆玺之路</title>
+
+  
+    <meta name="description" content="1、队列（queue）队列是一种先进先出的线性表 只允许在表的一段进行插入，另一端删除元素 允许插入的一端称为队尾（rear） 允许删除的一端称为队头（front） 2、队列的顺序存储和顺序栈类似，在队列的顺序存储结构中，除了用一组连续的存储单元依次存放从队头到队尾的元素外，许附设两个 整形变量 front 和 rear 分别指示队头元素及队尾元素的位置 &lt;1&gt; 队列的顺序存储结构12">
+<meta property="og:type" content="article">
+<meta property="og:title" content="逆玺之路">
+<meta property="og:url" content="https://smilesrx.github.io/2020/09/26/C-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E9%98%9F%E5%88%97%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/%E9%98%9F%E5%88%97/index.html">
+<meta property="og:site_name" content="逆玺之路">
+<meta property="og:description" content="1、队列（queue）队列是一种先进先出的线性表 只允许在表的一段进行插入，另一端删除元素 允许插入的一端称为队尾（rear） 允许删除的一端称为队头（front） 2、队列的顺序存储和顺序栈类似，在队列的顺序存储结构中，除了用一组连续的存储单元依次存放从队头到队尾的元素外，许附设两个 整形变量 front 和 rear 分别指示队头元素及队尾元素的位置 &lt;1&gt; 队列的顺序存储结构12">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-09-26T06:23:23.541Z">
+<meta property="article:modified_time" content="2020-09-27T10:41:03.084Z">
+<meta property="article:author" content="CandyKing">
+<meta name="twitter:card" content="summary">
+  
+  
+
+  <!-- feed -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+</head>
+
+<body>
+  
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left'>
+    
+
+<header class='header'>
+  <div class='logo-wrap'>
+  
+    <a class='avatar' href='/about/'>
+      
+        <img no-lazy class='bg' src='https://cdn.jsdelivr.net/gh/cdn-x/placeholder@1.0.2/avatar/round/rainbow64@3x.webp'/>
+      
+      <img no-lazy class='avatar' src='http://q1.qlogo.cn/g?b=qq&nk=1607952713&s=640'/>
+    </a>
+  
+  
+    <a class='title' href='/'>
+      逆玺之路
+    </a>
+  
+</div>
+
+  <nav class="menu dis-select"><a class="nav-item active" href="/">文章</a><a class="nav-item" href="/wiki/">项目</a><a class="nav-item" href="/notes/">笔记</a><a class="nav-item" href="/more/">更多</a></nav>
+</header>
+
+<div class='widgets'>
+  
+    
+      
+      
+<div class="widget-wrap" id="toc"><div class="widget-header h4 dis-select"><span class="name">本文目录</span></div><div class="widget-body fs14 post"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#lt-1-gt-%E9%98%9F%E5%88%97%E7%9A%84%E9%A1%BA%E5%BA%8F%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84"><span class="toc-text">&lt;1&gt; 队列的顺序存储结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#lt-2-gt-%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-text">&lt;2&gt; 初始化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#lt-3-gt-%E6%B1%82%E9%98%9F%E5%88%97%E9%95%BF%E5%BA%A6"><span class="toc-text">&lt;3&gt; 求队列长度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#lt-4-gt-%E5%85%A5%E9%98%9F"><span class="toc-text">&lt;4&gt; 入队</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#lt-5-gt-%E5%87%BA%E9%98%9F"><span class="toc-text">&lt;5&gt; 出队</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#lt-6-gt-%E5%8F%96%E9%98%9F%E5%A4%B4%E5%85%83%E7%B4%A0"><span class="toc-text">&lt;6&gt; 取队头元素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#lt-1-gt-%E9%98%9F%E5%88%97%E9%93%BE%E5%BC%8F%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84"><span class="toc-text">&lt;1&gt; 队列链式存储结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#lt-2-gt-%E5%88%9D%E5%A7%8B%E5%8C%96-1"><span class="toc-text">&lt;2&gt; 初始化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#lt-3-gt-%E5%85%A5%E9%98%9F"><span class="toc-text">&lt;3&gt; 入队</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#lt-4-gt-%E5%87%BA%E9%98%9F"><span class="toc-text">&lt;4&gt; 出队</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#lt-5-gt-%E5%8F%96%E9%98%9F%E5%A4%B4%E5%85%83%E7%B4%A0"><span class="toc-text">&lt;5&gt; 取队头元素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#lt-6-gt-%E5%88%A4%E6%96%AD%E9%98%9F%E5%88%97%E6%98%AF%E5%90%A6%E4%B8%BA%E7%A9%BA"><span class="toc-text">&lt;6&gt; 判断队列是否为空</span></a></li></ol></div></div></div>
+
+    
+  
+</div>
+
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+
+  <div class='bread-nav fs12'>
+  
+    
+    <div id='breadcrumb'>
+      <a class='cap breadcrumb' href='/'>主页</a>
+      <span class="sep"></span>
+      <a class='cap breadcrumb' href='/'>文章</a>
+      
+    </div>
+    <div id='post-meta'>
+      发布于&nbsp;<time datetime='2020-09-26T06:23:23.541Z'>2020-09-26</time>
+    </div>
+  
+  </div>
+
+
+<article class='content md post'>
+
+<h1 id="1、队列（queue）"><a href="#1、队列（queue）" class="headerlink" title="1、队列（queue）"></a>1、队列（queue）</h1><p>队列是一种先进先出的线性表</p>
+<p>只允许在表的一段进行插入，另一端删除元素</p>
+<p>允许插入的一端称为<strong>队尾</strong>（rear）</p>
+<p>允许删除的一端称为<strong>队头</strong>（front）</p>
+<h1 id="2、队列的顺序存储"><a href="#2、队列的顺序存储" class="headerlink" title="2、队列的顺序存储"></a>2、队列的顺序存储</h1><p>和顺序栈类似，在队列的顺序存储结构中，除了用一组连续的存储单元依次存放从队头到队尾的元素外，许附设两个 整形变量 front 和 rear 分别指示队头元素及队尾元素的位置</p>
+<h2 id="lt-1-gt-队列的顺序存储结构"><a href="#lt-1-gt-队列的顺序存储结构" class="headerlink" title="&lt;1&gt; 队列的顺序存储结构"></a>&lt;1&gt; 队列的顺序存储结构</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAXSIZE 100   <span class="comment">//队列可能达到的最大长度</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> </span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    QElemType *base;   <span class="comment">//存储空间的基地址</span></span><br><span class="line">    <span class="keyword">int</span> front;   <span class="comment">//头指针</span></span><br><span class="line">    <span class="keyword">int</span> rear;   <span class="comment">//尾指针</span></span><br><span class="line">&#125;SqQueue;</span><br></pre></td></tr></table></figure>
+
+<p>初始化创建空队列时，令 front = rear =0，每当插入新的队尾元素时，尾指针 rear 加1；每当删除队头元素时，头指针 front 加1。因此，在非空队列中，头指针始终指向队头元素，而尾指针指向队尾元素的下一个位置</p>
+<p>假溢出现象：由于队尾入队，队头出队这种受限的操作造成的</p>
+<p>循环队列解决假溢出现象</p>
+<p>头、尾指针以及队列元素之间的关系不变，只是在循环队列中，头、尾指“针依环加1”的操作可用“模”运算来实现</p>
+<p>循环队列不能以头、尾指针的值是否相等来判别队列空间是“满”还是“空”</p>
+<p>解决方法：</p>
+<p>(1)少用一个元素空间，即队列空间的大小为m时，有m-1个元素就为队满</p>
+<p>​    队空条件：Q.front==Q.rear</p>
+<p>​    队满条件：(Q.rear+1)%MAXSIZE==Q.front</p>
+<p>(2) 另设一个标志位区别队列是“空”还是“满”</p>
+<h2 id="lt-2-gt-初始化"><a href="#lt-2-gt-初始化" class="headerlink" title="&lt;2&gt; 初始化"></a>&lt;2&gt; 初始化</h2><p>循环队列的初始化操作就是动态分配一个预定义大小为MAXSIZE的数组空间</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Status <span class="title">Init_Queue</span><span class="params">(SqQueue &amp;Q)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//构造一个空队列</span></span><br><span class="line">    Q.base=<span class="keyword">new</span> QElemType[MAXSIZE];    <span class="comment">//为队列分配一个最大容量为MAXSIZE的数组空间</span></span><br><span class="line">    <span class="keyword">if</span>(Q.base==<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">exit</span>(OVERFLOW);    <span class="comment">//内存分配失败</span></span><br><span class="line">    &#125;</span><br><span class="line">    Q.front=Q.base=<span class="number">0</span>;   <span class="comment">//头指针和尾指针置为0，队列为空</span></span><br><span class="line">    <span class="keyword">return</span> OK；</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="lt-3-gt-求队列长度"><a href="#lt-3-gt-求队列长度" class="headerlink" title="&lt;3&gt; 求队列长度"></a>&lt;3&gt; 求队列长度</h2><p>对于非循环队列，尾指针和头指针的差值便是队列长度，而对于循环队列，差值加上MAXSIZE然后与MAXSIZE求余</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">GetLength_Queue</span><span class="params">(sqQueue &amp;Q)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//返回Q的元素个数，即队列的长度</span></span><br><span class="line">    <span class="keyword">return</span> (Q.rear-Q.front+MAXSIZE)%MAXSIZE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="lt-4-gt-入队"><a href="#lt-4-gt-入队" class="headerlink" title="&lt;4&gt; 入队"></a>&lt;4&gt; 入队</h2><p>入队操作是指在队尾插入一个新的元素</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Status <span class="title">En_Queue</span><span class="params">(SqQueue &amp;Q,QElemType e)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//插入元素e为Q的新的队尾元素</span></span><br><span class="line">    <span class="keyword">if</span>((Q.rear+<span class="number">1</span>)%MAXSIZE==Q.front)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> ERROR;   <span class="comment">//队满</span></span><br><span class="line">    &#125;</span><br><span class="line">    Q.base[rear]=e;   <span class="comment">//新元素插入到队尾</span></span><br><span class="line">    Q.rear=(Q.rear+<span class="number">1</span>)%MAXSIZE;   <span class="comment">//队尾指针加1</span></span><br><span class="line">    <span class="keyword">return</span> OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="lt-5-gt-出队"><a href="#lt-5-gt-出队" class="headerlink" title="&lt;5&gt; 出队"></a>&lt;5&gt; 出队</h2><p>出队操作是将队头元素删除</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Status  <span class="title">De_Queue</span><span class="params">(SqQueue &amp;Q,QElemType &amp;e)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(Q.rear==Q.front)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> ERROR;  <span class="comment">//队空</span></span><br><span class="line">    &#125;</span><br><span class="line">    e=Q.base[Q.front];   <span class="comment">//队头元素给e赋值</span></span><br><span class="line">    Q.front=(Q.front+<span class="number">1</span>)%MAXSIZE;   <span class="comment">//队头指针加1</span></span><br><span class="line">    <span class="keyword">return</span> OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="lt-6-gt-取队头元素"><a href="#lt-6-gt-取队头元素" class="headerlink" title="&lt;6&gt; 取队头元素"></a>&lt;6&gt; 取队头元素</h2><p>当队列非空时，此操作返回当前队头元素的值，队头指针保持不变</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">QElemType <span class="title">GetHead_Queue</span><span class="params">(SqQueue &amp;Q)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(Q.rear==Q.front)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> ERROR;  <span class="comment">//队空</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> Q.base[Q.front];   <span class="comment">//返回队头元素的值，队头指针保持不变</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="3、队列的链式表示和实现"><a href="#3、队列的链式表示和实现" class="headerlink" title="3、队列的链式表示和实现"></a>3、队列的链式表示和实现</h1><p>链队是指采用链式存储结构实现的队列，通常链队用单链表来表示。一个链队需要两个分别指示队头和队尾的指针才能唯一的确定。为了操作方便，给链队添加一个头节点，并令头指针始终指向头节点</p>
+<h2 id="lt-1-gt-队列链式存储结构"><a href="#lt-1-gt-队列链式存储结构" class="headerlink" title="&lt;1&gt; 队列链式存储结构"></a>&lt;1&gt; 队列链式存储结构</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">QNode</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    QElemType data;   <span class="comment">//数据域</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">QNode</span> *<span class="title">next</span>;</span>   <span class="comment">//指针域</span></span><br><span class="line">&#125;QNode,*QueuePtr;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> </span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    QueuePtr front;   <span class="comment">//队头指针</span></span><br><span class="line">    QueuePtr rear;    <span class="comment">//队尾指针</span></span><br><span class="line">&#125;LinkQueue；</span><br></pre></td></tr></table></figure>
+
+<h2 id="lt-2-gt-初始化-1"><a href="#lt-2-gt-初始化-1" class="headerlink" title="&lt;2&gt; 初始化"></a>&lt;2&gt; 初始化</h2><p>链队的初始化操作就是构造一个只有头节点的空队</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Status <span class="title">Init_LinkQueue</span><span class="params">(LinkQueue &amp;Q)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//构造一个空队列</span></span><br><span class="line">    Q.front=Q.rear=<span class="keyword">new</span> QNode;   <span class="comment">//生成新节点作为头节点，队头和队尾指针指向此节点</span></span><br><span class="line">    Q.front-&gt;next=<span class="literal">NULL</span>;    <span class="comment">//头节点指针域置空</span></span><br><span class="line">    <span class="keyword">return</span> OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="lt-3-gt-入队"><a href="#lt-3-gt-入队" class="headerlink" title="&lt;3&gt; 入队"></a>&lt;3&gt; 入队</h2><p>和循环队列的入队操作不同的是，链队在入队前不需要判断对是否满，需要为入队元素动态的分配一个节点空间</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Status <span class="title">En_LinkQueue</span><span class="params">(LinkQueue &amp;Q,QElemType e)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//插入元素e为Q的新的队尾元素</span></span><br><span class="line">    QueuePtr p=<span class="keyword">new</span> QNode;   <span class="comment">//为入队元素分配节点空间，用指针p指向</span></span><br><span class="line">    p-&gt;data=e;    <span class="comment">//将新节点数据域置为e</span></span><br><span class="line">    p-&gt;next=<span class="literal">NULL</span>;</span><br><span class="line">    Q.rear-&gt;next=p;   <span class="comment">//将新节点插入到队尾</span></span><br><span class="line">    Q.rear=p;     <span class="comment">//更新队尾指针</span></span><br><span class="line">    <span class="keyword">return</span> OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="lt-4-gt-出队"><a href="#lt-4-gt-出队" class="headerlink" title="&lt;4&gt; 出队"></a>&lt;4&gt; 出队</h2><p>和循环队列一样，链队在出队前要判断队列是否为空，不同是，链队在出队后需要释放出队元素所占的空间</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Status <span class="title">DE_LinkQueue</span><span class="params">(LinkQueue &amp;Q,QElemType &amp;e)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(Q.rear==Q.front)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> ERROR;   <span class="comment">//队空</span></span><br><span class="line">    &#125;</span><br><span class="line">    QueuePtr p=Q.front-&gt;next;    <span class="comment">//临时保存队头元素的地址以便释放</span></span><br><span class="line">    e=p-&gt;data;     <span class="comment">//队头元素值个e赋值</span></span><br><span class="line">    Q.front-&gt;next=p-&gt;next;   <span class="comment">//修改头节点的指针域</span></span><br><span class="line">    <span class="keyword">if</span>(Q.rear=p)</span><br><span class="line">    &#123;</span><br><span class="line">        Q.rear=Q.front;    <span class="comment">//如果最后一个元素被删除，队尾指针指向头节点</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">delete</span> p;    <span class="comment">//释放原队头元素</span></span><br><span class="line">    <span class="keyword">return</span> OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="lt-5-gt-取队头元素"><a href="#lt-5-gt-取队头元素" class="headerlink" title="&lt;5&gt; 取队头元素"></a>&lt;5&gt; 取队头元素</h2><p>与循环队列一样，当队列非空时，此操作返回当前队列的队头元素的值，队头指针保持不变</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">QElemType <span class="title">GetHead_LinkQueue</span><span class="params">(LinkQueue &amp;Q)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(Q.rear==Q.front)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> ERROR;    <span class="comment">//队空</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> Q.front-&gt;next-&gt;data;    <span class="comment">//返回队头元素值，队头指针保持不变</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="lt-6-gt-判断队列是否为空"><a href="#lt-6-gt-判断队列是否为空" class="headerlink" title="&lt;6&gt; 判断队列是否为空"></a>&lt;6&gt; 判断队列是否为空</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Status <span class="title">IsEmpty_LinkQueue</span><span class="params">(LinkQueue &amp;Q)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(Q.front==Q.rear)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<div class="article-footer fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div></section></div>
+
+</article>
+
+<div class="related-wrap" id="read-next"><section class="header cap theme"><span>接下来阅读</span></section><section class="body"><div class="post-title h2"><a href="/2020/09/26/C-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%A0%88%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/%E6%A0%88/">undefined</a></div><div class="post-title fs14"><a href="/2020/09/26/C-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%A0%91%E5%92%8C%E4%BA%8C%E5%8F%89%E6%A0%91/%E6%A0%91%E5%92%8C%E4%BA%8C%E5%8F%89%E6%A0%91/">上一篇：undefined</a></div></section></div>
+
+
+
+
+
+
+
+
+      
+<footer class="page-footer fs12"><hr><div><p>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+<p>本站由 <a href="https://smilesrx.github.io/">@CandyKing</a> 创建，使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0">Stellar</a> 作为主题。</p>
+</div></footer>
+
+      <div class='float-panel mobile-only' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" viewBox="0 0 1228 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2849"><path d="M0 0m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2850"></path><path d="M0 389.560798m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2851"></path><path d="M0 779.121596m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.390199l-973.901995 0q-97.390199 0-97.390199-97.390199l0 0q0-97.390199 97.390199-97.390199Z" p-id="2852"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script')
+      script.src = src
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js',
+    sitesjs: '/js/plugins/sites.js',
+    friendsjs: '/js/plugins/friends.js',
+  };
+
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper/swiper-bundle.min.css","js":"https://unpkg.com/swiper/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://cdn.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+
+
+<!-- inject -->
+
+
+  </div>
+</body>
+</html>

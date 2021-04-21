@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+
+<head>
+  <meta name="generator" content="Hexo 5.4.0">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>post - 逆玺之路</title>
+
+  
+    <meta name="description" content="vim简介vi是”visual interface”的简称, 它在Linux上的地位就仿佛Windows中的记事本一样. 它可以执行编辑、删除、查找、替换、块操作等众多文本操作, 而且用户可以根据自己的需要对其进行定制. vi是一个文本编辑程序, 没有菜单, 只有命令.  vim更高级一些, 可以理解是vi的高级版本. vim需要自行安装, 在shell中输入vimtutor命令可以查看相关的帮助">
+<meta property="og:type" content="article">
+<meta property="og:title" content="逆玺之路">
+<meta property="og:url" content="https://smilesrx.github.io/2020/11/16/Linux/Linux-Vim/Linux-Vim/index.html">
+<meta property="og:site_name" content="逆玺之路">
+<meta property="og:description" content="vim简介vi是”visual interface”的简称, 它在Linux上的地位就仿佛Windows中的记事本一样. 它可以执行编辑、删除、查找、替换、块操作等众多文本操作, 而且用户可以根据自己的需要对其进行定制. vi是一个文本编辑程序, 没有菜单, 只有命令.  vim更高级一些, 可以理解是vi的高级版本. vim需要自行安装, 在shell中输入vimtutor命令可以查看相关的帮助">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://smilesrx.github.io/模式切换.png">
+<meta property="article:published_time" content="2020-11-16T12:13:43.629Z">
+<meta property="article:modified_time" content="2020-11-16T14:53:32.917Z">
+<meta property="article:author" content="CandyKing">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://smilesrx.github.io/模式切换.png">
+  
+  
+
+  <!-- feed -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+</head>
+
+<body>
+  
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left'>
+    
+
+<header class='header'>
+  <div class='logo-wrap'>
+  
+    <a class='avatar' href='/about/'>
+      
+        <img no-lazy class='bg' src='https://cdn.jsdelivr.net/gh/cdn-x/placeholder@1.0.2/avatar/round/rainbow64@3x.webp'/>
+      
+      <img no-lazy class='avatar' src='http://q1.qlogo.cn/g?b=qq&nk=1607952713&s=640'/>
+    </a>
+  
+  
+    <a class='title' href='/'>
+      逆玺之路
+    </a>
+  
+</div>
+
+  <nav class="menu dis-select"><a class="nav-item active" href="/">文章</a><a class="nav-item" href="/wiki/">项目</a><a class="nav-item" href="/notes/">笔记</a><a class="nav-item" href="/more/">更多</a></nav>
+</header>
+
+<div class='widgets'>
+  
+    
+      
+      
+<div class="widget-wrap" id="toc"><div class="widget-header h4 dis-select"><span class="name">本文目录</span></div><div class="widget-body fs14 post"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%A8%A1%E5%BC%8F%E4%B8%8B%E7%9A%84%E6%93%8D%E4%BD%9C"><span class="toc-text">1、命令行模式下的操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81%E4%BF%9D%E5%AD%98%E9%80%80%E5%87%BA"><span class="toc-text">1、保存退出</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81%E4%BB%A3%E7%A0%81%E6%A0%BC%E5%BC%8F%E5%8C%96"><span class="toc-text">2、代码格式化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81%E5%85%89%E6%A0%87%E7%A7%BB%E5%8A%A8"><span class="toc-text">3、光标移动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4%E3%80%81%E5%88%A0%E9%99%A4%E5%91%BD%E4%BB%A4"><span class="toc-text">4、删除命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5%E3%80%81%E6%92%A4%E9%94%80%E5%92%8C%E5%8F%8D%E6%92%A4%E9%94%80"><span class="toc-text">5、撤销和反撤销</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6%E3%80%81%E5%A4%8D%E5%88%B6%E7%B2%98%E8%B4%B4"><span class="toc-text">6、复制粘贴</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7%E3%80%81%E5%8F%AF%E8%A7%86%E5%8C%96%E6%A8%A1%E5%BC%8F"><span class="toc-text">7、可视化模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8%E3%80%81%E6%9B%BF%E6%8D%A2%E6%93%8D%E4%BD%9C"><span class="toc-text">8、替换操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9%E3%80%81%E6%9F%A5%E6%89%BE%E5%91%BD%E4%BB%A4"><span class="toc-text">9、查找命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10%E3%80%81%E5%BF%AB%E9%80%9F%E7%BF%BB%E5%B1%8F"><span class="toc-text">10、快速翻屏</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E5%88%87%E6%8D%A2%E5%88%B0%E6%96%87%E6%9C%AC%E8%BE%93%E5%85%A5%E6%A8%A1%E5%BC%8F"><span class="toc-text">2、切换到文本输入模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81%E6%9C%AB%E8%A1%8C%E6%A8%A1%E5%BC%8F%E4%B8%8B%E7%9A%84%E6%93%8D%E4%BD%9C"><span class="toc-text">3、末行模式下的操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81%E4%BF%9D%E5%AD%98%E9%80%80%E5%87%BA-1"><span class="toc-text">1、保存退出</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81%E6%9B%BF%E6%8D%A2%E6%93%8D%E4%BD%9C"><span class="toc-text">2、替换操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81%E6%89%A7%E8%A1%8Cshell%E5%91%BD%E4%BB%A4"><span class="toc-text">3、执行shell命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4%E3%80%81%E5%88%86%E5%B1%8F%E6%93%8D%E4%BD%9C"><span class="toc-text">4、分屏操作</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E7%94%A8%E6%88%B7%E7%BA%A7%E5%88%AB%E9%85%8D%E7%BD%AE"><span class="toc-text">1、用户级别配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E7%B3%BB%E7%BB%9F%E7%BA%A7%E5%88%AB%E9%85%8D%E7%BD%AE"><span class="toc-text">2、系统级别配置</span></a></li></ol></div></div></div>
+
+    
+  
+</div>
+
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+
+  <div class='bread-nav fs12'>
+  
+    
+    <div id='breadcrumb'>
+      <a class='cap breadcrumb' href='/'>主页</a>
+      <span class="sep"></span>
+      <a class='cap breadcrumb' href='/'>文章</a>
+      
+    </div>
+    <div id='post-meta'>
+      发布于&nbsp;<time datetime='2020-11-16T12:13:43.629Z'>2020-11-16</time>
+    </div>
+  
+  </div>
+
+
+<article class='content md post'>
+
+<h1 id="vim简介"><a href="#vim简介" class="headerlink" title="vim简介"></a>vim简介</h1><p>vi是”visual interface”的简称, 它在Linux上的地位就仿佛Windows中的<strong>记事本</strong>一样. 它可以执行<strong>编辑、删除、查找、替换、块操作</strong>等众多文本操作, 而且用户可以根据自己的需要对其进行定制. vi是一个文本编辑程序, 没有菜单, 只有命令. </p>
+<p>vim更高级一些, 可以理解是vi的高级版本.</p>
+<p>vim需要自行安装, 在shell中输入<code>vimtutor</code>命令可以查看相关的帮助文档.</p>
+<h1 id="vim-的三种模式"><a href="#vim-的三种模式" class="headerlink" title="vim 的三种模式"></a>vim 的三种模式</h1><p>Vi有三种基本工作模式: 命令模式、文本输入模式、末行模式。</p>
+<p>三种工作模式的切换：</p>
+<img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/模式切换.png" alt="模式切换" style="zoom:70%;" />
+
+<h1 id="vim-基本操作"><a href="#vim-基本操作" class="headerlink" title="vim 基本操作"></a>vim 基本操作</h1><h2 id="1、命令行模式下的操作"><a href="#1、命令行模式下的操作" class="headerlink" title="1、命令行模式下的操作"></a>1、命令行模式下的操作</h2><p>用户按下esc键, 就可以使vi进入命令模式下; 当使用vi打开一个新文件开始也是进入命令模式下.</p>
+<h3 id="1、保存退出"><a href="#1、保存退出" class="headerlink" title="1、保存退出"></a>1、保存退出</h3><table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th>操作</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ZZ</td>
+<td>保存退出</td>
+</tr>
+</tbody></table>
+<h3 id="2、代码格式化"><a href="#2、代码格式化" class="headerlink" title="2、代码格式化"></a>2、代码格式化</h3><table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th>操作</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>gg=G</td>
+<td>代码个格式化</td>
+</tr>
+</tbody></table>
+<h3 id="3、光标移动"><a href="#3、光标移动" class="headerlink" title="3、光标移动"></a>3、光标移动</h3><table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th>操作</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>h</td>
+<td>光标左移</td>
+</tr>
+<tr>
+<td>j</td>
+<td>光标下移</td>
+</tr>
+<tr>
+<td>k</td>
+<td>光标上移</td>
+</tr>
+<tr>
+<td>l</td>
+<td>光标右移</td>
+</tr>
+<tr>
+<td>w</td>
+<td>移动一个单词</td>
+</tr>
+<tr>
+<td>gg</td>
+<td>光标移动到文件的开头</td>
+</tr>
+<tr>
+<td>G</td>
+<td>光标移动到文件的结尾</td>
+</tr>
+<tr>
+<td>0</td>
+<td>光标移动到首行</td>
+</tr>
+<tr>
+<td>$</td>
+<td>光标移动到末行</td>
+</tr>
+<tr>
+<td>nG</td>
+<td>行跳转    12G，跳转至12行</td>
+</tr>
+</tbody></table>
+<h3 id="4、删除命令"><a href="#4、删除命令" class="headerlink" title="4、删除命令"></a>4、删除命令</h3><table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th>操作</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>x</td>
+<td>删除光标后一个字符,相当于 Del</td>
+</tr>
+<tr>
+<td>X</td>
+<td>删除光标前一个字符,相当于 Backspace</td>
+</tr>
+<tr>
+<td>dw</td>
+<td>删除光标开始位置的字,包含光标所在字符</td>
+</tr>
+<tr>
+<td>d0</td>
+<td>删除光标前本行所有内容,不包含光标所在字符</td>
+</tr>
+<tr>
+<td>D[d$]</td>
+<td>删除光标后本行所有内容,包含光标所在字符</td>
+</tr>
+<tr>
+<td>dd</td>
+<td>删除光标所在行(本质其实是剪切)</td>
+</tr>
+<tr>
+<td>ndd</td>
+<td>从光标当前行向下删除指定的行数, 如15dd</td>
+</tr>
+<tr>
+<td>v/ctrl+v</td>
+<td>使用h、j、k、l移动选择内容, 然后按d删除其中ctrl+v是列模式, v为非列模式</td>
+</tr>
+</tbody></table>
+<h3 id="5、撤销和反撤销"><a href="#5、撤销和反撤销" class="headerlink" title="5、撤销和反撤销"></a>5、撤销和反撤销</h3><table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th>操作</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>u</td>
+<td>一步一步撤销, 相当于word文档的ctrl+z</td>
+</tr>
+<tr>
+<td>ctrl-r</td>
+<td>反撤销, 相当于word文档的ctrl+y</td>
+</tr>
+</tbody></table>
+<h3 id="6、复制粘贴"><a href="#6、复制粘贴" class="headerlink" title="6、复制粘贴"></a>6、复制粘贴</h3><table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th>操作</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>yy</td>
+<td>复制当前行</td>
+</tr>
+<tr>
+<td>nyy</td>
+<td>复制n行, 如10yy</td>
+</tr>
+<tr>
+<td>p</td>
+<td>在光标所在位置向下新开辟一行, 粘贴</td>
+</tr>
+<tr>
+<td>P</td>
+<td>在光标所在位置向下新开辟一行, 粘贴</td>
+</tr>
+<tr>
+<td>剪切操作</td>
+<td>按dd或者ndd删除, 将删除的行保存到剪贴板中, 然后按p/P就可以粘贴了</td>
+</tr>
+</tbody></table>
+<h3 id="7、可视化模式"><a href="#7、可视化模式" class="headerlink" title="7、可视化模式"></a>7、可视化模式</h3><table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th>操作</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>v/ctrl+v</td>
+<td>使用h、j、k、l移动选择内容;使用d删除使用y复制 使用p粘贴到光标的后面使用P粘贴到光标的前面</td>
+</tr>
+</tbody></table>
+<h3 id="8、替换操作"><a href="#8、替换操作" class="headerlink" title="8、替换操作"></a>8、替换操作</h3><table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th>操作</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>r</td>
+<td>替换当前字符</td>
+</tr>
+<tr>
+<td>R</td>
+<td>替换当前行光标后的字符</td>
+</tr>
+</tbody></table>
+<h3 id="9、查找命令"><a href="#9、查找命令" class="headerlink" title="9、查找命令"></a>9、查找命令</h3><table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th>操作</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>/</td>
+<td>/xxxx, 从光标所在的位置开始搜索, 按n向下搜索, 按N向上搜索</td>
+</tr>
+<tr>
+<td>?</td>
+<td>?xxxx, 从光标所在的位置开始搜索, 按n向上搜索, 按N向下搜索</td>
+</tr>
+<tr>
+<td>#</td>
+<td>将光标移动到待搜索的字符串上, 然后按n向上搜索,但N向下搜索</td>
+</tr>
+<tr>
+<td>shift+k</td>
+<td>在待搜索的字符串上按shift+k或者K, 可以查看相关的帮助文档</td>
+</tr>
+</tbody></table>
+<h3 id="10、快速翻屏"><a href="#10、快速翻屏" class="headerlink" title="10、快速翻屏"></a>10、快速翻屏</h3><table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th>操作</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ctrl + u</td>
+<td>向下翻半屏(up)–光标向上移动</td>
+</tr>
+<tr>
+<td>ctrl + d</td>
+<td>向上翻半屏(down)–光标向下移动</td>
+</tr>
+<tr>
+<td>ctrl + f</td>
+<td>向上翻一屏(front)</td>
+</tr>
+<tr>
+<td>ctrl + b</td>
+<td>向后翻一屏(back)</td>
+</tr>
+</tbody></table>
+<h2 id="2、切换到文本输入模式"><a href="#2、切换到文本输入模式" class="headerlink" title="2、切换到文本输入模式"></a>2、切换到文本输入模式</h2><table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th>*操作</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>i</td>
+<td>在光标前插入</td>
+</tr>
+<tr>
+<td>a</td>
+<td>在光标后插入</td>
+</tr>
+<tr>
+<td>I</td>
+<td>在光标所在行的行首插入</td>
+</tr>
+<tr>
+<td>A</td>
+<td>在光标所在行的行尾插入</td>
+</tr>
+<tr>
+<td>o</td>
+<td>在光标所在的行的下面新创建一行, 行首插入</td>
+</tr>
+<tr>
+<td>O</td>
+<td>在光标所在的行的上面新创建一行, 行首插</td>
+</tr>
+<tr>
+<td>s</td>
+<td>删除光标后边的字符, 从光标当前位置</td>
+</tr>
+<tr>
+<td>S</td>
+<td>删除光标所在当前行, 从行首插入</td>
+</tr>
+<tr>
+<td>按列模式插入</td>
+<td>先按ctrl+v进入列模式, 按hjkl移动选定某列,按I或者shift+i向前插入, 然后插入字符, 最后按两次esc.</td>
+</tr>
+</tbody></table>
+<h2 id="3、末行模式下的操作"><a href="#3、末行模式下的操作" class="headerlink" title="3、末行模式下的操作"></a>3、末行模式下的操作</h2><h3 id="1、保存退出-1"><a href="#1、保存退出-1" class="headerlink" title="1、保存退出"></a>1、保存退出</h3><table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th>操作</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>q</td>
+<td>退出</td>
+</tr>
+<tr>
+<td>q!</td>
+<td>强制退出，不保存修改内容</td>
+</tr>
+<tr>
+<td>w</td>
+<td>保存修改内容, 不退出</td>
+</tr>
+<tr>
+<td>wq</td>
+<td>保存并退出</td>
+</tr>
+<tr>
+<td>x</td>
+<td>相当于wq</td>
+</tr>
+</tbody></table>
+<h3 id="2、替换操作"><a href="#2、替换操作" class="headerlink" title="2、替换操作"></a>2、替换操作</h3><table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th>操作</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>:s/old/new/</td>
+<td>光标所在行的第一个old替换为new</td>
+</tr>
+<tr>
+<td>:s/old/new/<em><strong>*g*</strong></em></td>
+<td>光标所在行的所有old替换为new</td>
+</tr>
+<tr>
+<td>:m, ns/old/new/g</td>
+<td>将第m行至第n行之间的old全部替换成new</td>
+</tr>
+<tr>
+<td>:%s/old/new/g</td>
+<td>当前文件的所有old替换为new</td>
+</tr>
+<tr>
+<td>:1,$s/old/new/g</td>
+<td>当前文件的所有old替换为new</td>
+</tr>
+<tr>
+<td>:%s/old/new/g<em><strong>*c*</strong></em></td>
+<td>同上，但是每次替换需要用户确认</td>
+</tr>
+</tbody></table>
+<h3 id="3、执行shell命令"><a href="#3、执行shell命令" class="headerlink" title="3、执行shell命令"></a>3、执行shell命令</h3><p>!shell命令</p>
+<p>按下两次esc可以回到命令模式</p>
+<h3 id="4、分屏操作"><a href="#4、分屏操作" class="headerlink" title="4、分屏操作"></a>4、分屏操作</h3><ul>
+<li><p>在打开文件之后分屏:</p>
+<table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th>操作</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>sp</td>
+<td>当前文件水平分屏</td>
+</tr>
+<tr>
+<td>vsp</td>
+<td>当前文件垂直分屏</td>
+</tr>
+<tr>
+<td>sp 文件名</td>
+<td>当前文件和另一个文件水平分屏</td>
+</tr>
+<tr>
+<td>vsp 文件名</td>
+<td>当前文件和另一个文件垂直分屏</td>
+</tr>
+<tr>
+<td>ctrl-w-w</td>
+<td>在多个窗口切换光标</td>
+</tr>
+<tr>
+<td>wall/wqall/xall/qall/qall!</td>
+<td>保存/保存退出/保存退出/退出/强制退出分屏窗口</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>打开文件之前分屏：</p>
+<p><code>vim -on file1 file2 …  </code></p>
+<p><code>垂直分屏: vim -On file1 file2… </code></p>
+</li>
+</ul>
+<h1 id="vim-配置文件"><a href="#vim-配置文件" class="headerlink" title="vim 配置文件"></a>vim 配置文件</h1><h2 id="1、用户级别配置"><a href="#1、用户级别配置" class="headerlink" title="1、用户级别配置"></a>1、用户级别配置</h2><p>~/.vimrc, 修改用户级别的配置文件只会影响当前用户, 不会影响其他的用户.</p>
+<p>例如: 在用户的家目录下的.vimrc文件中添加</p>
+<p>set tabstop=4  —-设置缩进4个空格</p>
+<p>set nu     —-设置行号</p>
+<p>set shiftwidth=4  —设置gg=G缩进4个空格, 默认是缩进8个空格</p>
+<h2 id="2、系统级别配置"><a href="#2、系统级别配置" class="headerlink" title="2、系统级别配置"></a>2、系统级别配置</h2><p>/etc/vim/vimrc, 修改了系统级别的配置文件将影响系统下的所有用户.</p>
+<p>说明: 由于linux是多用户操作系统, 建议只在用户级别的配置文件下进行修改, 不要影响其他用户.</p>
+
+
+<div class="article-footer fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div></section></div>
+
+</article>
+
+<div class="related-wrap" id="read-next"><section class="header cap theme"><span>接下来阅读</span></section><section class="body"><div class="post-title h2"><a href="/2020/11/11/Linux/Linux-%E5%B8%B8%E7%94%A8%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/Linux-%E5%B8%B8%E7%94%A8%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/">undefined</a></div><div class="post-title fs14"><a href="/2020/11/16/Linux/Linux-gcc/Linux-gcc/">上一篇：undefined</a></div></section></div>
+
+
+
+
+
+
+
+
+      
+<footer class="page-footer fs12"><hr><div><p>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+<p>本站由 <a href="https://smilesrx.github.io/">@CandyKing</a> 创建，使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0">Stellar</a> 作为主题。</p>
+</div></footer>
+
+      <div class='float-panel mobile-only' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" viewBox="0 0 1228 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2849"><path d="M0 0m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2850"></path><path d="M0 389.560798m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2851"></path><path d="M0 779.121596m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.390199l-973.901995 0q-97.390199 0-97.390199-97.390199l0 0q0-97.390199 97.390199-97.390199Z" p-id="2852"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script')
+      script.src = src
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js',
+    sitesjs: '/js/plugins/sites.js',
+    friendsjs: '/js/plugins/friends.js',
+  };
+
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper/swiper-bundle.min.css","js":"https://unpkg.com/swiper/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://cdn.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+
+
+<!-- inject -->
+
+
+  </div>
+</body>
+</html>

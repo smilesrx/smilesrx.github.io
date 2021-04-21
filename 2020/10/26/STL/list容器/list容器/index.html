@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+
+<head>
+  <meta name="generator" content="Hexo 5.4.0">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>post - 逆玺之路</title>
+
+  
+    <meta name="description" content="list容器基本概念链表是一种物理存储单元上非连续、非顺序的存储结构，数据元素的逻辑顺序是通过链表中的指针链接次序实现的。链表由一系列结点（链表中每一个元素称为结点）组成，结点可以在运行时动态生成。每个结点包括两个部分：一个是存储数据元素的数据域，另一个是存储下一个结点地址的指针域。 相较于vector的连续线性空间，list就显得负责许多，它的好处是每次插入或者删除一个元素，就是配置或者释放一个">
+<meta property="og:type" content="article">
+<meta property="og:title" content="逆玺之路">
+<meta property="og:url" content="https://smilesrx.github.io/2020/10/26/STL/list%E5%AE%B9%E5%99%A8/list%E5%AE%B9%E5%99%A8/index.html">
+<meta property="og:site_name" content="逆玺之路">
+<meta property="og:description" content="list容器基本概念链表是一种物理存储单元上非连续、非顺序的存储结构，数据元素的逻辑顺序是通过链表中的指针链接次序实现的。链表由一系列结点（链表中每一个元素称为结点）组成，结点可以在运行时动态生成。每个结点包括两个部分：一个是存储数据元素的数据域，另一个是存储下一个结点地址的指针域。 相较于vector的连续线性空间，list就显得负责许多，它的好处是每次插入或者删除一个元素，就是配置或者释放一个">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://smilesrx.github.io/list容器.png">
+<meta property="article:published_time" content="2020-10-25T16:26:39.548Z">
+<meta property="article:modified_time" content="2020-10-27T05:47:30.610Z">
+<meta property="article:author" content="CandyKing">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://smilesrx.github.io/list容器.png">
+  
+  
+
+  <!-- feed -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+</head>
+
+<body>
+  
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left'>
+    
+
+<header class='header'>
+  <div class='logo-wrap'>
+  
+    <a class='avatar' href='/about/'>
+      
+        <img no-lazy class='bg' src='https://cdn.jsdelivr.net/gh/cdn-x/placeholder@1.0.2/avatar/round/rainbow64@3x.webp'/>
+      
+      <img no-lazy class='avatar' src='http://q1.qlogo.cn/g?b=qq&nk=1607952713&s=640'/>
+    </a>
+  
+  
+    <a class='title' href='/'>
+      逆玺之路
+    </a>
+  
+</div>
+
+  <nav class="menu dis-select"><a class="nav-item active" href="/">文章</a><a class="nav-item" href="/wiki/">项目</a><a class="nav-item" href="/notes/">笔记</a><a class="nav-item" href="/more/">更多</a></nav>
+</header>
+
+<div class='widgets'>
+  
+    
+      
+      
+<div class="widget-wrap" id="toc"><div class="widget-header h4 dis-select"><span class="name">本文目录</span></div><div class="widget-body fs14 post"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81list%E5%AE%B9%E5%99%A8%E4%B8%8D%E4%BB%85%E6%98%AF%E4%B8%80%E4%B8%AA%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8%EF%BC%8C%E8%80%8C%E4%B8%94%E8%BF%98%E6%98%AF%E4%B8%80%E4%B8%AA%E5%BE%AA%E7%8E%AF%E7%9A%84%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8%E3%80%82"><span class="toc-text">1、list容器不仅是一个双向链表，而且还是一个循环的双向链表。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81list%E8%BF%AD%E4%BB%A3%E5%99%A8%E4%B8%8D%E6%94%AF%E6%8C%81%E9%9A%8F%E6%9C%BA%E8%AE%BF%E9%97%AE"><span class="toc-text">2、list迭代器不支持随机访问</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81list%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="toc-text">1、list构造函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81list%E6%95%B0%E6%8D%AE%E5%85%83%E7%B4%A0%E6%8F%92%E5%85%A5%E5%92%8C%E5%88%A0%E9%99%A4%E6%93%8D%E4%BD%9C"><span class="toc-text">2、list数据元素插入和删除操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81list%E5%A4%A7%E5%B0%8F%E6%93%8D%E4%BD%9C"><span class="toc-text">3、list大小操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4%E3%80%81list%E8%B5%8B%E5%80%BC%E6%93%8D%E4%BD%9C"><span class="toc-text">4、list赋值操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5%E3%80%81-list%E6%95%B0%E6%8D%AE%E7%9A%84%E5%AD%98%E5%8F%96"><span class="toc-text">5、 list数据的存取</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6%E3%80%81list%E5%8F%8D%E8%BD%AC%E6%8E%92%E5%BA%8F"><span class="toc-text">6、list反转排序</span></a></li></ol></div></div></div>
+
+    
+  
+</div>
+
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+
+  <div class='bread-nav fs12'>
+  
+    
+    <div id='breadcrumb'>
+      <a class='cap breadcrumb' href='/'>主页</a>
+      <span class="sep"></span>
+      <a class='cap breadcrumb' href='/'>文章</a>
+      
+    </div>
+    <div id='post-meta'>
+      发布于&nbsp;<time datetime='2020-10-25T16:26:39.548Z'>2020-10-26</time>
+    </div>
+  
+  </div>
+
+
+<article class='content md post'>
+
+<h1 id="list容器基本概念"><a href="#list容器基本概念" class="headerlink" title="list容器基本概念"></a>list容器基本概念</h1><p>链表是一种物理存储单元上非连续、非顺序的存储结构，数据元素的逻辑顺序是通过链表中的指针链接次序实现的。链表由一系列结点（链表中每一个元素称为结点）组成，结点可以在运行时动态生成。每个结点包括两个部分：一个是存储数据元素的数据域，另一个是存储下一个结点地址的指针域。</p>
+<p>相较于vector的连续线性空间，list就显得负责许多，它的好处是每次插入或者删除一个元素，就是配置或者释放一个元素的空间。因此，list对于空间的运用有绝对的精准，一点也不浪费。而且，对于任何位置的元素插入或元素的移除，list永远是常数时间。</p>
+<p>List和vector是两个最常被使用的容器。</p>
+<p>List容器是一个双向链表。</p>
+<img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/list容器.png" alt="list容器" style="zoom: 50%;" />
+
+<ul>
+<li>n采用动态存储分配，不会造成内存浪费和溢出</li>
+<li>链表执行插入和删除操作十分方便，修改指针即可，不需要移动大量元素</li>
+<li>链表灵活，但是空间和时间额外耗费较大</li>
+</ul>
+<h1 id="list容器的迭代器"><a href="#list容器的迭代器" class="headerlink" title="list容器的迭代器"></a>list容器的迭代器</h1><p>List容器不能像vector一样以普通指针作为迭代器，因为其节点不能保证在同一块连续的内存空间上。List迭代器必须有能力指向list的节点，并有能力进行正确的递增、递减、取值、成员存取操作。</p>
+<p>所谓”list正确的递增，递减、取值、成员取用”是指，递增时指向下一个节点，递减时指向上一个节点，取值时取的是节点的数据值，成员取用时取的是节点的成员。</p>
+<p>由于list是一个双向链表，迭代器必须能够具备前移、后移的能力，所以list容器提供的是Bidirectional Iterators.</p>
+<p>List有一个重要的性质，插入操作和删除操作都不会造成原有list迭代器的失效。这在vector是不成立的，因为vector的插入操作可能造成记忆体重新配置，导致原有的迭代器全部失效，甚至List元素的删除，也只有被删除的那个元素的迭代器失效，其他迭代器不受任何影响。</p>
+<h1 id="list容器的数据结构"><a href="#list容器的数据结构" class="headerlink" title="list容器的数据结构"></a>list容器的数据结构</h1><h2 id="1、list容器不仅是一个双向链表，而且还是一个循环的双向链表。"><a href="#1、list容器不仅是一个双向链表，而且还是一个循环的双向链表。" class="headerlink" title="1、list容器不仅是一个双向链表，而且还是一个循环的双向链表。"></a>1、list容器不仅是一个双向链表，而且还是一个循环的双向链表。</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _CRT_SECURE_NO_WARNINGS</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;list&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	list&lt;<span class="keyword">int</span>&gt; myList;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i ++)&#123;</span><br><span class="line">		myList.<span class="built_in">push_back</span>(i);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	list&lt;<span class="keyword">int</span>&gt;::_Nodeptr node =  myList._Myhead-&gt;_Next;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; myList._Mysize * <span class="number">2</span>;i++)&#123;</span><br><span class="line">		cout &lt;&lt; <span class="string">&quot;Node:&quot;</span> &lt;&lt; node-&gt;_Myval &lt;&lt; endl;</span><br><span class="line">		node = node-&gt;_Next;</span><br><span class="line">		<span class="keyword">if</span> (node == myList._Myhead)&#123;</span><br><span class="line">			node = node-&gt;_Next;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">system</span>(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line">	<span class="keyword">return</span> EXIT_SUCCESS;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>分析：循环打印list里面的数据（两遍）</p>
+<h2 id="2、list迭代器不支持随机访问"><a href="#2、list迭代器不支持随机访问" class="headerlink" title="2、list迭代器不支持随机访问"></a>2、list迭代器不支持随机访问</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">	list&lt;<span class="keyword">int</span>&gt; L;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">5</span>;i++)&#123;</span><br><span class="line">		L.<span class="built_in">push_back</span>(<span class="built_in">rand</span>()%<span class="number">10</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">Print</span>(L);</span><br><span class="line">	</span><br><span class="line">	list&lt;<span class="keyword">int</span>&gt;::iterator itBegin = L.<span class="built_in">begin</span>();</span><br><span class="line">	<span class="comment">//itBegin = itBegin + 1;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="list常用API"><a href="#list常用API" class="headerlink" title="list常用API"></a>list常用API</h1><h1 id="1、list容器遍历"><a href="#1、list容器遍历" class="headerlink" title="1、list容器遍历"></a>1、list容器遍历</h1><ol>
+<li><p>正序遍历</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//遍历list（正序） </span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Print</span><span class="params">(list&lt;<span class="keyword">int</span>&gt; &amp;L)</span></span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(list&lt;<span class="keyword">int</span>&gt;::iterator it=L.<span class="built_in">begin</span>();it!=L.<span class="built_in">end</span>();it++)&#123;</span><br><span class="line">		cout&lt;&lt;*it&lt;&lt;<span class="string">&quot; &quot;</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	cout&lt;&lt;endl;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure></li>
+<li><p>逆序遍历</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//遍历list（逆序） </span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Print1</span><span class="params">(list&lt;<span class="keyword">int</span>&gt; &amp;L)</span></span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(list&lt;<span class="keyword">int</span>&gt;::reverse_iterator it=L.<span class="built_in">rbegin</span>();it!=L.<span class="built_in">rend</span>();it++)&#123;</span><br><span class="line">		cout&lt;&lt;*it&lt;&lt;<span class="string">&quot; &quot;</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	cout&lt;&lt;endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="1、list构造函数"><a href="#1、list构造函数" class="headerlink" title="1、list构造函数"></a>1、list构造函数</h2><table>
+<thead>
+<tr>
+<th>序号</th>
+<th>原型</th>
+<th>注释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>list<T> lstT;</td>
+<td>list采用采用模板类实现,对象的默认构造形式：</td>
+</tr>
+<tr>
+<td>2</td>
+<td>list(beg,end);</td>
+<td>构造函数将[beg, end)区间中的元素拷贝给本身。</td>
+</tr>
+<tr>
+<td>3</td>
+<td>list(n,elem);</td>
+<td>构造函数将n个elem拷贝给本身。</td>
+</tr>
+<tr>
+<td>4</td>
+<td>list(const list &amp;lst);</td>
+<td>拷贝构造函数。</td>
+</tr>
+</tbody></table>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">	list&lt;<span class="keyword">int</span>&gt; myList;       <span class="comment">//list&lt;T&gt; lstT;----默认构造</span></span><br><span class="line">	</span><br><span class="line">	<span class="function">list&lt;<span class="keyword">int</span>&gt; <span class="title">myList1</span><span class="params">(<span class="number">5</span>,<span class="number">1</span>)</span></span>;       <span class="comment">//list(n,elem);----构造函数将n个elem拷贝给本身。</span></span><br><span class="line">	<span class="built_in">Print</span>(myList1);</span><br><span class="line">	</span><br><span class="line">	<span class="function">list&lt;<span class="keyword">int</span>&gt; <span class="title">myList2</span><span class="params">(myList1.begin(),myList1.end())</span></span>;  </span><br><span class="line">           <span class="comment">//list(beg,end);---构造函数将[beg, end)区间中的元素拷贝给本身</span></span><br><span class="line">	<span class="built_in">Print</span>(myList2);</span><br><span class="line">	</span><br><span class="line">	<span class="function">list&lt;<span class="keyword">int</span>&gt; <span class="title">myList3</span><span class="params">(myList1)</span></span>;       <span class="comment">//list(const list &amp;lst);----拷贝构造函数。</span></span><br><span class="line">	<span class="built_in">Print</span>(myList3);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2、list数据元素插入和删除操作"><a href="#2、list数据元素插入和删除操作" class="headerlink" title="2、list数据元素插入和删除操作"></a>2、list数据元素插入和删除操作</h2><table>
+<thead>
+<tr>
+<th>序号</th>
+<th>原型</th>
+<th>注释：参数pos是迭代器</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>push_back(elem);</td>
+<td>在容器尾部加入一个元素</td>
+</tr>
+<tr>
+<td>2</td>
+<td>pop_back();</td>
+<td>删除容器中最后一个元素</td>
+</tr>
+<tr>
+<td>3</td>
+<td>push_front(elem);</td>
+<td>在容器开头插入一个元素</td>
+</tr>
+<tr>
+<td>4</td>
+<td>pop_front();</td>
+<td>从容器开头移除第一个元素</td>
+</tr>
+<tr>
+<td>5</td>
+<td>insert(pos,elem);</td>
+<td>在pos位置插elem元素的拷贝，返回新数据的位置。</td>
+</tr>
+<tr>
+<td>6</td>
+<td>insert(pos,n,elem);</td>
+<td>在pos位置插入n个elem数据，无返回值。</td>
+</tr>
+<tr>
+<td>7</td>
+<td>insert(pos,beg,end);</td>
+<td>在pos位置插入[beg,end)区间的数据，无返回值。</td>
+</tr>
+<tr>
+<td>8</td>
+<td>clear();</td>
+<td>移除容器的所有数据</td>
+</tr>
+<tr>
+<td>9</td>
+<td>erase(beg,end);</td>
+<td>删除[beg,end)区间的数据，返回下一个数据的位置。</td>
+</tr>
+<tr>
+<td>10</td>
+<td>erase(pos);</td>
+<td>删除pos位置的数据，返回下一个数据的位置。</td>
+</tr>
+<tr>
+<td>11</td>
+<td>remove(elem);</td>
+<td>删除容器中所有与elem值匹配的元素。</td>
+</tr>
+</tbody></table>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">	list&lt;<span class="keyword">int</span>&gt; L;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">5</span>;i++)&#123;</span><br><span class="line">		L.<span class="built_in">push_back</span>(i);       <span class="comment">//push_back(elem);    ---在容器尾部加入一个元素</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">Print</span>(L);</span><br><span class="line">	</span><br><span class="line">	L.<span class="built_in">push_front</span>(<span class="number">8</span>);    <span class="comment">//push_front(elem);----在容器开头插入一个元素</span></span><br><span class="line">	<span class="built_in">Print</span>(L);</span><br><span class="line">	</span><br><span class="line">	L.<span class="built_in">pop_back</span>();        <span class="comment">//pop_back();----删除容器中最后一个元素</span></span><br><span class="line">	L.<span class="built_in">pop_front</span>();       <span class="comment">//pop_front();----从容器开头移除第一个元素</span></span><br><span class="line">	<span class="built_in">Print</span>(L);</span><br><span class="line">	</span><br><span class="line">	L.<span class="built_in">insert</span>(L.<span class="built_in">begin</span>(),<span class="number">7</span>);   <span class="comment">//insert(pos,elem);----在pos位置插elem元素的拷贝，返回新数据的位置。</span></span><br><span class="line">	L.<span class="built_in">insert</span>(L.<span class="built_in">end</span>(),<span class="number">4</span>,<span class="number">1</span>);   <span class="comment">//insert(pos,n,elem);----在pos位置插入n个elem数据，无返回值。</span></span><br><span class="line">	<span class="built_in">Print</span>(L);</span><br><span class="line">	</span><br><span class="line">	list&lt;<span class="keyword">int</span>&gt; L1;</span><br><span class="line">	L1.<span class="built_in">insert</span>(L1.<span class="built_in">begin</span>(),L.<span class="built_in">begin</span>(),L.<span class="built_in">end</span>());  </span><br><span class="line">              <span class="comment">//insert(pos,beg,end);--在pos位置插入[beg,end)区间的数据，无返回值</span></span><br><span class="line">	<span class="built_in">Print</span>(L1);</span><br><span class="line">	</span><br><span class="line">	L.<span class="built_in">clear</span>();      <span class="comment">//clear();----移除容器的所有数据</span></span><br><span class="line">	<span class="built_in">Print</span>(L);</span><br><span class="line">	</span><br><span class="line">	L1.<span class="built_in">erase</span>(L1.<span class="built_in">begin</span>());    <span class="comment">//erase(pos);----删除pos位置的数据，返回下一个数据的位置。</span></span><br><span class="line">	<span class="built_in">Print</span>(L1);</span><br><span class="line">	</span><br><span class="line">	L1.<span class="built_in">remove</span>(<span class="number">3</span>);     <span class="comment">//remove(elem);---删除容器中所有与elem值匹配的元素。</span></span><br><span class="line">	<span class="built_in">Print</span>(L1);</span><br><span class="line">	</span><br><span class="line">	L1.<span class="built_in">erase</span>(L1.<span class="built_in">begin</span>(),L1.<span class="built_in">end</span>());  <span class="comment">//erase(beg,end);---删除[beg,end)区间的数据，返回下一个数据的位置。</span></span><br><span class="line">	<span class="built_in">Print</span>(L1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3、list大小操作"><a href="#3、list大小操作" class="headerlink" title="3、list大小操作"></a>3、list大小操作</h2><table>
+<thead>
+<tr>
+<th>序号</th>
+<th>原型</th>
+<th>注释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>size();</td>
+<td>返回容器中元素的个数</td>
+</tr>
+<tr>
+<td>2</td>
+<td>empty();</td>
+<td>判断容器是否为空</td>
+</tr>
+<tr>
+<td>3</td>
+<td>resize(num);</td>
+<td>重新指定容器的长度为num，若容器变长，则以默认值填充新位置。如果容器变短，则末尾超出容器长度的元素被删除。</td>
+</tr>
+<tr>
+<td>4</td>
+<td>resize(num, elem);</td>
+<td>重新指定容器的长度为num，若容器变长，则以elem值填充新位置。如果容器变短，则末尾超出容器长度的元素被删除。</td>
+</tr>
+</tbody></table>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">	list&lt;<span class="keyword">int</span>&gt; L;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">5</span>;i++)&#123;</span><br><span class="line">		L.<span class="built_in">push_back</span>(i);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">Print</span>(L);</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span>(!L.<span class="built_in">empty</span>())&#123;       <span class="comment">//empty();----判断容器是否为空</span></span><br><span class="line">		cout&lt;&lt;<span class="string">&quot;list非空&quot;</span>&lt;&lt;endl;</span><br><span class="line">		cout&lt;&lt;<span class="string">&quot;size=&quot;</span>&lt;&lt;L.<span class="built_in">size</span>()&lt;&lt;endl;  <span class="comment">//size();---返回容器中元素的个数</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		cout&lt;&lt;<span class="string">&quot;list为空&quot;</span>&lt;&lt;endl;</span><br><span class="line">	</span><br><span class="line">	L.<span class="built_in">resize</span>(<span class="number">10</span>);   <span class="comment">//resize(num);</span></span><br><span class="line">    <span class="comment">//重新指定容器的长度为num，若容器变长，则以默认值填充新位置。若容器变短，则末尾超出容器长度的元素被删除。</span></span><br><span class="line">	<span class="built_in">Print</span>(L);</span><br><span class="line">	cout&lt;&lt;<span class="string">&quot;size=&quot;</span>&lt;&lt;L.<span class="built_in">size</span>()&lt;&lt;endl;</span><br><span class="line">	</span><br><span class="line">	L.<span class="built_in">resize</span>(<span class="number">15</span>,<span class="number">5</span>);   <span class="comment">//resize(num, elem);</span></span><br><span class="line">    <span class="comment">//重新指定容器的长度为num，若容器变长，则以elem值填充新位置。若容器变短，则末尾超出容器长度的元素被删除。</span></span><br><span class="line">	<span class="built_in">Print</span>(L);	</span><br><span class="line">	cout&lt;&lt;<span class="string">&quot;size=&quot;</span>&lt;&lt;L.<span class="built_in">size</span>()&lt;&lt;endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="4、list赋值操作"><a href="#4、list赋值操作" class="headerlink" title="4、list赋值操作"></a>4、list赋值操作</h2><table>
+<thead>
+<tr>
+<th>序号</th>
+<th>原型</th>
+<th>注释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>assign(beg, end);</td>
+<td>将[beg, end)区间中的数据拷贝赋值给本身。</td>
+</tr>
+<tr>
+<td>2</td>
+<td>assign(n, elem);</td>
+<td>将n个elem拷贝赋值给本身。</td>
+</tr>
+<tr>
+<td>3</td>
+<td>list&amp; operator=(const list &amp;lst);</td>
+<td>重载等号操作符</td>
+</tr>
+<tr>
+<td>4</td>
+<td>swap(lst);</td>
+<td>将lst与本身的元素互换。</td>
+</tr>
+</tbody></table>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">	list&lt;<span class="keyword">int</span>&gt; L;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">5</span>;i++)&#123;</span><br><span class="line">		L.<span class="built_in">push_back</span>(i);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">Print</span>(L);</span><br><span class="line">	</span><br><span class="line">	list&lt;<span class="keyword">int</span>&gt; L1;</span><br><span class="line">	L1.<span class="built_in">assign</span>(<span class="number">7</span>,<span class="number">2</span>);   <span class="comment">//assign(n, elem);---将n个elem拷贝赋值给本身。</span></span><br><span class="line">	<span class="built_in">Print</span>(L1);</span><br><span class="line">	</span><br><span class="line">	list&lt;<span class="keyword">int</span>&gt; L2;</span><br><span class="line">	L2.<span class="built_in">assign</span>(L.<span class="built_in">begin</span>(),L.<span class="built_in">end</span>());   <span class="comment">//assign(beg, end);---将[beg, end)区间中的数据拷贝赋值给本身。</span></span><br><span class="line">	<span class="built_in">Print</span>(L2);</span><br><span class="line">	</span><br><span class="line">	list&lt;<span class="keyword">int</span>&gt; L3=L2;    <span class="comment">//list&amp; operator=(const list &amp;lst);---重载等号操作符</span></span><br><span class="line">	<span class="built_in">Print</span>(L3);</span><br><span class="line">	</span><br><span class="line">	L.<span class="built_in">swap</span>(L1);   <span class="comment">//swap(lst);----将lst与本身的元素互换。</span></span><br><span class="line">	<span class="built_in">Print</span>(L);</span><br><span class="line">	<span class="built_in">Print</span>(L1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="5、-list数据的存取"><a href="#5、-list数据的存取" class="headerlink" title="5、 list数据的存取"></a>5、 list数据的存取</h2><table>
+<thead>
+<tr>
+<th>序号</th>
+<th>原型</th>
+<th>注释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>front();</td>
+<td>返回第一个元素。</td>
+</tr>
+<tr>
+<td>2</td>
+<td>back();</td>
+<td>返回最后一个元素。</td>
+</tr>
+</tbody></table>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">	list&lt;<span class="keyword">int</span>&gt; L;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">5</span>;i++)&#123;</span><br><span class="line">		L.<span class="built_in">push_back</span>(i+<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">Print</span>(L);</span><br><span class="line">	</span><br><span class="line">	cout&lt;&lt;<span class="string">&quot;front=&quot;</span>&lt;&lt;L.<span class="built_in">front</span>()&lt;&lt;endl;      <span class="comment">//front();-----返回第一个元素。</span></span><br><span class="line">	cout&lt;&lt;<span class="string">&quot;back=&quot;</span>&lt;&lt;L.<span class="built_in">back</span>()&lt;&lt;endl;        <span class="comment">//back();-----返回最后一个元素。</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="6、list反转排序"><a href="#6、list反转排序" class="headerlink" title="6、list反转排序"></a>6、list反转排序</h2><table>
+<thead>
+<tr>
+<th>序号</th>
+<th>原型</th>
+<th>注释：质变</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>reverse();</td>
+<td>反转链表，比如lst包含1,3,5元素，运行此方法后，lst就包含5,3,1元素。</td>
+</tr>
+<tr>
+<td>2</td>
+<td>sort();</td>
+<td>list排序：默认（从小到大）</td>
+</tr>
+</tbody></table>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//自定义排序规则--（从大到小） </span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">MyCompare</span><span class="params">(<span class="keyword">int</span> v1,<span class="keyword">int</span> v2)</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> v1&gt;v2;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">	list&lt;<span class="keyword">int</span>&gt; L;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">5</span>;i++)&#123;</span><br><span class="line">		L.<span class="built_in">push_back</span>(<span class="built_in">rand</span>()%<span class="number">10</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">Print</span>(L);</span><br><span class="line">	</span><br><span class="line">	L.<span class="built_in">reverse</span>();   <span class="comment">//reverse();-----反转链表，比如lst包含1,3,5元素，运行此方法后，lst就包含5,3,1元素。</span></span><br><span class="line">	<span class="built_in">Print</span>(L);</span><br><span class="line">	</span><br><span class="line">	L.<span class="built_in">sort</span>();         <span class="comment">//sort();     //list排序：默认（从小到大）</span></span><br><span class="line">	<span class="built_in">Print</span>(L);</span><br><span class="line">	</span><br><span class="line">	L.<span class="built_in">sort</span>(MyCompare);</span><br><span class="line">	<span class="comment">//L.reverse();</span></span><br><span class="line">	<span class="built_in">Print</span>(L);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="案例—学生按年龄排序"><a href="#案例—学生按年龄排序" class="headerlink" title="案例—学生按年龄排序"></a>案例—学生按年龄排序</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">Student</span>(string name,<span class="keyword">int</span> age,<span class="keyword">int</span> height)&#123;</span><br><span class="line">		<span class="keyword">this</span>-&gt;m_Name=name;</span><br><span class="line">		<span class="keyword">this</span>-&gt;m_Age=age;</span><br><span class="line">		<span class="keyword">this</span>-&gt;m_Height=height;</span><br><span class="line">	&#125;</span><br><span class="line">	string m_Name;</span><br><span class="line">	<span class="keyword">int</span> m_Age;</span><br><span class="line">	<span class="keyword">int</span> m_Height;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Creat_Student</span>(list&lt;Student&gt; &amp;stu)&#123;</span><br><span class="line">	<span class="function">Student <span class="title">stu1</span><span class="params">(<span class="string">&quot;亚瑟&quot;</span>, <span class="number">40</span> ,  <span class="number">180</span>)</span></span>;</span><br><span class="line">	<span class="function">Student <span class="title">stu2</span><span class="params">(<span class="string">&quot;赵云&quot;</span>, <span class="number">20</span> , <span class="number">160</span>)</span></span>;</span><br><span class="line">	<span class="function">Student <span class="title">stu3</span><span class="params">(<span class="string">&quot;妲己&quot;</span>, <span class="number">30</span> , <span class="number">120</span>)</span></span>;</span><br><span class="line">	<span class="function">Student <span class="title">stu4</span><span class="params">(<span class="string">&quot;韩信&quot;</span>, <span class="number">50</span> , <span class="number">200</span>)</span></span>;</span><br><span class="line">	<span class="function">Student <span class="title">stu5</span><span class="params">(<span class="string">&quot;关羽&quot;</span>, <span class="number">10</span> ,  <span class="number">170</span>)</span></span>;</span><br><span class="line">	<span class="function">Student <span class="title">stu6</span><span class="params">(<span class="string">&quot;刘备&quot;</span>, <span class="number">10</span>  , <span class="number">165</span>)</span></span>;</span><br><span class="line">	<span class="function">Student <span class="title">stu7</span><span class="params">(<span class="string">&quot;张飞&quot;</span>, <span class="number">10</span> , <span class="number">185</span>)</span></span>;</span><br><span class="line">	stu.<span class="built_in">push_back</span>(stu1);</span><br><span class="line">	stu.<span class="built_in">push_back</span>(stu2);</span><br><span class="line">	stu.<span class="built_in">push_back</span>(stu3);</span><br><span class="line">	stu.<span class="built_in">push_back</span>(stu4);</span><br><span class="line">	stu.<span class="built_in">push_back</span>(stu5);</span><br><span class="line">	stu.<span class="built_in">push_back</span>(stu6);</span><br><span class="line">	stu.<span class="built_in">push_back</span>(stu7);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Print</span><span class="params">(list&lt;Student&gt; &amp;stu)</span></span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(list&lt;Student&gt;::iterator it=stu.<span class="built_in">begin</span>();it!=stu.<span class="built_in">end</span>();it++)&#123;</span><br><span class="line">		cout&lt;&lt;<span class="string">&quot;姓名：&quot;</span>&lt;&lt;(*it).m_Name&lt;&lt;<span class="string">&quot; 年龄：&quot;</span>&lt;&lt;(*it).m_Age&lt;&lt;<span class="string">&quot; 身高：&quot;</span>&lt;&lt;(*it).m_Height&lt;&lt;endl;</span><br><span class="line">	&#125;</span><br><span class="line">	cout&lt;&lt;endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//自定义排序规则--（从大到小） </span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">MyCompare</span><span class="params">(Student stu1,Student stu2)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(stu1.m_Age==stu2.m_Age)</span><br><span class="line">		<span class="keyword">return</span> stu1.m_Height&gt;stu2.m_Height;     <span class="comment">//年龄相等的按身高排序 </span></span><br><span class="line">	<span class="keyword">return</span> stu1.m_Age&gt;stu2.m_Age;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">	list&lt;Student&gt; stu;</span><br><span class="line">	<span class="built_in">Creat_Student</span>(stu);</span><br><span class="line">	<span class="built_in">Print</span>(stu);</span><br><span class="line">	</span><br><span class="line">	stu.<span class="built_in">sort</span>(MyCompare);</span><br><span class="line">	<span class="built_in">Print</span>(stu);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<div class="article-footer fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div></section></div>
+
+</article>
+
+<div class="related-wrap" id="read-next"><section class="header cap theme"><span>接下来阅读</span></section><section class="body"><div class="post-title h2"><a href="/2020/10/26/STL/deque%E5%AE%B9%E5%99%A8/deque%E5%AE%B9%E5%99%A8/">undefined</a></div><div class="post-title fs14"><a href="/2020/10/26/STL/queue%E5%AE%B9%E5%99%A8/queue%E5%AE%B9%E5%99%A8/">上一篇：undefined</a></div></section></div>
+
+
+
+
+
+
+
+
+      
+<footer class="page-footer fs12"><hr><div><p>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+<p>本站由 <a href="https://smilesrx.github.io/">@CandyKing</a> 创建，使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0">Stellar</a> 作为主题。</p>
+</div></footer>
+
+      <div class='float-panel mobile-only' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" viewBox="0 0 1228 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2849"><path d="M0 0m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2850"></path><path d="M0 389.560798m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2851"></path><path d="M0 779.121596m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.390199l-973.901995 0q-97.390199 0-97.390199-97.390199l0 0q0-97.390199 97.390199-97.390199Z" p-id="2852"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script')
+      script.src = src
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js',
+    sitesjs: '/js/plugins/sites.js',
+    friendsjs: '/js/plugins/friends.js',
+  };
+
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper/swiper-bundle.min.css","js":"https://unpkg.com/swiper/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://cdn.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+
+
+<!-- inject -->
+
+
+  </div>
+</body>
+</html>

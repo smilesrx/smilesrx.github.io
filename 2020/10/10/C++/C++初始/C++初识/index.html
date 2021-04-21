@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+
+<head>
+  <meta name="generator" content="Hexo 5.4.0">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>post - 逆玺之路</title>
+
+  
+    <meta name="description" content="简单的C++程序12345678#include &lt;iostream&gt;using namespace std;int main()&amp;#123;    cout&lt;&lt;&quot;Hello World&quot;&lt;&lt;endl;    system(&quot;pause&quot;);    return EXIT_SUCCESS;&amp;#125;  分析：  #inc">
+<meta property="og:type" content="article">
+<meta property="og:title" content="逆玺之路">
+<meta property="og:url" content="https://smilesrx.github.io/2020/10/10/C++/C++%E5%88%9D%E5%A7%8B/C++%E5%88%9D%E8%AF%86/index.html">
+<meta property="og:site_name" content="逆玺之路">
+<meta property="og:description" content="简单的C++程序12345678#include &lt;iostream&gt;using namespace std;int main()&amp;#123;    cout&lt;&lt;&quot;Hello World&quot;&lt;&lt;endl;    system(&quot;pause&quot;);    return EXIT_SUCCESS;&amp;#125;  分析：  #inc">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-10-10T04:39:09.726Z">
+<meta property="article:modified_time" content="2020-10-10T08:08:52.509Z">
+<meta property="article:author" content="CandyKing">
+<meta name="twitter:card" content="summary">
+  
+  
+
+  <!-- feed -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+</head>
+
+<body>
+  
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left'>
+    
+
+<header class='header'>
+  <div class='logo-wrap'>
+  
+    <a class='avatar' href='/about/'>
+      
+        <img no-lazy class='bg' src='https://cdn.jsdelivr.net/gh/cdn-x/placeholder@1.0.2/avatar/round/rainbow64@3x.webp'/>
+      
+      <img no-lazy class='avatar' src='http://q1.qlogo.cn/g?b=qq&nk=1607952713&s=640'/>
+    </a>
+  
+  
+    <a class='title' href='/'>
+      逆玺之路
+    </a>
+  
+</div>
+
+  <nav class="menu dis-select"><a class="nav-item active" href="/">文章</a><a class="nav-item" href="/wiki/">项目</a><a class="nav-item" href="/notes/">笔记</a><a class="nav-item" href="/more/">更多</a></nav>
+</header>
+
+<div class='widgets'>
+  
+    
+      
+      
+<div class="widget-wrap" id="toc"><div class="widget-header h4 dis-select"><span class="name">本文目录</span></div><div class="widget-body fs14 post"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E9%9D%A2%E5%90%91%E8%BF%87%E7%A8%8B"><span class="toc-text">1、面向过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1"><span class="toc-text">2、面向对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E4%B8%89%E5%A4%A7%E7%89%B9%E6%80%A7"><span class="toc-text">3、面向对象的三大特性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81-%E4%BD%9C%E7%94%A8%E5%9F%9F%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-text">1、::作用域运算符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81C-%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4%EF%BC%88namespace%EF%BC%89"><span class="toc-text">2、C++命名空间（namespace）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4%E7%9A%84%E4%BD%BF%E7%94%A8%E8%AF%AD%E6%B3%95%EF%BC%9A"><span class="toc-text">1、命名空间的使用语法：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81using%E7%94%B3%E6%98%8E"><span class="toc-text">2、using申明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81using%E7%BC%96%E8%AF%91%E6%8C%87%E4%BB%A4"><span class="toc-text">3、using编译指令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81%E4%B8%A5%E6%A0%BC%E7%9A%84%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="toc-text">3、严格的类型转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4%E3%80%81struct%E7%B1%BB%E5%9E%8B%E5%A2%9E%E5%BC%BA"><span class="toc-text">4、struct类型增强</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5%E3%80%81%E4%B8%89%E6%9C%A8%E8%BF%90%E7%AE%97%E7%AC%A6%E5%A2%9E%E5%BC%BA"><span class="toc-text">5、三木运算符增强</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6%E3%80%81bool%E7%B1%BB%E5%9E%8B"><span class="toc-text">6、bool类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7%E3%80%81const%E5%A2%9E%E5%BC%BA"><span class="toc-text">7、const增强</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81C%E8%AF%AD%E8%A8%80%E4%B8%8Bconst"><span class="toc-text">1、C语言下const</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81c-%E4%B8%8B%E7%9A%84const"><span class="toc-text">2、c++下的const</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E5%AF%B9const%E5%8F%98%E9%87%8F-%E5%8F%96%E5%9C%B0%E5%9D%80-%EF%BC%8C%E4%BC%9A%E5%88%86%E9%85%8D%E4%B8%B4%E6%97%B6%E5%86%85%E5%AD%98"><span class="toc-text">1、对const变量 取地址 ，会分配临时内存</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E4%BD%BF%E7%94%A8%E6%99%AE%E9%80%9A%E5%8F%98%E9%87%8F-%E5%88%9D%E5%A7%8B%E5%8C%96-const%E5%8F%98%E9%87%8F"><span class="toc-text">2、使用普通变量  初始化 const变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81%E5%AF%B9%E4%BA%8E%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B-%E6%AF%94%E5%A6%82%E7%B1%BB%E5%AF%B9%E8%B1%A1%EF%BC%8C%E9%82%A3%E4%B9%88%E4%B9%9F%E4%BC%9A%E5%88%86%E9%85%8D%E5%86%85%E5%AD%98"><span class="toc-text">3、对于自定义数据类型 ,比如类对象，那么也会分配内存</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81const%E5%92%8C-define%E5%8C%BA%E5%88%AB%E6%80%BB%E7%BB%93"><span class="toc-text">1、const和#define区别总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E5%AE%8F-define%E7%BC%BA%E9%99%B7"><span class="toc-text">2、宏#define缺陷</span></a></li></ol></div></div></div>
+
+    
+  
+</div>
+
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+
+  <div class='bread-nav fs12'>
+  
+    
+    <div id='breadcrumb'>
+      <a class='cap breadcrumb' href='/'>主页</a>
+      <span class="sep"></span>
+      <a class='cap breadcrumb' href='/'>文章</a>
+      
+    </div>
+    <div id='post-meta'>
+      发布于&nbsp;<time datetime='2020-10-10T04:39:09.726Z'>2020-10-10</time>
+    </div>
+  
+  </div>
+
+
+<article class='content md post'>
+
+<h1 id="简单的C-程序"><a href="#简单的C-程序" class="headerlink" title="简单的C++程序"></a>简单的C++程序</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;Hello World&quot;</span>&lt;&lt;endl;</span><br><span class="line">    <span class="built_in">system</span>(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> EXIT_SUCCESS;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>分析：</p>
+<ul>
+<li><code>#include &lt;iostream&gt;</code>; 预编译指令，引入头文件<code>iostream</code>。</li>
+<li><code>using namespace std</code>; 使用标准命名空间。</li>
+<li><code>cout &lt;&lt; “hello world”&lt;&lt; endl;</code> 和<code>printf</code>功能一样，输出字符串<code>”hello wrold”</code>。</li>
+</ul>
+<h2 id="1、面向过程"><a href="#1、面向过程" class="headerlink" title="1、面向过程"></a>1、面向过程</h2><p>面向过程是一种以过程为中心的编程思想。  </p>
+<p>通过分析出解决问题所需要的步骤，然后用函数把这些步骤一步一步实现，使用的时候一个一个依次调用就可以了。  </p>
+<p>面向过程编程思想的核心：功能分解，自顶向下，逐层细化（程序=数据结构+算法）。  </p>
+<p>面向过程编程语言存在的主要缺点：不符合人的思维习惯，而是要用计算机的思维方式去处理问题，而且面向过程编程语言重用性低，维护困难。</p>
+<h2 id="2、面向对象"><a href="#2、面向对象" class="headerlink" title="2、面向对象"></a>2、面向对象</h2><p><strong>面向对象编程</strong>（Object-Oriented Programming）简称 OOP 技术，是开发计算机应用程序的一种新方法、新思想。</p>
+<p>过去的面向过程编程常常会导致所有的代码都包含在几个模块中，使程序难以阅读和维护。在做一些修改时常常牵一动百，使以后的开发和维护难以为继  </p>
+<p>使用 OOP 技术，常常要使用许多代码模块，每个模块都只提供特定的功能，它们是彼此独立的，这样就增大了代码重用的几率，更加有利于软件的开发、维护和升级。</p>
+<h2 id="3、面向对象的三大特性"><a href="#3、面向对象的三大特性" class="headerlink" title="3、面向对象的三大特性"></a>3、面向对象的三大特性</h2><ul>
+<li><p>封装</p>
+<p>把客观事物封装成抽象的类，并且类可以把自己的数据和方法只让可信的类或者对象操作，对不可信的进行信息隐藏。  </p>
+<p>类将成员变量和成员函数封装在类的内部，根据需要设置访问权限，通过成员函数管理内部状态。</p>
+</li>
+<li><p>继承</p>
+<p>继承所表达的是类之间相关的关系，这种关系使得对象可以继承另外一类对象的特征和能力。  </p>
+<p>继承的作用：避免公用代码的重复开发，减少代码和数据冗余。</p>
+</li>
+<li><p>多态</p>
+<p>多态性可以简单地概括为“一个接口，多种方法”，字面意思为多种形态。程序在运行时才决定调用的函数，它是面向对象编程领域的核心概念。  </p>
+</li>
+</ul>
+<h1 id="C-对C的扩展"><a href="#C-对C的扩展" class="headerlink" title="C++对C的扩展"></a>C++对C的扩展</h1><h2 id="1、-作用域运算符"><a href="#1、-作用域运算符" class="headerlink" title="1、::作用域运算符"></a>1、::作用域运算符</h2><p>如果前面什么都不添加 代表全局作用域</p>
+<p>通常情况下，如果有两个同名变量，一个是全局变量，另一个是局部变量，那么局部变量在其作用域内具有较高的优先权，它将屏蔽全局变量。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> m=<span class="number">100</span>;  <span class="comment">//全局变量</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> m=<span class="number">50</span>;   <span class="comment">//局部变量</span></span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;m=&quot;</span>&lt;&lt;m&lt;&lt;endl;       <span class="comment">//输出结果为:m=50</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>作用域运算符<code>::</code>可解决局部变量与全局变量的重名问题，即在局部变量的作用域内，可用<code>::</code>对被屏蔽的同名的全局变量进行访问。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a=<span class="number">60</span>;    <span class="comment">//全局变量</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a=<span class="number">40</span>;    <span class="comment">//局部变量</span></span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;a=&quot;</span>&lt;&lt;::a&lt;&lt;endl;     <span class="comment">//::a 引用全局的变量a  输出结果：a=60</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2、C-命名空间（namespace）"><a href="#2、C-命名空间（namespace）" class="headerlink" title="2、C++命名空间（namespace）"></a>2、C++命名空间（namespace）</h2><p>名称（name）可以是符号常量、变量、函数、结构、枚举、类和对象等等  </p>
+<p>名称互相冲突性的可能性越大</p>
+<p>可以更好地控制标识符的作用域</p>
+<ul>
+<li>命名空间用途：解决名称冲突</li>
+<li>命名空间下可以存放 ： 变量、函数、结构体、类…</li>
+<li>命名空间必须要声明在全局作用域</li>
+<li>命名空间可以嵌套命名空间</li>
+<li>命名空间是开放的，可以随时将新成员添加到命名空间下</li>
+<li>命名空间可以匿名的</li>
+<li>命名空间可以起别名</li>
+</ul>
+<h3 id="1、命名空间的使用语法："><a href="#1、命名空间的使用语法：" class="headerlink" title="1、命名空间的使用语法："></a>1、命名空间的使用语法：</h3><ol>
+<li><p>创建一个命名空间</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> A</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">int</span> a=<span class="number">15</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">namespace</span> B</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">int</span> a=<span class="number">20</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;A::a=&quot;</span>A::a&lt;&lt;endl;    <span class="comment">//输出结果：A::a=15</span></span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;B::a=&quot;</span>B::a&lt;&lt;endl;    <span class="comment">//输出结果：B::a=20</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>命名空间只能创建在全局范围（以下示例错误）</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">namespace</span> A</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> m=<span class="number">16</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">namespace</span> B</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> m=<span class="number">30</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;A::m=&quot;</span>&lt;&lt;A::m&lt;&lt;endl;</span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;B::m=&quot;</span>&lt;&lt;B::m&lt;&lt;endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>命名空间可以嵌套命名空间</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> A</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">int</span> k=<span class="number">20</span>;</span><br><span class="line">    <span class="keyword">namespace</span> B</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> k=<span class="number">45</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;A::k=&quot;</span>&lt;&lt;A::k&lt;&lt;endl;      <span class="comment">//运行结果：A::k=20</span></span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;A::B::k=&quot;</span>&lt;&lt;A::B::k&lt;&lt;endl;   <span class="comment">//结果：A::B::k=45</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>命名空间是开放的，即可以随时把新的成员加入已有的命名空间中</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> A</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">int</span> m=<span class="number">50</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">namespace</span> A</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">int</span> n=<span class="number">75</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;A::m=&quot;</span>&lt;&lt;A::m&lt;&lt;endl;    <span class="comment">//结果：A::m=50</span></span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;A::n=&quot;</span>&lt;&lt;A::n&lt;&lt;endl;    <span class="comment">//结果：A::n=75</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>声明和实现可分离</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> A</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//申明</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">sub</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//实现</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">A::add</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a+b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">A::sub</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a-b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//调用</span></span><br><span class="line">    cout&lt;&lt;A::<span class="built_in">add</span>(<span class="number">5</span>,<span class="number">3</span>)&lt;&lt;endl;    <span class="comment">//结果：8</span></span><br><span class="line">    cout&lt;&lt;A::<span class="built_in">sub</span>(<span class="number">5</span>,<span class="number">3</span>)&lt;&lt;endl;    <span class="comment">//结果：2</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>匿名命名空间</p>
+<p>意味着命名空间中的标识符只能在本文件内访问，相当于给这个标识符加上了<code>static</code>，使得其可以作为内部连接</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> </span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">int</span> a=<span class="number">50</span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span> &amp;m,<span class="keyword">int</span> &amp;n)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> temp=m;</span><br><span class="line">        m=n;</span><br><span class="line">        n=temp；</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">void</span> <span class="built_in">test</span>()</span><br><span class="line">&#123;</span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;a=&quot;</span>a&lt;&lt;&lt;&lt;endl;     <span class="comment">//结果：a=50</span></span><br><span class="line">    <span class="keyword">int</span> m=<span class="number">3</span>;</span><br><span class="line">    <span class="keyword">int</span> n=<span class="number">5</span>;</span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;交换前m=&quot;</span>&lt;&lt;m&lt;&lt;endl;   <span class="comment">//结果：交换前m=3 </span></span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;交换前n=&quot;</span>&lt;&lt;n&lt;&lt;endl;   <span class="comment">//结果：交换前n=5</span></span><br><span class="line">    <span class="built_in">swap</span>(m,n);</span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;交换后m=&quot;</span>&lt;&lt;m&lt;&lt;endl;   <span class="comment">//结果：交换后m=3</span></span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;交换后n=&quot;</span>&lt;&lt;n&lt;&lt;endl;   <span class="comment">//结果：交换后n=5</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>命名空间别名</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> Longnamespace</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">int</span> m=<span class="number">15</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">namespace</span> shortnamespace=Longnamespace;</span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;Longnamespace::m=&quot;</span>&lt;&lt;Longnamespace::m&lt;&lt;endl;     <span class="comment">//结果：Longnamespace::m=15 </span></span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;shortnamespace::m=&quot;</span>&lt;&lt;shortnamespace::m&lt;&lt;endl;   <span class="comment">//结果：shortnamespace::m=15  </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="2、using申明"><a href="#2、using申明" class="headerlink" title="2、using申明"></a>2、using申明</h3><ol>
+<li><p>using声明可使得指定的标识符可用。</p>
+<p>注意：当using声明与 就近原则同时出现，出错，尽量避免</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> A</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">int</span> m=<span class="number">15</span>;</span><br><span class="line">    <span class="keyword">int</span> n=<span class="number">20</span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">funcA</span><span class="params">()</span></span>&#123;cout&lt;&lt;<span class="string">&quot;funcA函数调用&quot;</span>&lt;&lt;endl;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">funcB</span><span class="params">()</span></span>&#123;cout&lt;&lt;<span class="string">&quot;funcB函数调用&quot;</span>&lt;&lt;endl;&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//1.通过命名空间作用域运算符访问</span></span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;A::m=&quot;</span>&lt;&lt;A::m&lt;&lt;endl;    <span class="comment">//结果：A::m=15</span></span><br><span class="line">    A::<span class="built_in">funcA</span>();                   <span class="comment">//结果：funcA函数调用</span></span><br><span class="line">    <span class="comment">//2.通using申明访问</span></span><br><span class="line">    <span class="comment">//int n=30;  //using声明与 就近原则同时出现，出错</span></span><br><span class="line">    <span class="keyword">using</span> A::n;</span><br><span class="line">    <span class="keyword">using</span> A::funcB;</span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;n=&quot;</span>&lt;&lt;n&lt;&lt;endl;          <span class="comment">//结果：n=15</span></span><br><span class="line">    <span class="built_in">funcB</span>();                      <span class="comment">//结果：funcB函数调用</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>using申明碰到函数重载</p>
+<p>如果命名空间包含一组用相同名字重载的函数，using声明就声明了这个重载函数的所有集合。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> A</span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">funcA</span><span class="params">()</span></span>&#123;cout&lt;&lt;<span class="string">&quot;无参调用&quot;</span>&lt;&lt;endl;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">funcA</span><span class="params">(<span class="keyword">int</span> a)</span></span>&#123;cout&lt;&lt;<span class="string">&quot;传值有参调用&quot;</span>&lt;&lt;endl;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">funcA</span><span class="params">(<span class="keyword">int</span> *a)</span></span>&#123;cout&lt;&lt;<span class="string">&quot;传址有参调用&quot;</span>&lt;&lt;endl;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">funcA</span><span class="params">(<span class="keyword">int</span> &amp;a,<span class="keyword">int</span>)</span></span>&#123;cout&lt;&lt;<span class="string">&quot;传引用有参调用&quot;</span>&lt;&lt;endl;&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//using申明</span></span><br><span class="line">    <span class="keyword">using</span> A::funcA;</span><br><span class="line">    <span class="keyword">int</span> a=<span class="number">5</span>;</span><br><span class="line">    <span class="built_in">funcA</span>();       <span class="comment">//结果：无参调用</span></span><br><span class="line">    <span class="built_in">funcA</span>(a);      <span class="comment">//结果：传值有参调用</span></span><br><span class="line">    <span class="built_in">funcA</span>(&amp;a);     <span class="comment">//结果：传址有参调用</span></span><br><span class="line">    <span class="built_in">funcA</span>(a,<span class="number">5</span>);    <span class="comment">//结果：传引用有参调用</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="3、using编译指令"><a href="#3、using编译指令" class="headerlink" title="3、using编译指令"></a>3、using编译指令</h3><p>using编译指令使整个命名空间标识符可用。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> A&#123;</span><br><span class="line">	<span class="keyword">int</span> a = <span class="number">20</span>;</span><br><span class="line">	<span class="keyword">int</span> b = <span class="number">30</span>;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">funcA</span><span class="params">()</span></span>&#123; cout &lt;&lt; <span class="string">&quot;hello funcA&quot;</span> &lt;&lt; endl; &#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">funcB</span><span class="params">()</span></span>&#123; cout &lt;&lt; <span class="string">&quot;hello funcB&quot;</span> &lt;&lt; endl; &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test01</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//using 编译指令</span></span><br><span class="line">	<span class="keyword">using</span> <span class="keyword">namespace</span> A;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;a=&quot;</span>&lt;&lt;a &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;b=&quot;</span>&lt;&lt;b &lt;&lt; endl;</span><br><span class="line">	<span class="built_in">funcA</span>();</span><br><span class="line">	<span class="built_in">funcB</span>();</span><br><span class="line"></span><br><span class="line">	<span class="comment">//不会产生二义性</span></span><br><span class="line">	<span class="keyword">int</span> paramA = <span class="number">30</span>;</span><br><span class="line">	cout &lt;&lt; paramA &lt;&lt; endl;     <span class="comment">//就近原则</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> B&#123;</span><br><span class="line">	<span class="keyword">int</span> a = <span class="number">20</span>;</span><br><span class="line">	<span class="keyword">int</span> b = <span class="number">30</span>;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">funcA</span><span class="params">()</span></span>&#123; cout &lt;&lt; <span class="string">&quot;hello funcA&quot;</span> &lt;&lt; endl; &#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">funcB</span><span class="params">()</span></span>&#123; cout &lt;&lt; <span class="string">&quot;hello funcB&quot;</span> &lt;&lt; endl; &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test02</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">using</span> <span class="keyword">namespace</span> A;</span><br><span class="line">	<span class="keyword">using</span> <span class="keyword">namespace</span> B;</span><br><span class="line">	<span class="comment">//二义性产生，不知道调用A还是B的paramA</span></span><br><span class="line">	<span class="comment">//cout &lt;&lt; &quot;a=&quot;&lt;&lt;a &lt;&lt; endl;</span></span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;A::a=&quot;</span>&lt;&lt;A::a&lt;&lt;endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意：</p>
+<ul>
+<li>当using编译指令  与  就近原则同时出现，优先使用就近</li>
+<li>当using编译指令有多个，需要加作用域 区分</li>
+</ul>
+<h2 id="3、严格的类型转换"><a href="#3、严格的类型转换" class="headerlink" title="3、严格的类型转换"></a>3、严格的类型转换</h2><p>在C++，不同类型的变量一般是不能直接赋值的，需要相应的强转。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//c代码</span></span><br><span class="line"><span class="keyword">int</span> *p=<span class="built_in">malloc</span>(<span class="built_in"><span class="keyword">sizeof</span></span>(<span class="keyword">int</span>)*<span class="number">4</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//c++代码</span></span><br><span class="line"><span class="keyword">int</span> *p=(<span class="keyword">int</span> *)<span class="built_in">malloc</span>(<span class="built_in"><span class="keyword">sizeof</span></span>(<span class="keyword">int</span>)*<span class="number">4</span>)；</span><br></pre></td></tr></table></figure>
+
+<h2 id="4、struct类型增强"><a href="#4、struct类型增强" class="headerlink" title="4、struct类型增强"></a>4、struct类型增强</h2><ul>
+<li>c中定义结构体变量需要加上<code>struct</code>关键字，c++不需要。</li>
+<li>c中的结构体只能定义成员变量，不能定义成员函数。c++即可以定义成员变量，也可以定义成员函数。</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1. 结构体中即可以定义成员变量，也可以定义成员函数</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Student</span>&#123;</span></span><br><span class="line">	string mName;</span><br><span class="line">	<span class="keyword">int</span> mAge;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">setName</span><span class="params">(string name)</span></span>&#123; mName = name; &#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">setAge</span><span class="params">(<span class="keyword">int</span> age)</span></span>&#123; mAge = age; &#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">showStudent</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">		cout &lt;&lt; <span class="string">&quot;Name:&quot;</span> &lt;&lt; mName &lt;&lt; <span class="string">&quot; Age:&quot;</span> &lt;&lt; mAge &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//2. c++中定义结构体变量不需要加struct关键字</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test01</span><span class="params">()</span></span>&#123;</span><br><span class="line">	Student student;</span><br><span class="line">	student.<span class="built_in">setName</span>(<span class="string">&quot;John&quot;</span>);</span><br><span class="line">	student.<span class="built_in">setAge</span>(<span class="number">20</span>);</span><br><span class="line">	student.<span class="built_in">showStudent</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="5、三木运算符增强"><a href="#5、三木运算符增强" class="headerlink" title="5、三木运算符增强"></a>5、三木运算符增强</h2><ol>
+<li><p>c语言三目运算表达式返回值为数据值，为右值，不能赋值。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a=<span class="number">5</span>;</span><br><span class="line"><span class="keyword">int</span> b=<span class="number">10</span>;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,a&gt;b?a:b);     <span class="comment">//结果：10</span></span><br><span class="line"><span class="comment">//a&gt;b?a:b   返回的是b的值（10）---右值（不可当做左值来被赋值）</span></span><br><span class="line">(a&gt;b?a:b)=<span class="number">50</span>;   <span class="comment">//错误</span></span><br></pre></td></tr></table></figure></li>
+<li><p>c++语言三目运算表达式返回值为变量本身(引用)，为左值，可以赋值。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a=<span class="number">5</span>;</span><br><span class="line"><span class="keyword">int</span> b=<span class="number">10</span>;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,a&gt;b?a:b);    <span class="comment">//结果：10</span></span><br><span class="line"><span class="keyword">int</span> a=<span class="number">5</span>;</span><br><span class="line"><span class="comment">//a&gt;b?a:b   返回的是b变量---左值（可以被赋值）</span></span><br><span class="line">(a&gt;b?a:b)=<span class="number">50</span>;</span><br><span class="line">cout&lt;&lt;<span class="string">&quot;b=&quot;</span>&lt;&lt;b&lt;&lt;endl;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="6、bool类型"><a href="#6、bool类型" class="headerlink" title="6、bool类型"></a>6、bool类型</h2><ul>
+<li><code>bool</code>类型只有两个值，true(1值)，false(0值)</li>
+<li><code>bool</code>类型占1个字节大小</li>
+<li>给<code>bool</code>类型赋值时，非0值会自动转换为true(1),0值会自动转换false(0)</li>
+</ul>
+<h2 id="7、const增强"><a href="#7、const增强" class="headerlink" title="7、const增强"></a>7、const增强</h2><p><code>const</code>单词字面意思为常数，不变的</p>
+<h3 id="1、C语言下const"><a href="#1、C语言下const" class="headerlink" title="1、C语言下const"></a>1、C语言下<code>const</code></h3><p>认为<code>const</code>应该是一个只读变量，既然是变量那么就会给<code>const</code>分配内存，并且在c中<code>const</code>是一个全局只读变量，c语言中<code>const</code>修饰的只读变量是外部连接的。</p>
+<ul>
+<li><p>全局<code>const</code>   //受常量区的保护</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> a=<span class="number">15</span>;   <span class="comment">//全局</span></span><br><span class="line"><span class="comment">//1、直接修改</span></span><br><span class="line">a=<span class="number">20</span>;    <span class="comment">//错误</span></span><br><span class="line"><span class="comment">//2、间接修改</span></span><br><span class="line"><span class="keyword">int</span> *p=&amp;a;</span><br><span class="line">*p=<span class="number">20</span>;   <span class="comment">//编译通过，运行失败</span></span><br></pre></td></tr></table></figure></li>
+<li><p>局部<code>const</code></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">tset</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> a=<span class="number">15</span>;   <span class="comment">//局部  分配到栈上</span></span><br><span class="line">    <span class="comment">//1、直接修改</span></span><br><span class="line">    a=<span class="number">20</span>;   <span class="comment">//失败</span></span><br><span class="line">    <span class="comment">//2、间接修改</span></span><br><span class="line">    <span class="keyword">int</span> *p=&amp;a;</span><br><span class="line">    *p=<span class="number">20</span>;  <span class="comment">//成功</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;a=%d\n&quot;</span>,a);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​    <code>int arr[a]</code>; 在C语言下 <code>const</code>是伪常量，不可以初始化数组</p>
+</li>
+<li><p>c语言下<code>const</code>修饰全局变量默认为外部链接属性</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//外部文件下</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> g_a = <span class="number">1000</span>;    <span class="comment">//默认是外部链接属性</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">extern</span> <span class="keyword">const</span> <span class="keyword">int</span> g_a; </span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;g_a = %d\n&quot;</span>, g_a);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="2、c-下的const"><a href="#2、c-下的const" class="headerlink" title="2、c++下的const"></a>2、c++下的<code>const</code></h3><p>在c++中，是否为<code>const</code>常量分配内存空间依赖于如何使用</p>
+<p>取一个<code>const</code>地址, 或者把它定义为<code>extern</code>,则会为该<code>const</code>创建内存空间</p>
+<ul>
+<li><p>全局<code>const</code>   //受常量区的保护</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> a=<span class="number">15</span>;   <span class="comment">//全局</span></span><br><span class="line"><span class="comment">//1、直接修改</span></span><br><span class="line">a=<span class="number">20</span>;    <span class="comment">//错误</span></span><br><span class="line"><span class="comment">//2、间接修改</span></span><br><span class="line"><span class="keyword">int</span> *p=&amp;a;</span><br><span class="line">*p=<span class="number">20</span>;   <span class="comment">//编译通过，运行失败</span></span><br></pre></td></tr></table></figure></li>
+<li><p>局部<code>const</code></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> b=<span class="number">100</span>;</span><br><span class="line"><span class="comment">//1、直接修改</span></span><br><span class="line">b=<span class="number">50</span>;   <span class="comment">//失败</span></span><br><span class="line"><span class="comment">//2、间接修改</span></span><br><span class="line"><span class="keyword">int</span> *p=(<span class="keyword">int</span> *)&amp;b;</span><br><span class="line">*p=<span class="number">50</span>;    <span class="comment">//失败</span></span><br><span class="line">cout&lt;&lt;<span class="string">&quot;b=&quot;</span>&lt;&lt;b&lt;&lt;endl;   <span class="comment">//结果：b=100</span></span><br><span class="line">cout&lt;&lt;<span class="string">&quot;*p=&quot;</span>&lt;&lt;*p&lt;&lt;endl;  <span class="comment">//结果：*p=50</span></span><br></pre></td></tr></table></figure>
+
+<p><code>int arr[b;</code>   //C++下<code>const</code>修饰的变量 称为常量 ，可以初始化数组  </p>
+</li>
+<li><p>在c++中，出现在所有函数之外的<code>const</code>作用于整个文件(也就是说它在该文件外不可见)，默认为内部连接，c++中其他的标识符一般默认为外部连接。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//外部文件下</span></span><br><span class="line"><span class="keyword">extern</span> <span class="keyword">const</span> <span class="keyword">int</span> g_a = <span class="number">1000</span>;  <span class="comment">//默认是内部链接属性 可以加关键字 extern 提高作用域</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">extern</span> <span class="keyword">const</span> <span class="keyword">int</span> g_a; </span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;g_a = %d\n&quot;</span>, g_a);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="C-下-const分配内存的情况"><a href="#C-下-const分配内存的情况" class="headerlink" title="C++下 const分配内存的情况"></a>C++下 const分配内存的情况</h1><h2 id="1、对const变量-取地址-，会分配临时内存"><a href="#1、对const变量-取地址-，会分配临时内存" class="headerlink" title="1、对const变量 取地址 ，会分配临时内存"></a>1、对const变量 取地址 ，会分配临时内存</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test01</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">const</span> <span class="keyword">int</span> a = <span class="number">10</span>;</span><br><span class="line">	<span class="keyword">int</span> * p = (<span class="keyword">int</span> *)&amp;a;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2、使用普通变量-初始化-const变量"><a href="#2、使用普通变量-初始化-const变量" class="headerlink" title="2、使用普通变量  初始化 const变量"></a>2、使用普通变量  初始化 const变量</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test02</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> a = <span class="number">10</span>;</span><br><span class="line">	<span class="keyword">const</span> <span class="keyword">int</span> b = a;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> *p = (<span class="keyword">int</span> *)&amp;b;</span><br><span class="line">	*p = <span class="number">1000</span>;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;b = &quot;</span> &lt;&lt; b &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;*p = &quot;</span> &lt;&lt; *p &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3、对于自定义数据类型-比如类对象，那么也会分配内存"><a href="#3、对于自定义数据类型-比如类对象，那么也会分配内存" class="headerlink" title="3、对于自定义数据类型 ,比如类对象，那么也会分配内存"></a>3、对于自定义数据类型 ,比如类对象，那么也会分配内存</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Person</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	string m_Name;</span><br><span class="line">	<span class="keyword">int</span> m_Age;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test03</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">const</span> Person p;</span><br><span class="line">	<span class="comment">//p.m_Age = 10;    //不可修改</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//指针间接修改</span></span><br><span class="line">	Person * pp = (Person *)&amp;p;</span><br><span class="line">	(*pp).m_Name = <span class="string">&quot;Tom&quot;</span>;</span><br><span class="line">	pp-&gt;m_Age = <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;姓名： &quot;</span> &lt;&lt; p.m_Name &lt;&lt; <span class="string">&quot; 年龄： &quot;</span> &lt;&lt; p.m_Age &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="用const替换宏-define常量"><a href="#用const替换宏-define常量" class="headerlink" title="用const替换宏#define常量"></a>用const替换宏#define常量</h1><h2 id="1、const和-define区别总结"><a href="#1、const和-define区别总结" class="headerlink" title="1、const和#define区别总结"></a>1、const和#define区别总结</h2><ol>
+<li><code>const</code>有类型，可进行编译器类型安全检查。<code>#define</code>无类型，不可进行类型检查。</li>
+<li><code>const</code>有作用域，而<code>#define</code>不重视作用域.</li>
+</ol>
+<h2 id="2、宏-define缺陷"><a href="#2、宏-define缺陷" class="headerlink" title="2、宏#define缺陷"></a>2、宏<code>#define</code>缺陷</h2><ol>
+<li><p>无类型</p>
+</li>
+<li><p>宏常量不重视作用域.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">func1</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">const</span> <span class="keyword">int</span> a = <span class="number">10</span>;</span><br><span class="line">	<span class="meta">#<span class="meta-keyword">define</span> A 20 </span></span><br><span class="line">    <span class="comment">//#undef A  //卸载宏常量A</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">func2</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//cout &lt;&lt; &quot;a:&quot; &lt;&lt; a &lt;&lt; endl; //不可访问，超出了const int a作用域</span></span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;A:&quot;</span> &lt;&lt; A &lt;&lt; endl; <span class="comment">//#define作用域从定义到文件结束或者到#undef，可访问</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>宏常量不可以有命名空间</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> MySpace</span><br><span class="line">&#123;</span><br><span class="line">	<span class="meta">#<span class="meta-keyword">define</span> num 1024</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//cout &lt;&lt; MySpace::num &lt;&lt; endl; //错误</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+
+<div class="article-footer fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div></section></div>
+
+</article>
+
+<div class="related-wrap" id="read-next"><section class="header cap theme"><span>接下来阅读</span></section><section class="body"><div class="post-title h2"><a href="/2020/10/09/Markdown--%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/Markdown-%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/">undefined</a></div><div class="post-title fs14"><a href="/2020/10/15/C%E8%AF%AD%E8%A8%80%E7%BB%86%E8%8A%82/C%E8%AF%AD%E8%A8%80%E7%BB%86%E8%8A%82/">上一篇：undefined</a></div></section></div>
+
+
+
+
+
+
+
+
+      
+<footer class="page-footer fs12"><hr><div><p>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+<p>本站由 <a href="https://smilesrx.github.io/">@CandyKing</a> 创建，使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0">Stellar</a> 作为主题。</p>
+</div></footer>
+
+      <div class='float-panel mobile-only' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" viewBox="0 0 1228 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2849"><path d="M0 0m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2850"></path><path d="M0 389.560798m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2851"></path><path d="M0 779.121596m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.390199l-973.901995 0q-97.390199 0-97.390199-97.390199l0 0q0-97.390199 97.390199-97.390199Z" p-id="2852"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script')
+      script.src = src
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js',
+    sitesjs: '/js/plugins/sites.js',
+    friendsjs: '/js/plugins/friends.js',
+  };
+
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper/swiper-bundle.min.css","js":"https://unpkg.com/swiper/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://cdn.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+
+
+<!-- inject -->
+
+
+  </div>
+</body>
+</html>

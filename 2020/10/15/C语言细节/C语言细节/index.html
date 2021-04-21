@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+
+<head>
+  <meta name="generator" content="Hexo 5.4.0">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>post - 逆玺之路</title>
+
+  
+    <meta name="description" content="1、会输出”hello-std-out”12345678#include &lt;stdio.h&gt;#include &lt;unistd.h&gt;void test()&amp;#123;    fprintf(stdout,&quot;hello-std-out&quot;);    fprintf(stderr,&quot;hello-std-err\n&quot;);    sleep(5)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="逆玺之路">
+<meta property="og:url" content="https://smilesrx.github.io/2020/10/15/C%E8%AF%AD%E8%A8%80%E7%BB%86%E8%8A%82/C%E8%AF%AD%E8%A8%80%E7%BB%86%E8%8A%82/index.html">
+<meta property="og:site_name" content="逆玺之路">
+<meta property="og:description" content="1、会输出”hello-std-out”12345678#include &lt;stdio.h&gt;#include &lt;unistd.h&gt;void test()&amp;#123;    fprintf(stdout,&quot;hello-std-out&quot;);    fprintf(stderr,&quot;hello-std-err\n&quot;);    sleep(5)">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://smilesrx.github.io/%E5%9D%97%E7%BC%93%E5%86%B2.png">
+<meta property="og:image" content="https://smilesrx.github.io/%E5%9D%97%E7%BC%93%E5%86%B21.png">
+<meta property="og:image" content="https://smilesrx.github.io/%E5%9D%97%E7%BC%93%E5%86%B22.png">
+<meta property="article:published_time" content="2020-10-15T03:06:57.418Z">
+<meta property="article:modified_time" content="2020-10-16T14:46:08.464Z">
+<meta property="article:author" content="CandyKing">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://smilesrx.github.io/%E5%9D%97%E7%BC%93%E5%86%B2.png">
+  
+  
+
+  <!-- feed -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+</head>
+
+<body>
+  
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left'>
+    
+
+<header class='header'>
+  <div class='logo-wrap'>
+  
+    <a class='avatar' href='/about/'>
+      
+        <img no-lazy class='bg' src='https://cdn.jsdelivr.net/gh/cdn-x/placeholder@1.0.2/avatar/round/rainbow64@3x.webp'/>
+      
+      <img no-lazy class='avatar' src='http://q1.qlogo.cn/g?b=qq&nk=1607952713&s=640'/>
+    </a>
+  
+  
+    <a class='title' href='/'>
+      逆玺之路
+    </a>
+  
+</div>
+
+  <nav class="menu dis-select"><a class="nav-item active" href="/">文章</a><a class="nav-item" href="/wiki/">项目</a><a class="nav-item" href="/notes/">笔记</a><a class="nav-item" href="/more/">更多</a></nav>
+</header>
+
+<div class='widgets'>
+  
+    
+      
+      
+<div class="widget-wrap" id="toc"><div class="widget-header h4 dis-select"><span class="name">本文目录</span></div><div class="widget-body fs14 post"><div class="doc-tree active"></div></div></div>
+
+    
+  
+</div>
+
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+
+  <div class='bread-nav fs12'>
+  
+    
+    <div id='breadcrumb'>
+      <a class='cap breadcrumb' href='/'>主页</a>
+      <span class="sep"></span>
+      <a class='cap breadcrumb' href='/'>文章</a>
+      
+    </div>
+    <div id='post-meta'>
+      发布于&nbsp;<time datetime='2020-10-15T03:06:57.418Z'>2020-10-15</time>
+    </div>
+  
+  </div>
+
+
+<article class='content md post'>
+
+<h1 id="1、会输出”hello-std-out”"><a href="#1、会输出”hello-std-out”" class="headerlink" title="1、会输出”hello-std-out”"></a>1、会输出”hello-std-out”</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">fprintf</span>(<span class="built_in">stdout</span>,<span class="string">&quot;hello-std-out&quot;</span>);</span><br><span class="line">    <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>,<span class="string">&quot;hello-std-err\n&quot;</span>);</span><br><span class="line">    sleep(<span class="number">5</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/%E5%9D%97%E7%BC%93%E5%86%B2.png" alt="块缓冲"></p>
+<p>分析：<code>stdout</code>和<code>stderr</code>是不同的设备描述符。<code>stdout</code>是块设备，<code>stderr</code>则不是。</p>
+<p>对于块设备，只有当以下情况下才会被输入：</p>
+<ul>
+<li><p>遇到回车</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">fprintf</span>(<span class="built_in">stdout</span>,<span class="string">&quot;hello-std-out\n&quot;</span>);</span><br><span class="line"><span class="built_in">fprintf</span>(<span class="built_in">stderr</span>,<span class="string">&quot;hello-std-err&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/%E5%9D%97%E7%BC%93%E5%86%B21.png" alt="块缓冲1"></p>
+</li>
+<li><p>缓冲区满</p>
+</li>
+<li><p>flush被调用</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">fprintf</span>(<span class="built_in">stdout</span>,<span class="string">&quot;hello-std-out    &quot;</span>);</span><br><span class="line">flush();</span><br><span class="line"><span class="built_in">fprintf</span>(<span class="built_in">stderr</span>,<span class="string">&quot;hello-std-err&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/%E5%9D%97%E7%BC%93%E5%86%B22.png" alt="块缓冲2"></p>
+</li>
+</ul>
+<h1 id="2、Windows和Linux下的sleep函数"><a href="#2、Windows和Linux下的sleep函数" class="headerlink" title="2、Windows和Linux下的sleep函数"></a>2、Windows和Linux下的sleep函数</h1><p>sleep函数功能： 执行挂起一段时间，也就是等待一段时间在继续执行</p>
+<ol>
+<li><p>Windows下的Sleep函数，首字母为大写，声明在<code>windows.h</code>头文件中，其参数<code>usigned long</code>类型，为毫秒数，即<code>Sleep(1)</code>为睡眠1毫秒。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;windows.h&gt;</span></span></span><br><span class="line">Sleep(<span class="number">1000</span>);</span><br></pre></td></tr></table></figure></li>
+<li><p>Linux下的sleep函数，首字母为小写，声明在<code>unistd.h</code>头文件中，其参数为秒数，即<code>sleep(1)</code>为睡眠1秒。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line">sleep(<span class="number">1</span>);</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h1 id="3、逗号（-）运算符"><a href="#3、逗号（-）运算符" class="headerlink" title="3、逗号（,）运算符"></a>3、逗号（,）运算符</h1><ul>
+<li><p>使用逗号运算符是为了把几个表达式放在一起。</p>
+<p><code>var = (count=19, incr=10, count+1);</code> </p>
+<p>首先把 count 赋值为 19，把 incr 赋值为 10，然后把 count 加 1，最后，把最右边表达式 count+1 的计算结果 20 赋给 var。</p>
+</li>
+<li><p>整个逗号表达式的值为系列中最后一个表达式的值。</p>
+</li>
+<li><p>从本质上讲，逗号的作用是将一系列运算按顺序执行。</p>
+</li>
+<li><p>作为C语言中的<strong>运算级别最低</strong>的一员，逗号运算符 结合的方向是 <strong>从左往右</strong>的</p>
+</li>
+</ul>
+<p>实例1:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a=<span class="number">5</span>,<span class="number">10</span>;       <span class="comment">//编译语法出错</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;a=%d\n&quot;</span>,a);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个程序会得到编译出错（语法出错）。逗号表达式是没错，可是在初始化和变量申明时，逗号并不是逗号表达式的意义。</p>
+<p>修改：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a=(<span class="number">5</span>,<span class="number">10</span>);                 <span class="comment">//表达式中的括号是必需的，因为逗号运算符的优先级低于赋值操作符。</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;a=%d\n&quot;</span>,a);           <span class="comment">//结果：a=10 </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>实例2：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> j=<span class="number">10</span>;</span><br><span class="line">    <span class="keyword">int</span> i=(j++,j+<span class="number">100</span>,j+<span class="number">999</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;i=%d\n&quot;</span>,j);        <span class="comment">//i=1010 </span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> m=<span class="number">10</span>;</span><br><span class="line">    <span class="keyword">int</span> k=(m++;m+=<span class="number">100</span>,m+<span class="number">999</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;k=%d\n&quot;</span>,k);        <span class="comment">//k=1110 </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>分析：</p>
+<ul>
+<li>j 最初的值为 10，然后自增到 11，这时 j 的值就为 11，然后再计算第二个表达式 j+100，最后 j（j 为 11） 再加上 999，最后 i 为 最后一个表达式的值 999+j，及 999+ 11=1010。</li>
+<li>jm最初的值为 10，然后自增到 11，这时 k 的值就为 11，然后再计算第二个表达式 k+=100，最后 k（k 为 111） 再加上 999，最后 i 为 最后一个表达式的值 999+j，及 999+ 111=1110。</li>
+</ul>
+<h1 id="4、printf（）函数的返回值"><a href="#4、printf（）函数的返回值" class="headerlink" title="4、printf（）函数的返回值"></a>4、printf（）函数的返回值</h1><p>如果成功，则返回写入的字符总数，否则返回一个负数。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> m=<span class="number">56</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>,<span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>,<span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>,m)));   <span class="comment">//结果：5621</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>分析：</p>
+<ul>
+<li>执行第三个<code>printf()</code>：输出m的值56</li>
+<li>执行第二个<code>printf()</code>：输出2 ——“56”的字符总数</li>
+<li>执行第一个<code>printf()</code>：输出1 —— “2”的字符总数</li>
+</ul>
+<p>注意：返回值是是输出的字符数量，包括数字，字母，标点符号，空格等</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> str[]=<span class="string">&quot;a,b 5,3&quot;</span>;    <span class="comment">//字符总数：7--两字母、两数字、两标点、一空格</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;% d&quot;</span>,<span class="built_in">printf</span>(<span class="string">&quot;%s&quot;</span>,str));         <span class="comment">//a,b 5,3 7</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<div class="article-footer fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div></section></div>
+
+</article>
+
+<div class="related-wrap" id="read-next"><section class="header cap theme"><span>接下来阅读</span></section><section class="body"><div class="post-title h2"><a href="/2020/10/10/C++/C++%E5%88%9D%E5%A7%8B/C++%E5%88%9D%E8%AF%86/">undefined</a></div><div class="post-title fs14"><a href="/2020/10/15/C%E8%AF%AD%E8%A8%80/printf%E3%80%81sprintf%E3%80%81fprintf/printf%E3%80%81sprintf%E3%80%81fprintf/">上一篇：undefined</a></div></section></div>
+
+
+
+
+
+
+
+
+      
+<footer class="page-footer fs12"><hr><div><p>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+<p>本站由 <a href="https://smilesrx.github.io/">@CandyKing</a> 创建，使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0">Stellar</a> 作为主题。</p>
+</div></footer>
+
+      <div class='float-panel mobile-only' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" viewBox="0 0 1228 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2849"><path d="M0 0m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2850"></path><path d="M0 389.560798m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2851"></path><path d="M0 779.121596m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.390199l-973.901995 0q-97.390199 0-97.390199-97.390199l0 0q0-97.390199 97.390199-97.390199Z" p-id="2852"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script')
+      script.src = src
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js',
+    sitesjs: '/js/plugins/sites.js',
+    friendsjs: '/js/plugins/friends.js',
+  };
+
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper/swiper-bundle.min.css","js":"https://unpkg.com/swiper/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://cdn.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+
+
+<!-- inject -->
+
+
+  </div>
+</body>
+</html>

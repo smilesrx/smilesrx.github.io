@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+
+<head>
+  <meta name="generator" content="Hexo 5.4.0">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>post - 逆玺之路</title>
+
+  
+    <meta name="description" content="函数对象适配器函数适配器bind1st     bind2nd 现在我有这个需求 在遍历容器的时候，我希望将容器中的值全部加上100之后显示出来，怎么做？ for_each(v.begin(), v.end(), bind2nd(myprint(),100)); 如果我们想使用绑定适配器,需要我们自己的函数对象继承binary_function 或者 unary_function，根据我们函数对象">
+<meta property="og:type" content="article">
+<meta property="og:title" content="逆玺之路">
+<meta property="og:url" content="https://smilesrx.github.io/2020/10/27/STL/%E9%80%82%E9%85%8D%E5%99%A8/%E9%80%82%E9%85%8D%E5%99%A8/index.html">
+<meta property="og:site_name" content="逆玺之路">
+<meta property="og:description" content="函数对象适配器函数适配器bind1st     bind2nd 现在我有这个需求 在遍历容器的时候，我希望将容器中的值全部加上100之后显示出来，怎么做？ for_each(v.begin(), v.end(), bind2nd(myprint(),100)); 如果我们想使用绑定适配器,需要我们自己的函数对象继承binary_function 或者 unary_function，根据我们函数对象">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-10-27T09:13:39.654Z">
+<meta property="article:modified_time" content="2020-10-28T05:51:21.500Z">
+<meta property="article:author" content="CandyKing">
+<meta name="twitter:card" content="summary">
+  
+  
+
+  <!-- feed -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+</head>
+
+<body>
+  
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left'>
+    
+
+<header class='header'>
+  <div class='logo-wrap'>
+  
+    <a class='avatar' href='/about/'>
+      
+        <img no-lazy class='bg' src='https://cdn.jsdelivr.net/gh/cdn-x/placeholder@1.0.2/avatar/round/rainbow64@3x.webp'/>
+      
+      <img no-lazy class='avatar' src='http://q1.qlogo.cn/g?b=qq&nk=1607952713&s=640'/>
+    </a>
+  
+  
+    <a class='title' href='/'>
+      逆玺之路
+    </a>
+  
+</div>
+
+  <nav class="menu dis-select"><a class="nav-item active" href="/">文章</a><a class="nav-item" href="/wiki/">项目</a><a class="nav-item" href="/notes/">笔记</a><a class="nav-item" href="/more/">更多</a></nav>
+</header>
+
+<div class='widgets'>
+  
+    
+      
+      
+<div class="widget-wrap" id="toc"><div class="widget-header h4 dis-select"><span class="name">本文目录</span></div><div class="widget-body fs14 post"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E4%B8%80%E5%85%83%E5%8F%96%E5%8F%8D-not1"><span class="toc-text">1、一元取反  not1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E4%BA%8C%E5%85%83%E5%8F%96%E5%8F%8D-not2"><span class="toc-text">2、二元取反  not2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E5%A6%82%E6%9E%9C%E5%AE%B9%E5%99%A8%E4%B8%AD%E5%AD%98%E6%94%BE%E7%9A%84%E6%98%AF%E5%AF%B9%E8%B1%A1%E5%AE%9E%E4%BD%93%EF%BC%8C%E9%82%A3%E4%B9%88%E7%94%A8mem-fun-ref"><span class="toc-text">1、如果容器中存放的是对象实体，那么用mem_fun_ref</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E5%A6%82%E6%9E%9C%E5%AE%B9%E5%99%A8%E5%AD%98%E6%94%BE%E7%9A%84%E6%98%AF%E5%AF%B9%E8%B1%A1%E6%8C%87%E9%92%88%EF%BC%8C-%E9%82%A3%E4%B9%88%E7%94%A8mem-fun"><span class="toc-text">2、如果容器存放的是对象指针，  那么用mem_fun</span></a></li></ol></div></div></div>
+
+    
+  
+</div>
+
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+
+  <div class='bread-nav fs12'>
+  
+    
+    <div id='breadcrumb'>
+      <a class='cap breadcrumb' href='/'>主页</a>
+      <span class="sep"></span>
+      <a class='cap breadcrumb' href='/'>文章</a>
+      
+    </div>
+    <div id='post-meta'>
+      发布于&nbsp;<time datetime='2020-10-27T09:13:39.654Z'>2020-10-27</time>
+    </div>
+  
+  </div>
+
+
+<article class='content md post'>
+
+<h1 id="函数对象适配器"><a href="#函数对象适配器" class="headerlink" title="函数对象适配器"></a>函数对象适配器</h1><p>函数适配器<code>bind1st</code>     <code>bind2nd</code></p>
+<p>现在我有这个需求 在遍历容器的时候，我希望将容器中的值全部加上100之后显示出来，怎么做？</p>
+<p><code>for_each(v.begin(), v.end(), bind2nd(myprint(),100));</code></p>
+<p>如果我们想使用绑定适配器,需要我们自己的函数对象继承<code>binary_function</code> 或者 <code>unary_function</code>，根据我们函数对象是一元函数对象 还是二元函数对象</p>
+<ul>
+<li>利用<code>bind2nd </code>进行绑定</li>
+<li>继承 <code>public binary_function&lt;参数1 类型,参数2类型,返回值类型&gt;</code></li>
+<li>加<code>const</code></li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyPrint</span>:</span><span class="keyword">public</span> binary_function&lt;<span class="keyword">int</span>,<span class="keyword">int</span>,<span class="keyword">void</span>&gt;&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="keyword">int</span> val,<span class="keyword">int</span> start)</span><span class="keyword">const</span></span>&#123;</span><br><span class="line">		cout&lt;&lt;<span class="string">&quot;val=&quot;</span>&lt;&lt;val&lt;&lt;<span class="string">&quot; start=&quot;</span>&lt;&lt;start&lt;&lt;<span class="string">&quot; sum=&quot;</span>&lt;&lt;val+start&lt;&lt;endl; </span><br><span class="line">	&#125;</span><br><span class="line">&#125;; </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">	vector&lt;<span class="keyword">int</span>&gt; v;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">5</span>;i++)&#123;</span><br><span class="line">		v.<span class="built_in">push_back</span>(i);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	cout&lt;&lt;<span class="string">&quot;请输入起始值：&quot;</span>;</span><br><span class="line">	<span class="keyword">int</span> start;</span><br><span class="line">	cin&gt;&gt;start;</span><br><span class="line">	for_each(v.<span class="built_in">begin</span>(),v.<span class="built_in">end</span>(),<span class="built_in">bind2nd</span>(<span class="built_in">MyPrint</span>(),start)); </span><br><span class="line">    <span class="comment">//for_each(v.begin(),v.end(),bind1st(MyPrint(),start));</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="取反适配器"><a href="#取反适配器" class="headerlink" title="取反适配器"></a>取反适配器</h1><h2 id="1、一元取反-not1"><a href="#1、一元取反-not1" class="headerlink" title="1、一元取反  not1"></a>1、一元取反  not1</h2><p><code>not1 </code>对一元函数对象取反</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GreaterThanFive</span>:</span><span class="keyword">public</span> unary_function&lt;<span class="keyword">int</span>,<span class="keyword">bool</span>&gt;&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="keyword">int</span> val)</span><span class="keyword">const</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> val&gt;<span class="number">5</span>;</span><br><span class="line">	&#125;	</span><br><span class="line">&#125;; </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">	vector&lt;<span class="keyword">int</span>&gt; v;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)&#123;</span><br><span class="line">		v.<span class="built_in">push_back</span>(i);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//一元取反</span></span><br><span class="line">	<span class="comment">//vector&lt;int&gt;::iterator pos=find_if(v.begin(),v.end(),GreaterThanFive());         //回第一个大于5的迭代器</span></span><br><span class="line">	<span class="comment">//vector&lt;int&gt;::iterator pos=find_if(v.begin(),v.end(),not1(GreaterThanFive()));   //返回第一个小于5迭代器</span></span><br><span class="line">	<span class="comment">//vector&lt;int&gt;::iterator pos=find_if(v.begin(),v.end(),bind2nd(greater&lt;int&gt;(),6));</span></span><br><span class="line">	vector&lt;<span class="keyword">int</span>&gt;::iterator pos=<span class="built_in">find_if</span>(v.<span class="built_in">begin</span>(),v.<span class="built_in">end</span>(),<span class="built_in">not1</span>(<span class="built_in">bind2nd</span>(greater&lt;<span class="keyword">int</span>&gt;(),<span class="number">6</span>)));</span><br><span class="line">	<span class="keyword">if</span> (pos == v.<span class="built_in">end</span>())</span><br><span class="line">		cout &lt;&lt; <span class="string">&quot;没找到&quot;</span> &lt;&lt; endl;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		cout &lt;&lt; <span class="string">&quot;找到&quot;</span> &lt;&lt; *pos &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2、二元取反-not2"><a href="#2、二元取反-not2" class="headerlink" title="2、二元取反  not2"></a>2、二元取反  not2</h2><p><code>not2 </code>对二元函数对象取反</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">	vector&lt;<span class="keyword">int</span>&gt;v;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++)&#123;</span><br><span class="line">		v.<span class="built_in">push_back</span>(<span class="built_in">rand</span>() % <span class="number">20</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	for_each(v.<span class="built_in">begin</span>(), v.<span class="built_in">end</span>(), [](<span class="keyword">int</span> val) &#123;cout &lt;&lt; val &lt;&lt; <span class="string">&quot; &quot;</span>; &#125;);</span><br><span class="line">	cout &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//二元取反</span></span><br><span class="line">	<span class="built_in">sort</span>(v.<span class="built_in">begin</span>(), v.<span class="built_in">end</span>(), <span class="built_in">not2</span>(less_equal&lt;<span class="keyword">int</span>&gt;()));</span><br><span class="line">	for_each(v.<span class="built_in">begin</span>(), v.<span class="built_in">end</span>(), [](<span class="keyword">int</span> val)&#123;cout &lt;&lt; val &lt;&lt;<span class="string">&quot; &quot;</span>; &#125;);</span><br><span class="line">	cout &lt;&lt; endl;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="函数指针适配器-ptr-fun"><a href="#函数指针适配器-ptr-fun" class="headerlink" title="函数指针适配器  ptr_fun"></a>函数指针适配器  ptr_fun</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">myPrint3</span><span class="params">(<span class="keyword">int</span> val, <span class="keyword">int</span> start)</span></span>&#123;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;val=&quot;</span> &lt;&lt; val &lt;&lt; <span class="string">&quot; start=&quot;</span> &lt;&lt; start &lt;&lt; <span class="string">&quot; sum=&quot;</span> &lt;&lt; val + start &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//函数指针适配器</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">	vector&lt;<span class="keyword">int</span>&gt;v;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++)&#123;</span><br><span class="line">		v.<span class="built_in">push_back</span>(i);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//将函数指针 适配成函数对象  ptr_fun</span></span><br><span class="line">	for_each(v.<span class="built_in">begin</span>(), v.<span class="built_in">end</span>(), <span class="built_in">bind2nd</span>(<span class="built_in">ptr_fun</span>(myPrint3), <span class="number">1000</span>));</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="成员函数适配器"><a href="#成员函数适配器" class="headerlink" title="成员函数适配器"></a>成员函数适配器</h1><h2 id="1、如果容器中存放的是对象实体，那么用mem-fun-ref"><a href="#1、如果容器中存放的是对象实体，那么用mem-fun-ref" class="headerlink" title="1、如果容器中存放的是对象实体，那么用mem_fun_ref"></a>1、如果容器中存放的是对象实体，那么用<code>mem_fun_ref</code></h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">Person</span>(string name, <span class="keyword">int</span> age) &#123;</span><br><span class="line">		<span class="keyword">this</span>-&gt;m_Name = name;</span><br><span class="line">		<span class="keyword">this</span>-&gt;m_Age = age;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">ShowPerson</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		cout &lt;&lt; <span class="string">&quot;姓名：&quot;</span> &lt;&lt; <span class="keyword">this</span>-&gt;m_Name &lt;&lt; <span class="string">&quot; 年龄：&quot;</span> &lt;&lt; <span class="keyword">this</span>-&gt;m_Age &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">Plus100</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>-&gt;m_Name += <span class="string">&quot;儿&quot;</span>;</span><br><span class="line">		<span class="keyword">this</span>-&gt;m_Age += <span class="number">100</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	string m_Name;</span><br><span class="line">	<span class="keyword">int</span> m_Age;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Print</span><span class="params">(Person &amp;p)</span> </span>&#123;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;姓名：&quot;</span> &lt;&lt; p.m_Name &lt;&lt; <span class="string">&quot; 年龄：&quot;</span> &lt;&lt; p.m_Age &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">CreatPerson</span><span class="params">(vector&lt;Person&gt; &amp;v)</span> </span>&#123;</span><br><span class="line">	<span class="function">Person <span class="title">p1</span><span class="params">(<span class="string">&quot;妲己&quot;</span>, <span class="number">30</span>)</span></span>;</span><br><span class="line">	<span class="function">Person <span class="title">p2</span><span class="params">(<span class="string">&quot;赵云&quot;</span>, <span class="number">31</span>)</span></span>;</span><br><span class="line">	<span class="function">Person <span class="title">p3</span><span class="params">(<span class="string">&quot;亚瑟&quot;</span>, <span class="number">32</span>)</span></span>;</span><br><span class="line">	<span class="function">Person <span class="title">p4</span><span class="params">(<span class="string">&quot;亚索&quot;</span>, <span class="number">33</span>)</span></span>;</span><br><span class="line">	<span class="function">Person <span class="title">p5</span><span class="params">(<span class="string">&quot;剑姬&quot;</span>, <span class="number">34</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">	v.<span class="built_in">push_back</span>(p1);</span><br><span class="line">	v.<span class="built_in">push_back</span>(p2);</span><br><span class="line">	v.<span class="built_in">push_back</span>(p3);</span><br><span class="line">	v.<span class="built_in">push_back</span>(p4);</span><br><span class="line">	v.<span class="built_in">push_back</span>(p5);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	vector&lt;Person&gt; v;</span><br><span class="line">	<span class="built_in">CreatPerson</span>(v);</span><br><span class="line">	for_each(v.<span class="built_in">begin</span>(), v.<span class="built_in">end</span>(), Print);   <span class="comment">//回调函数</span></span><br><span class="line">	cout &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//利用 mem_fun_ref 将Person内部成员函数适配</span></span><br><span class="line">	for_each(v.<span class="built_in">begin</span>(), v.<span class="built_in">end</span>(), <span class="built_in">mem_fun_ref</span>(&amp;Person::ShowPerson));</span><br><span class="line">	cout &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	for_each(v.<span class="built_in">begin</span>(), v.<span class="built_in">end</span>(), <span class="built_in">mem_fun_ref</span>(&amp;Person::Plus100));</span><br><span class="line">	for_each(v.<span class="built_in">begin</span>(), v.<span class="built_in">end</span>(), <span class="built_in">mem_fun_ref</span>(&amp;Person::ShowPerson));</span><br><span class="line">	cout &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2、如果容器存放的是对象指针，-那么用mem-fun"><a href="#2、如果容器存放的是对象指针，-那么用mem-fun" class="headerlink" title="2、如果容器存放的是对象指针，  那么用mem_fun"></a>2、如果容器存放的是对象指针，  那么用<code>mem_fun</code></h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">Person</span>(string name, <span class="keyword">int</span> age) &#123;</span><br><span class="line">		<span class="keyword">this</span>-&gt;m_Name = name;</span><br><span class="line">		<span class="keyword">this</span>-&gt;m_Age = age;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">ShowPerson</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		cout &lt;&lt; <span class="string">&quot;姓名：&quot;</span> &lt;&lt; m_Name &lt;&lt; <span class="string">&quot; 年龄：&quot;</span> &lt;&lt; m_Age &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">Plus100</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>-&gt;m_Name += <span class="string">&quot;儿&quot;</span>;</span><br><span class="line">		<span class="keyword">this</span>-&gt;m_Age += <span class="number">100</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	string m_Name;</span><br><span class="line">	<span class="keyword">int</span> m_Age;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">CreatPerson</span><span class="params">(vector&lt;Person*&gt; &amp;v)</span> </span>&#123;</span><br><span class="line">	Person* p1 = <span class="keyword">new</span> <span class="built_in">Person</span>(<span class="string">&quot;妲己&quot;</span>, <span class="number">30</span>);</span><br><span class="line">	Person* p2 = <span class="keyword">new</span> <span class="built_in">Person</span>(<span class="string">&quot;赵云&quot;</span>, <span class="number">31</span>);</span><br><span class="line">	Person* p3 = <span class="keyword">new</span> <span class="built_in">Person</span>(<span class="string">&quot;亚瑟&quot;</span>, <span class="number">32</span>);</span><br><span class="line">	Person* p4 = <span class="keyword">new</span> <span class="built_in">Person</span>(<span class="string">&quot;亚索&quot;</span>, <span class="number">33</span>);</span><br><span class="line">	Person* p5 = <span class="keyword">new</span> <span class="built_in">Person</span>(<span class="string">&quot;剑姬&quot;</span>, <span class="number">34</span>);</span><br><span class="line"></span><br><span class="line">	v.<span class="built_in">push_back</span>(p1);</span><br><span class="line">	v.<span class="built_in">push_back</span>(p2);</span><br><span class="line">	v.<span class="built_in">push_back</span>(p3);</span><br><span class="line">	v.<span class="built_in">push_back</span>(p4);</span><br><span class="line">	v.<span class="built_in">push_back</span>(p5);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Print</span><span class="params">(Person* p)</span> </span>&#123;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;姓名：&quot;</span> &lt;&lt; p-&gt;m_Name &lt;&lt; <span class="string">&quot; 年龄：&quot;</span> &lt;&lt; p-&gt;m_Age &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	vector&lt;Person*&gt; v;</span><br><span class="line">	<span class="built_in">CreatPerson</span>(v);</span><br><span class="line"></span><br><span class="line">	for_each(v.<span class="built_in">begin</span>(), v.<span class="built_in">end</span>(), Print);   <span class="comment">//回调函数</span></span><br><span class="line">	cout &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//利用 mem_fun_ref 将Person内部成员函数适配</span></span><br><span class="line">	for_each(v.<span class="built_in">begin</span>(), v.<span class="built_in">end</span>(), <span class="built_in">mem_fun</span>(&amp;Person::ShowPerson));</span><br><span class="line">	cout &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	for_each(v.<span class="built_in">begin</span>(), v.<span class="built_in">end</span>(), <span class="built_in">mem_fun</span>(&amp;Person::Plus100));</span><br><span class="line">	for_each(v.<span class="built_in">begin</span>(), v.<span class="built_in">end</span>(), <span class="built_in">mem_fun</span>(&amp;Person::ShowPerson));</span><br><span class="line">	cout &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<div class="article-footer fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div></section></div>
+
+</article>
+
+<div class="related-wrap" id="read-next"><section class="header cap theme"><span>接下来阅读</span></section><section class="body"><div class="post-title h2"><a href="/2020/10/27/STL/%E5%87%BD%E6%95%B0%E5%AF%B9%E8%B1%A1/%E5%87%BD%E6%95%B0%E5%AF%B9%E8%B1%A1/">undefined</a></div><div class="post-title fs14"><a href="/2020/10/27/STL/%E5%86%85%E5%BB%BA%E5%87%BD%E6%95%B0%E5%AF%B9%E8%B1%A1/%E5%86%85%E5%BB%BA%E5%87%BD%E6%95%B0%E5%AF%B9%E8%B1%A1/">上一篇：undefined</a></div></section></div>
+
+
+
+
+
+
+
+
+      
+<footer class="page-footer fs12"><hr><div><p>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+<p>本站由 <a href="https://smilesrx.github.io/">@CandyKing</a> 创建，使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0">Stellar</a> 作为主题。</p>
+</div></footer>
+
+      <div class='float-panel mobile-only' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" viewBox="0 0 1228 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2849"><path d="M0 0m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2850"></path><path d="M0 389.560798m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.3902l-973.901995 0q-97.390199 0-97.390199-97.3902l0 0q0-97.390199 97.390199-97.390199Z" p-id="2851"></path><path d="M0 779.121596m97.390199 0l973.901995 0q97.390199 0 97.390199 97.390199l0 0q0 97.390199-97.390199 97.390199l-973.901995 0q-97.390199 0-97.390199-97.390199l0 0q0-97.390199 97.390199-97.390199Z" p-id="2852"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script')
+      script.src = src
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.1.0';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js',
+    sitesjs: '/js/plugins/sites.js',
+    friendsjs: '/js/plugins/friends.js',
+  };
+
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper/swiper-bundle.min.css","js":"https://unpkg.com/swiper/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://cdn.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+
+
+<!-- inject -->
+
+
+  </div>
+</body>
+</html>
